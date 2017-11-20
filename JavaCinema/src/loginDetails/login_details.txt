@@ -1,3 +1,5 @@
 jim qwerty admin
 harry pwerty 
-luarence herty 
+luarence herty admin
+jerry zuzert
+berry fluberty
