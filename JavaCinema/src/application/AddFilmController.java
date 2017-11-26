@@ -63,10 +63,29 @@ public class AddFilmController{
 	void addScreening(ActionEvent e){
 		
 		Film newFilm = new Film(title.getText(), description.getText(), Integer.parseInt(duration.getText()));
+		Main.filmList.add(newFilm);
+		
+		String startTimeHourString = startTimeHour.getValue();
+		int startTimeHourInt = 0;
+		if(startTimeHourString.charAt(0)=='0'){
+			startTimeHourInt = Integer.parseInt(startTimeHourString.substring(1));
+		} else{
+			startTimeHourInt = Integer.parseInt(startTimeHourString);
+		}
+		
+		String startTimeMinuteString = startTimeMinute.getValue();
+		int startTimeMinuteInt = 0;
+		if(startTimeMinuteString.charAt(0)=='0'){
+			startTimeMinuteInt = Integer.parseInt(startTimeMinuteString.substring(1));
+		} else{
+			startTimeMinuteInt = Integer.parseInt(startTimeMinuteString);
+		
+		Viewing newScreening = new Viewing(newFilm, startTimeHourInt, startTimeMinuteInt, datePicker.getValue());
+		
 		
 		LocalDate date = datePicker.getValue();
 		
-		
+		}
 	}
 
 

@@ -4,13 +4,15 @@ import java.time.LocalDate;
 
 public class Viewing {
 	
-	byte startTime;//HHmm
+	int startTimeHour;
+	int startTimeMin;
 	LocalDate startDate; 
 	Film film;
 	
-	public Viewing(Film film, byte startTime, LocalDate date){
+	public Viewing(Film film, int startTimeHour, int startTimeMin, LocalDate date){
 		this.film = film;
-		this.startTime = startTime;
+		this.startTimeHour = startTimeHour;
+		this.startTimeMin = startTimeMin;
 		this.startDate = date;
 			
 	}
