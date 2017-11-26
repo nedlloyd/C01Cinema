@@ -7,6 +7,7 @@ import java.util.HashMap;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
+import viewings.Film;
 import viewings.Viewing;
 
 import javafx.scene.Parent;
@@ -16,7 +17,8 @@ import javafx.scene.layout.BorderPane;
 
 public class Main extends Application {
 	
-	HashMap<LocalDate, ArrayList<Viewing>> schedule;
+	public static HashMap<LocalDate, ArrayList<Viewing>> schedule;
+	public static ArrayList<Film> filmList;
 	
 	@Override
 	public void start(Stage primaryStage) {

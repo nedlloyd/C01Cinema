@@ -21,25 +21,23 @@ public class AdminController {
 	@FXML
 	DatePicker datePicker; 
 	
-	@FXML
-	ComboBox addScreening;
-	
+	@FXML 
+	void initialize(){
+		datePicker.setValue(LocalDate.now());
+	}
 
-//	void showViewings(ActionEvent e){
-//		LocalDate date = datePicker.getValue();
-//		
-//		
-//	}
-//	
 	public void openAddNewScreeningWindow(ActionEvent e){
 		
 		Stage newScreeningStage = new Stage();
 		try {	
-			Parent root = FXMLLoader.load(getClass().getResource("/application/AddFilmForm.fxml"));
-			Scene scene = new Scene(root,400,400);
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/AddFilmForm.fxml"));
+		    Parent root = loader.load();
+			
+			Scene scene = new Scene(root,500,500);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			newScreeningStage.setScene(scene);
-			newScreeningStage.show();
+			newScreeningStage.show(); 	
+			
 		} catch(Exception exc) {
 			exc.printStackTrace();
 		}
