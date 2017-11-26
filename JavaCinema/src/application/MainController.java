@@ -12,10 +12,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class MainController {
 
+	
 	@FXML
 	private Label lblstatus;
 
@@ -24,14 +26,15 @@ public class MainController {
 
 	@FXML
 	private TextField txtPassword;
+	
 
 	/**
 	 * Returns a BufferedReader of a file.
 	 * @param filePath A String signifying the location of the file.
-	 * @return a BufferedReader of the file at location filePath.
+	 * @return a BufferedReader of the file at location specified by filePath.
 	 * @throws FileNotFoundException
 	 */
-	public BufferedReader getBufferedReaderFromFile(String filePath) throws FileNotFoundException{
+	private BufferedReader getBufferedReaderFromFile(String filePath) throws FileNotFoundException{
 		FileReader file = new FileReader (filePath);
 		BufferedReader br = new BufferedReader(file);
 		return br;
@@ -39,10 +42,12 @@ public class MainController {
 
 	/**
 	 * Method triggered when the user presses the log in Button on the Login window. 
+	 * Tries to find a match for the user name and password entered by the user in a file 
+	 * of all the possible user name and password pairs. If a match is found, a new window is launched.  
 	 * @param event
 	 * @throws Exception
 	 */
-	public void Login(ActionEvent event) throws Exception {
+	public void login(ActionEvent event) throws Exception {
 
 		//Storing the user name and password that the user enters into the login TextFields. 
 		String usernameAttempt = txtUserName.getText();
@@ -72,7 +77,8 @@ public class MainController {
 						//Check to see if user is an administrator:
 						if (lineScanner.hasNext() && lineScanner.next().equals("admin")) { 
 
-							lblstatus.setText("Login as admin is a success!!!");
+							//lblstatus.setText("Login as admin is a success!!!");
+							lblstatus.getScene().getWindow().hide();
 							userMatched = true;
 							lineScanner.close();
 
@@ -81,7 +87,7 @@ public class MainController {
 								Stage adminStage = new Stage();
 								Parent root = FXMLLoader.load(getClass().getResource("/application/AdminMain.fxml"));
 								Scene scene = new Scene(root,400,400);
-								scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+								//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 								adminStage.setScene(scene);
 								adminStage.show();
 							}
@@ -92,14 +98,16 @@ public class MainController {
 							break;
 
 						} else /*If the user is NOT an admin (is a regular user)*/ { 
-							lblstatus.setText("Login as user is a success!!!");
+							
+							//lblstatus.setText("Login as user is a success!!!");
+							lblstatus.getScene().getWindow().hide();
 							lineScanner.close();
 							userMatched = true;
 
 							// Launch the new user window: 
 							try{
 								Stage userStage = new Stage();
-								Parent root = FXMLLoader.load(getClass().getResource("/application/UserMain.fxml"));
+								Parent root = FXMLLoader.load(getClass().getResource("/user/UserMain.fxml"));
 								Scene scene = new Scene(root,400,400);
 								scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 								userStage.setScene(scene);
@@ -129,9 +137,9 @@ public class MainController {
 
 		scanner.close();
 
-
-
 	}
+	
+	
 
 
 }

@@ -1,14 +1,23 @@
 package application;
 	
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
+import viewings.Viewing;
+
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 
 
 public class Main extends Application {
+	
+	HashMap<LocalDate, ArrayList<Viewing>> schedule;
+	
 	@Override
 	public void start(Stage primaryStage) {
 		try {

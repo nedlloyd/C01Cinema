@@ -1,8 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.media.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1">
-	<!-- TODO Add Nodes -->
+<AnchorPane prefHeight="500.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.AdminController">
+   <children>
+      <Label layoutX="171.0" layoutY="46.0" prefHeight="17.0" prefWidth="199.0" text="Employee Portal" />
+      <DatePicker fx:id="datePicker" layoutX="183.0" layoutY="111.0" promptText="Current date" />
+      <Label layoutX="71.0" layoutY="115.0" prefHeight="17.0" prefWidth="91.0" text="Choose Date:" />
+      <Label layoutX="71.0" layoutY="155.0" prefHeight="17.0" prefWidth="111.0" text="Viewings:" />
+      <Button fx:id="addViewingBtn" onAction="#openAddNewScreeningWindow" layoutX="171.0" layoutY="382.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="174.0" text="Add viewing to schedule" />
+   </children>
 </AnchorPane>
-
