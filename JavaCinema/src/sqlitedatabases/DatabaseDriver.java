@@ -1,4 +1,4 @@
-package application;
+package sqlitedatabases;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

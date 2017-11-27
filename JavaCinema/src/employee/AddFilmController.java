@@ -1,4 +1,4 @@
-package application;
+package employee;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -14,6 +14,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import sqlitedatabases.SQLiteDatabase;
 import viewings.Film;
 import viewings.Viewing;
 

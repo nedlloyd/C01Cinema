@@ -1,4 +1,4 @@
-package application;
+package sqlitedatabases;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class SQLiteScreenings {
+public class SQLiteCustomers {
 	private static Connection con;
 	private static boolean hasData = false;
 	
@@ -27,16 +27,15 @@ public class SQLiteScreenings {
 			hasData = true;
 			
 			Statement state = con.createStatement();
-			ResultSet res = state.executeQuery("SELECT name FROM sqlite_master WHERE type='table' AND name='screenings' ");
-			//working out if there is a table of name screenings if there is it's the one we want to use
+			ResultSet res = state.executeQuery("SELECT name FROM sqlite_master WHERE type='table' AND name='seatPlan' ");
+			//working out if there is a table of name seatPlan if there is it's the one we want to use
 			if (!res.next()) {
-				System.out.println("Building the screenings table with prepopulated values");
+				System.out.println("Building the seatPlan table with prepopulated values");
 				
 				//and so we start to build a table				
 				Statement state2 = con.createStatement();
-				state2.execute("CREATE TABLE screenings(screeningID integer," +
-				"filmName varchar(60)," + "time varchar(60)," + "date varchar(60)," + 
-						"primary key(screeningID));");
+				state2.execute("CREATE TABLE seatPlan(seatID String, + "
+						+ "re, primary key(seatID));");
 				
 			}
 		}
@@ -48,7 +47,7 @@ public class SQLiteScreenings {
 			getConnection();
 		}
 		
-		PreparedStatement prep = con.prepareStatement("INSERT INTO screenings values(?,?,?,?);");
+		PreparedStatement prep = con.prepareStatement("INSERT INTO seatPlan values(?,?,?,?);");
 		prep.setString(2, filmName);
 		prep.setString(3, time);
 		prep.setString(4, date);
@@ -62,7 +61,7 @@ public class SQLiteScreenings {
 			getConnection();
 		}
 		
-		String sql = "DELETE FROM screenings WHERE id = ?";
+		String sql = "DELETE FROM seatPlan WHERE id = ?";
 		PreparedStatement prep = con.prepareStatement(sql);
 		
 		// set the corresponding param
@@ -124,7 +123,7 @@ public class SQLiteScreenings {
 			}
 			
 			Statement state = con.createStatement();
-			ResultSet res = state.executeQuery("SELECT ScreeningID, filmName, time, date FROM screenings WHERE time=\"" + time + "\" AND date=\"" + date + "\";");
+			ResultSet res = state.executeQuery("SELECT ScreeningID, filmName, time, date FROM seatPlan WHERE time=\"" + time + "\" AND date=\"" + date + "\";");
 			
 			return res;
 		}
