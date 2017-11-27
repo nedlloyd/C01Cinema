@@ -8,6 +8,7 @@ public class Viewing {
 	int startTimeMin;
 	LocalDate startDate; 
 	Film film;
+	boolean[][] bookedSeats = new boolean[10][10];
 	
 	public Viewing(Film film, int startTimeHour, int startTimeMin, LocalDate date){
 		this.film = film;
@@ -16,6 +17,11 @@ public class Viewing {
 		this.startDate = date;
 			
 	}
+	
+	public void bookSeat(int row, int col){
+		bookedSeats[row][col] = true;
+	}
+	
 	
 
 }

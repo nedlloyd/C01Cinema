@@ -81,9 +81,8 @@ public class AddFilmController{
 			startTimeMinuteInt = Integer.parseInt(startTimeMinuteString);
 		
 		Viewing newScreening = new Viewing(newFilm, startTimeHourInt, startTimeMinuteInt, datePicker.getValue());
+		//Add viewing to database
 		
-		
-		LocalDate date = datePicker.getValue();
 		
 		}
 	}
