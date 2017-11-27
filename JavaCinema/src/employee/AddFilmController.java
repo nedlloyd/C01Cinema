@@ -14,7 +14,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import sqlitedatabases.SQLiteDatabase;
+import sqlitedatabases.SQLiteFilms;
 import viewings.Film;
 import viewings.Viewing;
 
@@ -66,7 +66,7 @@ public class AddFilmController{
 		
 //		Film newFilm = new Film(title.getText(), description.getText(), Integer.parseInt(duration.getText()));
 //		Main.filmList.add(newFilm);
-		SQLiteDatabase database = new SQLiteDatabase();
+		SQLiteFilms database = new SQLiteFilms();
 		try {
 			database.addFilm(title.getText(),  description.getText());
 		} catch (ClassNotFoundException e1) {

@@ -8,23 +8,30 @@ public class DatabaseDriver {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
-		SQLiteDatabase test = new SQLiteDatabase();
+		SQLiteFilms test = new SQLiteFilms();
 		SQLiteScreenings screenings = new SQLiteScreenings();
 		ResultSet rs;
 		
-		
+		SQLiteUser user = new SQLiteUser();
+		ResultSet rs2;
 		
 		try {
 			
 			//screenings.addScreening("Apocalyspe Now", "12:00", "31/11/17");
+			user.createUser("bob", "abc123", "employee");
 
 			
-			rs = screenings.dateAndTime("12:00", "31/11/17");
-			while (rs.next()) {
-				System.out.println(rs.getString("filmName") + ", " +  rs.getString("time") + ", " + rs.getString("date") 
-				+ ", " + rs.getString("screeningID"));
-			}
+			//rs = screenings.dateAndTime("12:00", "31/11/17");
+			rs2 = user.displayRow("bob");
 			
+//			while (rs.next()) {
+//				System.out.println(rs.getString("filmName") + ", " +  rs.getString("time") + ", " + rs.getString("date") 
+//				+ ", " + rs.getString("screeningID"));
+//			}
+//			
+			while (rs2.next()) {
+				System.out.println(rs2.getString("userName") + ", " +  rs2.getString("password") /*+ ", " + rs2.getString("role") */);
+			}
 			
 			
 		} catch (ClassNotFoundException e) {
