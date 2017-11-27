@@ -19,7 +19,7 @@
       <TextField fx:id="duration" layoutX="147.0" layoutY="213.0" prefHeight="25.0" prefWidth="219.0" promptText="Enter length of film (mins)" />
       <Button layoutX="51.0" layoutY="357.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="82.0" text="Image" />
       <Label layoutX="147.0" layoutY="361.0" prefHeight="17.0" prefWidth="63.0" text="Image " />
-      <Button layoutX="190.0" layoutY="415.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="142.0" text="Add Screening" />
+      <Button layoutX="190.0" layoutY="415.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="142.0" text="Add Screening" onAction="#addScreening"/>
       <ComboBox fx:id="startTimeHour" layoutX="141.0" layoutY="309.0" prefHeight="25.0" prefWidth="76.0" promptText=" Hour" />
       <ComboBox fx:id="startTimeMinute" layoutX="234.0" layoutY="309.0" prefHeight="25.0" prefWidth="90.0" promptText="Minutes" />
       <Label layoutX="221.0" layoutY="312.0" prefHeight="17.0" prefWidth="3.0" text=":" />

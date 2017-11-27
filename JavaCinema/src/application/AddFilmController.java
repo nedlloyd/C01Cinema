@@ -1,6 +1,7 @@
 package application;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
@@ -60,31 +61,41 @@ public class AddFilmController{
 		
 	}
 
-	void addScreening(ActionEvent e){
+	public void addScreening(ActionEvent e){
 		
-		Film newFilm = new Film(title.getText(), description.getText(), Integer.parseInt(duration.getText()));
-		Main.filmList.add(newFilm);
-		
-		String startTimeHourString = startTimeHour.getValue();
-		int startTimeHourInt = 0;
-		if(startTimeHourString.charAt(0)=='0'){
-			startTimeHourInt = Integer.parseInt(startTimeHourString.substring(1));
-		} else{
-			startTimeHourInt = Integer.parseInt(startTimeHourString);
+//		Film newFilm = new Film(title.getText(), description.getText(), Integer.parseInt(duration.getText()));
+//		Main.filmList.add(newFilm);
+		SQLiteDatabase database = new SQLiteDatabase();
+		try {
+			database.addFilm(title.getText(),  description.getText());
+		} catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
 		
-		String startTimeMinuteString = startTimeMinute.getValue();
-		int startTimeMinuteInt = 0;
-		if(startTimeMinuteString.charAt(0)=='0'){
-			startTimeMinuteInt = Integer.parseInt(startTimeMinuteString.substring(1));
-		} else{
-			startTimeMinuteInt = Integer.parseInt(startTimeMinuteString);
+//		String startTimeHourString = startTimeHour.getValue();
+//		int startTimeHourInt = 0;
+//		if(startTimeHourString.charAt(0)=='0'){
+//			startTimeHourInt = Integer.parseInt(startTimeHourString.substring(1));
+//		} else{
+//			startTimeHourInt = Integer.parseInt(startTimeHourString);
+//		}
+//		
+//		String startTimeMinuteString = startTimeMinute.getValue();
+//		int startTimeMinuteInt = 0;
+//		if(startTimeMinuteString.charAt(0)=='0'){
+//			startTimeMinuteInt = Integer.parseInt(startTimeMinuteString.substring(1));
+//		} else{
+//			startTimeMinuteInt = Integer.parseInt(startTimeMinuteString);
 		
-		Viewing newScreening = new Viewing(newFilm, startTimeHourInt, startTimeMinuteInt, datePicker.getValue());
-		//Add viewing to database
+		//Viewing newScreening = new Viewing(newFilm, startTimeHourInt, startTimeMinuteInt, datePicker.getValue());
 		
 		
-		}
+		
+//		}
 	}
 
 
