@@ -13,7 +13,7 @@
 
 <AnchorPane fx:id="loginWindow" prefHeight="300.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MainController">
    <children>
-      <Button layoutX="121.0" layoutY="190.0" mnemonicParsing="false" onAction="#login" text="log in">
+      <Button alignment="CENTER" layoutX="121.0" layoutY="190.0" mnemonicParsing="false" onAction="#login" text="log in">
          <font>
             <Font name="Arial" size="13.0" />
          </font>
@@ -28,7 +28,7 @@
             <Font name="Arial" size="13.0" />
          </font>
       </PasswordField>
-      <Label fx:id="lblstatus" layoutX="52.0" layoutY="34.0" prefHeight="16.0" prefWidth="198.0" text="status">
+      <Label fx:id="lblstatus" layoutX="60.0" layoutY="51.0" prefHeight="16.0" prefWidth="198.0" text="status" textAlignment="CENTER">
          <font>
             <Font name="Arial" size="13.0" />
          </font>

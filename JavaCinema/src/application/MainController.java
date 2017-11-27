@@ -90,6 +90,7 @@ public class MainController {
 								Scene scene = new Scene(root,400,400);
 								//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 								adminStage.setScene(scene);
+								adminStage.setTitle("Cinema Employee Portal");
 								adminStage.show();
 							}
 							catch(Exception e){
@@ -112,6 +113,7 @@ public class MainController {
 								Scene scene = new Scene(root,400,400);
 								scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 								userStage.setScene(scene);
+								userStage.setTitle("Cinema Booking");
 								userStage.show();
 								
 							}
