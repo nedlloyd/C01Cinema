@@ -26,6 +26,7 @@ public class MainController {
 
 	@FXML
 	private TextField txtPassword;
+
 	
 
 	/**
@@ -107,11 +108,12 @@ public class MainController {
 							// Launch the new user window: 
 							try{
 								Stage userStage = new Stage();
-								Parent root = FXMLLoader.load(getClass().getResource("/user/UserMain.fxml"));
+								Parent root = FXMLLoader.load(getClass().getResource("/application/UserMain.fxml"));
 								Scene scene = new Scene(root,400,400);
 								scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 								userStage.setScene(scene);
 								userStage.show();
+								
 							}
 							catch(Exception e){
 								System.out.println("Launching Admin Scene failed: "+e);
@@ -138,6 +140,8 @@ public class MainController {
 		scanner.close();
 
 	}
+	
+
 	
 	
 
