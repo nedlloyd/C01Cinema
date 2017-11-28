@@ -1,22 +1,27 @@
 package sqlitedatabases;
 
-
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class SQLiteUser extends SQLiteDatabase {
+/**
+ * Sets up SQLite database with columns: userID, userName, password, role 
+ * @author Samuel Bradshaw
+ *
+ */
+public class UsersDatabase extends SQLiteDatabase {
+	
+	static boolean hasData = false;
 
-	SQLiteUser(){
+	UsersDatabase(){
 		super("users");
 	}
 	
 	// based on: https://www.youtube.com/watch?v=JPsWaI5Z3gs
 	public void initialise() throws SQLException {
 		// TODO Auto-generated method stub
-		if (!super.hasData) {
+		if (!hasData) {
 			hasData = true;
 			
 			Statement state = con.createStatement();
@@ -57,25 +62,8 @@ public class SQLiteUser extends SQLiteDatabase {
         //con.close();
 	}
 
-	
-	
-	//adds new column to database 
-	public void addColumn(String tableName, String columnName, String type) throws SQLException, ClassNotFoundException {
-		if (con == null) {
-			getConnection();
-		}
-		
-		String sql = "ALTER TABLE " + tableName + " ADD COLUMN " + columnName + " " + type + ";";
-		PreparedStatement prep = con.prepareStatement(sql);
-		
-        prep.executeUpdate();
-        prep.close();
-        con.close();
-				
-    }
 		
 		//return row based on userName
-		@Override
 		public ResultSet displayRow(String userName) throws ClassNotFoundException, SQLException {
 			if (con == null) {
 				getConnection();

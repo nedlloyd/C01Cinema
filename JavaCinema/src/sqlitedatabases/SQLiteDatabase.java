@@ -10,7 +10,6 @@ import java.sql.Statement;
 public abstract class SQLiteDatabase {
 	
 	protected static Connection con;
-	protected boolean hasData = false;
 	protected String tableName;
 	
 	SQLiteDatabase(String tableName){
@@ -27,6 +26,7 @@ public abstract class SQLiteDatabase {
 		initialise();
 	}
 
+	
 
 		
 	//deletes from database 

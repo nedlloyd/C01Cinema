@@ -8,11 +8,11 @@ public class DatabaseDriver {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
-		SQLiteFilms test = new SQLiteFilms();
-		SQLiteScreenings screenings = new SQLiteScreenings();
+		FilmsDatabase test = new FilmsDatabase();
+		ScreeningsDatabase screenings = new ScreeningsDatabase();
 		ResultSet rs;
 		
-		SQLiteUser user = new SQLiteUser();
+		UsersDatabase user = new UsersDatabase();
 		ResultSet rs2;
 		
 		try {

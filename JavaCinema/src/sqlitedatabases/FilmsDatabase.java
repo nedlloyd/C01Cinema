@@ -13,7 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class SQLiteFilms {
+public class FilmsDatabase {
 	private static Connection con;
 	private static boolean hasData = false;
 	
