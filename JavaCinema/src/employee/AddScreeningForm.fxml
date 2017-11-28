@@ -14,24 +14,25 @@
 
 <AnchorPane prefHeight="500.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="employee.AddFilmController">
    <children>
-      <Label layoutX="33.0" layoutY="62.0" prefHeight="17.0" prefWidth="102.0" text="Add Screening of:" />
-      <Label fx:id="filmTitleLabel" layoutX="91.0" layoutY="98.0" prefHeight="17.0" prefWidth="42.0" text="Title" />
-      <TextField fx:id="title" layoutX="142.0" layoutY="94.0" prefHeight="25.0" prefWidth="219.0" promptText="Enter film title" />
-      <Label fx:id="filmDescriptionLabel" layoutX="58.0" layoutY="131.0" prefHeight="17.0" prefWidth="63.0" text="Description" />
-      <Label layoutX="117.0" layoutY="316.0" prefHeight="17.0" prefWidth="42.0" text="Date:" />
-      <DatePicker fx:id="datePicker" layoutX="165.0" layoutY="312.0" prefHeight="25.0" prefWidth="174.0" promptText="Select date for viewing" />
-      <Label layoutX="93.0" layoutY="364.0" prefHeight="17.0" prefWidth="63.0" text="Start time:" />
-      <Label fx:id="filmDurationLabel" layoutX="54.0" layoutY="217.0" prefHeight="17.0" prefWidth="76.0" text="Film duration:" />
-      <TextArea fx:id="description" layoutX="145.0" layoutY="129.0" prefHeight="78.0" prefWidth="219.0" promptText="Enter description of film" />
-      <TextField fx:id="duration" layoutX="147.0" layoutY="213.0" prefHeight="25.0" prefWidth="219.0" promptText="Enter length of film (mins)" />
-      <Button fx:id="addImageButton" layoutX="150.0" layoutY="264.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="111.0" text="Upload image" />
-      <Label fx:id="filmImageLabel" layoutX="81.0" layoutY="268.0" prefHeight="17.0" prefWidth="63.0" text="Image:" />
-      <Button fx:id="addScreeningBtn" layoutX="190.0" layoutY="415.0" mnemonicParsing="false" onAction="#addScreening" prefHeight="25.0" prefWidth="142.0" text="Add Screening" />
-      <ComboBox fx:id="startTimeHour" layoutX="167.0" layoutY="360.0" prefHeight="25.0" prefWidth="76.0" promptText=" Hour" />
-      <ComboBox fx:id="startTimeMinute" layoutX="260.0" layoutY="360.0" prefHeight="25.0" prefWidth="90.0" promptText="Minutes" />
-      <Label layoutX="250.0" layoutY="364.0" prefHeight="17.0" prefWidth="3.0" text=":" />
-      <ChoiceBox fx:id="filmTypeChoiceBox" onAction="#toggleControls" layoutX="147.0" layoutY="58.0" prefHeight="25.0" prefWidth="189.0" />
-      <ChoiceBox fx:id="chooseFilmChoiceBox" layoutX="147.0" layoutY="94.0" prefHeight="25.0" prefWidth="189.0" />
-      <Label fx:id="chooseFilmLbl" layoutX="46.0" layoutY="98.0" prefHeight="17.0" prefWidth="76.0" text="Choose Film" />
+      <Label layoutX="62.0" layoutY="185.0" prefHeight="17.0" prefWidth="102.0" text="Add Screening of:" />
+      <Label fx:id="filmTitleLabel" layoutX="92.0" layoutY="219.0" prefHeight="17.0" prefWidth="42.0" text="Title" />
+      <TextField fx:id="title" layoutX="169.0" layoutY="215.0" prefHeight="25.0" prefWidth="219.0" promptText="Enter film title" />
+      <Label fx:id="filmDescriptionLabel" layoutX="81.0" layoutY="250.0" prefHeight="17.0" prefWidth="63.0" text="Description" />
+      <Label layoutX="122.0" layoutY="95.0" prefHeight="17.0" prefWidth="42.0" text="Date:" />
+      <DatePicker fx:id="datePicker" layoutX="172.0" layoutY="91.0" prefHeight="25.0" prefWidth="219.0" promptText="Select date for viewing" />
+      <Label layoutX="98.0" layoutY="143.0" prefHeight="17.0" prefWidth="63.0" text="Start time:" />
+      <Label fx:id="filmDurationLabel" layoutX="83.0" layoutY="343.0" prefHeight="17.0" prefWidth="76.0" text="Film duration:" />
+      <TextArea fx:id="description" layoutX="169.0" layoutY="250.0" prefHeight="78.0" prefWidth="219.0" promptText="Enter description of film" />
+      <TextField fx:id="duration" layoutX="171.0" layoutY="339.0" prefHeight="25.0" prefWidth="219.0" promptText="Enter length of film (mins)" />
+      <Button fx:id="addImageButton" layoutX="172.0" layoutY="381.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="111.0" text="Upload image" />
+      <Label fx:id="filmImageLabel" layoutX="116.0" layoutY="385.0" prefHeight="17.0" prefWidth="63.0" text="Image:" />
+      <Button fx:id="addScreeningBtn" layoutX="193.0" layoutY="434.0" mnemonicParsing="false" onAction="#addScreening" prefHeight="25.0" prefWidth="142.0" text="Add Screening" />
+      <ComboBox fx:id="startTimeHour" layoutX="181.0" layoutY="139.0" prefHeight="25.0" prefWidth="76.0" promptText=" Hour" />
+      <ComboBox fx:id="startTimeMinute" layoutX="274.0" layoutY="139.0" prefHeight="25.0" prefWidth="90.0" promptText="Minutes" />
+      <Label layoutX="264.0" layoutY="143.0" prefHeight="17.0" prefWidth="3.0" text=":" />
+      <ChoiceBox fx:id="filmTypeChoiceBox" layoutX="171.0" layoutY="181.0" onAction="#toggleControls" prefHeight="25.0" prefWidth="219.0" />
+      <ChoiceBox fx:id="chooseFilmChoiceBox" layoutX="171.0" layoutY="215.0" prefHeight="25.0" prefWidth="219.0" />
+      <Label fx:id="chooseFilmLbl" layoutX="71.0" layoutY="219.0" prefHeight="17.0" prefWidth="76.0" text="Choose Film" />
+      <Label layoutX="178.0" layoutY="34.0" prefHeight="17.0" prefWidth="152.0" text="New Screening" />
    </children>
 </AnchorPane>

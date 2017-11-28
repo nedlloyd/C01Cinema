@@ -14,7 +14,7 @@ public class ScreeningsDatabase extends SQLiteDatabase {
 	
 	private static boolean hasData = false;
 	
-	ScreeningsDatabase() {
+	public ScreeningsDatabase() {
 		super("screenings");
 	}
 

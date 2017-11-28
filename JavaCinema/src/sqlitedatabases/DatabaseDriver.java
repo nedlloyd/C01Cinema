@@ -17,22 +17,21 @@ public class DatabaseDriver {
 		
 		try {
 			
-			//screenings.addScreening("Apocalyspe Now", "12:00", "31/11/17");
-			user.createUser("bob", "abc123", "employee");
+			screenings.addScreening("Apocalyspe Now", "12:00", "31/11/17");
+			//user.createUser("bob", "abc123", "employee");
 
 			
 			//rs = screenings.dateAndTime("12:00", "31/11/17");
-			rs2 = user.displayRow("bob");
+			rs = test.displayColumns("filmName");
 			
-//			while (rs.next()) {
-//				System.out.println(rs.getString("filmName") + ", " +  rs.getString("time") + ", " + rs.getString("date") 
-//				+ ", " + rs.getString("screeningID"));
-//			}
-//			
-			while (rs2.next()) {
-				System.out.println(rs2.getString("userName") + ", " +  rs2.getString("password") /*+ ", " + rs2.getString("role") */);
+			while (rs.next()) {
+				System.out.println(rs.getString("filmName"));
 			}
 			
+//			while (rs2.next()) {
+//				System.out.println(rs2.getString("userName") + ", " +  rs2.getString("password") /*+ ", " + rs2.getString("role") */);
+//			}
+//			
 			
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block

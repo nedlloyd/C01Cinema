@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
- * Sets up SQLite database with columns: id, filmName, filmDescription, duration?
+ * Sets up SQLite database with columns: id, filmName, filmDescription
  * @author Ned
  *
  */
