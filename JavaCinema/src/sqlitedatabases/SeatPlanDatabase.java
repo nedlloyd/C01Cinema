@@ -15,7 +15,6 @@ public class SeatPlanDatabase extends SQLiteDatabase {
 
 	SeatPlanDatabase() {
 		super("seatPlan");
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

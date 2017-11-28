@@ -1,30 +1,20 @@
 package application;
 	
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
-import viewings.Film;
-import viewings.Viewing;
 
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
 
 
 public class Main extends Application {
-	
-	public static HashMap<LocalDate, ArrayList<Viewing>> schedule;
-	public static ArrayList<Film> filmList;
 	
 	@Override
 	public void start(Stage primaryStage) {
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("/application/Login.fxml"));
-			Scene scene = new Scene(root,400,400);
+			Scene scene = new Scene(root,800,500);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.show();
