@@ -9,7 +9,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
@@ -38,14 +37,12 @@ public class AdminController {
 	}
 
 	public void openAddNewScreeningWindow(ActionEvent e){
-		
-		Stage newScreeningStage = new Stage();
-		try {	
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/AddFilmForm.fxml"));
-		    Parent root = loader.load();
-			
+	
+		try {
+			Stage newScreeningStage = new Stage();
+		    Parent root = FXMLLoader.load(getClass().getResource("/employee/AddScreeningForm.fxml"));
 			Scene scene = new Scene(root,500,500);
-			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			newScreeningStage.setScene(scene);
 			newScreeningStage.setTitle("New Screening");
 			newScreeningStage.show(); 	

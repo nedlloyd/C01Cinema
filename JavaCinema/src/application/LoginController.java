@@ -1,12 +1,9 @@
 package application;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Scanner;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -81,7 +78,6 @@ public class LoginController {
 			if(passwordAttempt.equals(pw)){
 				//Check to see whether the user is an employee/admin or a customer
 				if(role.equals("employee")||role.equals("admin")){
-
 					
 					//Launch admin portal
 					try{

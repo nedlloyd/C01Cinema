@@ -93,26 +93,26 @@ public class FilmsDatabase extends SQLiteDatabase {
 	}
 	
 	@Override
-	ResultSet displayRow(int filmId) throws ClassNotFoundException, SQLException {
+	ResultSet displayRow(int id) throws ClassNotFoundException, SQLException {
 		if (con == null) {
 			getConnection();
 		}
 		
 		Statement state = con.createStatement();
-		ResultSet res = state.executeQuery("SELECT " + "id, " + "filmName, " + "filmDescription" + " FROM " + tableName + " LIMIT " + 1 + " OFFSET " + (filmId - 1) + ";");
+		ResultSet res = state.executeQuery("SELECT " + "id, " + "filmName, " + "filmDescription" + " FROM " + tableName + " LIMIT " + 1 + " OFFSET " + (id - 1) + ";");
 		return res;
 	}
 		
-//		//return row based on filmName
-//		public ResultSet displayRow(String filmName) throws ClassNotFoundException, SQLException {
-//			if (con == null) {
-//				getConnection();
-//			}
-//			
-//			Statement state = con.createStatement();
-//			ResultSet res = state.executeQuery("SELECT " + "id, " + "filmName, " + "filmDescription" + " FROM " + tableName + " WHERE filmName="+ "\"" + filmName + "\"" + ";");
-//			return res;
-//		}
+//		return row based on filmName
+		public ResultSet displayRow(String filmName) throws ClassNotFoundException, SQLException {
+			if (con == null) {
+				getConnection();
+			}
+			
+			Statement state = con.createStatement();
+			ResultSet res = state.executeQuery("SELECT " + "id, " + "filmName, " + "filmDescription" + " FROM " + tableName + " WHERE filmName="+ "\"" + filmName + "\"" + ";");
+			return res;
+		}
 		
 
 	/** return file in output that can be stored in database
