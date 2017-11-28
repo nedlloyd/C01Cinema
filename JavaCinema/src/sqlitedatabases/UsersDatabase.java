@@ -7,7 +7,7 @@ import java.sql.Statement;
 
 /**
  * Sets up SQLite database with columns: userID, userName, password, role 
- * @author Samuel Bradshaw
+ * @author Sam
  *
  */
 public class UsersDatabase extends SQLiteDatabase {
@@ -47,7 +47,14 @@ public class UsersDatabase extends SQLiteDatabase {
 		}
 	}
 	
-	//adds to user database 
+	/**
+	 * Adds new user to database 
+	 * @param userName
+	 * @param password
+	 * @param role
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	public void createUser(String userName, String password, String role) throws ClassNotFoundException, SQLException {
 		if (con == null) {
 			getConnection();
@@ -63,14 +70,29 @@ public class UsersDatabase extends SQLiteDatabase {
 	}
 
 		
-		//return row based on userName
+		/**
+		 * return row based on userName
+		 */
 		public ResultSet displayRow(String userName) throws ClassNotFoundException, SQLException {
 			if (con == null) {
 				getConnection();
 			}
 			
 			Statement state = con.createStatement();
-			ResultSet res = state.executeQuery("SELECT " + "userName, " + "password" + " FROM " + super.tableName + " WHERE userName="+ "\"" + userName + "\"" + ";");
+			ResultSet res = state.executeQuery("SELECT " + "userID, "+
+			"userName, " + "password" + " FROM " + super.tableName + " WHERE userName="+ "\"" + userName + "\"" + ";");
+			return res;
+		}
+
+		@Override
+		ResultSet displayRow(int primaryKey) throws ClassNotFoundException, SQLException {
+			if (con == null) {
+				getConnection();
+			}
+			
+			Statement state = con.createStatement();
+			ResultSet res = state.executeQuery("SELECT " + "userID, "+
+			"userName, " + "password" + " FROM " + super.tableName + " WHERE userID="+ "\"" + primaryKey + "\"" + ";");
 			return res;
 		}
 		

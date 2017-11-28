@@ -41,7 +41,14 @@ public class ReservationsDatabase extends SQLiteDatabase  {
 		
 	}
 	
-	//adds to user database 
+	/**
+	 * adds to reservation database 
+	 * @param userId
+	 * @param screeningId
+	 * @param seatId
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	public void createReservation(int userId, int screeningId, int seatId) throws ClassNotFoundException, SQLException {
 		if (con == null) {
 			getConnection();
@@ -58,9 +65,15 @@ public class ReservationsDatabase extends SQLiteDatabase  {
 
 
 	@Override
-	ResultSet displayRow(String primaryKey) throws ClassNotFoundException, SQLException {
-		// TODO Auto-generated method stub
-		return null;
+	ResultSet displayRow(int reservationID) throws ClassNotFoundException, SQLException {
+		if (con == null) {
+			getConnection();
+		}
+		
+		Statement state = con.createStatement();
+		ResultSet res = state.executeQuery("SELECT " + "reservationID, " + "userID, " + "screeningID,"+
+		" seatID," + " FROM " + super.tableName + " LIMIT " + 1 + " OFFSET " + (reservationID - 1) + ";");
+		return res;
 	}
 
 }

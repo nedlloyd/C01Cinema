@@ -6,43 +6,40 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class FilmsDatabase {
-	private static Connection con;
+/**
+ * Sets up SQLite database with columns: id, filmName, filmDescription, duration?
+ * @author Ned
+ *
+ */
+public class FilmsDatabase extends SQLiteDatabase {
+
 	private static boolean hasData = false;
 	
-	
-	// gets connection to database
-	private void getConnection() throws ClassNotFoundException, SQLException {
-		// TODO Auto-generated method stub
-		Class.forName("org.sqlite.JDBC");
-		con = DriverManager.getConnection("jdbc:sqlite:SQLiteTest1.db");
-		initialise();
+	public FilmsDatabase(){
+		super("films");
 	}
 
 	// based on: https://www.youtube.com/watch?v=JPsWaI5Z3gs
-	private void initialise() throws SQLException {
+	protected void initialise() throws SQLException {
 		// TODO Auto-generated method stub
 		if (!hasData) {
 			hasData = true;
 			
 			Statement state = con.createStatement();
-			ResultSet res = state.executeQuery("SELECT name FROM sqlite_master WHERE type='table' AND name='films' ");
+			ResultSet res = state.executeQuery("SELECT name FROM sqlite_master WHERE type='table' AND name='"+super.tableName+"' ");
 			//working out if there is a table of name films if there is it's the one we want to use
 			if (!res.next()) {
-				System.out.println("Building the films table with prepopulated values");
+				System.out.println("Building the "+tableName+" table with prepopulated values");
 				
 				//and so we start to build a table				
 				Statement state2 = con.createStatement();
-				state2.execute("CREATE TABLE films(id integer," +
-				"filmName varchar(60)," + "filmDescription varchar(60)," +
-						"primary key(id));");
+				state2.execute("CREATE TABLE "+tableName+"(id integer," +
+				"filmName varchar(60)," + "filmDescription varchar(60)," +"primary key(id));");
 				
 				//and then start to insert data
 //				PreparedStatement prep = con.prepareStatement("INSERT INTO films values(?,?,?);");
@@ -59,7 +56,14 @@ public class FilmsDatabase {
 		}
 	}
 	
-	//adds to film database 
+	/**
+	 * adds to film database 
+	 * @param filmName
+	 * @param filmDescription
+	 * @param imageFilePath
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	public void addFilm(String filmName, String filmDescription, String imageFilePath) throws ClassNotFoundException, SQLException {
 		if (con == null) {
 			getConnection();
@@ -74,7 +78,7 @@ public class FilmsDatabase {
         con.close();
 	}
 	
-	//adds to film database 
+	//adds to film database without an image
 	public void addFilm(String filmName, String filmDescription) throws ClassNotFoundException, SQLException {
 		if (con == null) {
 			getConnection();
@@ -88,86 +92,34 @@ public class FilmsDatabase {
         con.close();
 	}
 	
-	
-	//deletes from database 
-	public void delete(int id) throws SQLException, ClassNotFoundException {
+	@Override
+	ResultSet displayRow(int filmId) throws ClassNotFoundException, SQLException {
 		if (con == null) {
 			getConnection();
 		}
 		
-		String sql = "DELETE FROM films WHERE id = ?";
-		PreparedStatement prep = con.prepareStatement(sql);
+		Statement state = con.createStatement();
+		ResultSet res = state.executeQuery("SELECT " + "id, " + "filmName, " + "filmDescription" + " FROM " + tableName + " LIMIT " + 1 + " OFFSET " + (filmId - 1) + ";");
+		return res;
+	}
 		
-		// set the corresponding param
-        prep.setInt(1, id);
-        // execute the delete statement
-        prep.executeUpdate();
-				
-    }
-	
-	
-	//adds new column to database 
-	public void addColumn(String tableName, String columnName, String type) throws SQLException, ClassNotFoundException {
-		if (con == null) {
-			getConnection();
-		}
+//		//return row based on filmName
+//		public ResultSet displayRow(String filmName) throws ClassNotFoundException, SQLException {
+//			if (con == null) {
+//				getConnection();
+//			}
+//			
+//			Statement state = con.createStatement();
+//			ResultSet res = state.executeQuery("SELECT " + "id, " + "filmName, " + "filmDescription" + " FROM " + tableName + " WHERE filmName="+ "\"" + filmName + "\"" + ";");
+//			return res;
+//		}
 		
-		String sql = "ALTER TABLE " + tableName + " ADD COLUMN " + columnName + " " + type + ";";
-		PreparedStatement prep = con.prepareStatement(sql);
-		
-        prep.executeUpdate();
-        prep.close();
-        con.close();
-				
-    }
-	
-	// methods to return column values 
-		public ResultSet displayColumns(String table, String column) throws ClassNotFoundException, SQLException {
-			if (con == null) {
-				getConnection();
-			}
-			
-			Statement state = con.createStatement();
-			ResultSet res = state.executeQuery("SELECT " + column + " FROM " + table);
-			return res;
-		}
-		// overloaded column value method
-		public ResultSet displayColumns(String table, String column1, String column2) throws ClassNotFoundException, SQLException {
-			if (con == null) {
-				getConnection();
-			}
-			
-			Statement state = con.createStatement();
-			ResultSet res = state.executeQuery("SELECT " + column1 + ", " + column2 + " FROM " + table);
-			return res;
-		}
-		
-		
-		//displays single row identified by id
-		public ResultSet displayRow(String table, int id) throws ClassNotFoundException, SQLException {
-			if (con == null) {
-				getConnection();
-			}
-			
-			Statement state = con.createStatement();
-			ResultSet res = state.executeQuery("SELECT " + "id, " + "filmName, " + "filmDescription" + " FROM " + table + " LIMIT " + 1 + " OFFSET " + (id - 1) + ";");
-			return res;
-		}
-		
-		//return row based on filmName
-		public ResultSet displayRow(String table, String filmName) throws ClassNotFoundException, SQLException {
-			if (con == null) {
-				getConnection();
-			}
-			
-			Statement state = con.createStatement();
-			ResultSet res = state.executeQuery("SELECT " + "id, " + "filmName, " + "filmDescription" + " FROM " + table + " WHERE filmName="+ "\"" + filmName + "\"" + ";");
-			return res;
-		}
-		
-	
-	
-	// return file in output that can be stored in database
+
+	/** return file in output that can be stored in database
+	 * 
+	 * @param file
+	 * @return
+	 */
 	// copied from: http://www.sqlitetutorial.net/sqlite-java/jdbc-read-write-blob/
 	private byte[] readFile(String file) {
         ByteArrayOutputStream bos = null;
@@ -179,6 +131,7 @@ public class FilmsDatabase {
             for (int len; (len = fis.read(buffer)) != -1;) {
                 bos.write(buffer, 0, len);
             }
+            fis.close();
         } catch (FileNotFoundException e) {
             System.err.println(e.getMessage());
         } catch (IOException e2) {
@@ -188,7 +141,13 @@ public class FilmsDatabase {
     }
 	
 	
-	// adds picture to the id sepcified 
+	/**
+	 *  Adds picture to the row with primarykey sepcified 
+	 * @param materialId
+	 * @param filename
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 */
 	// based on: https://www.youtube.com/watch?v=s80sAEbF9Fk
 	public void addPicture(int materialId, String filename) throws SQLException, ClassNotFoundException {
         // update sql
@@ -197,9 +156,7 @@ public class FilmsDatabase {
 			getConnection();
 		}
 		
-		
-		
-        String updateSQL = "UPDATE films "
+        String updateSQL = "UPDATE "+super.tableName+" "
                 + "SET image = ? "
                 + "WHERE id=?";
         
@@ -234,9 +191,7 @@ public class FilmsDatabase {
             prep = con.prepareStatement(selectSQL);
             prep.setInt(1, materialId);
             rs = prep.executeQuery();
-            
-            
- 
+
             // write binary stream into file
             File file = new File(filename);
             fos = new FileOutputStream(file);
@@ -272,8 +227,5 @@ public class FilmsDatabase {
             }
         }
     }
-        
- 
-       
 	
 }

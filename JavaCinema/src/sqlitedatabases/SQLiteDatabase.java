@@ -16,8 +16,21 @@ public abstract class SQLiteDatabase {
 		this.tableName = tableName;
 	}
 	
+	/**
+	 * Checks to see if database already exists. If it does not exist, this method will create a new 
+	 * database. 
+	 * @throws SQLException
+	 */
 	abstract void initialise() throws SQLException;
-	abstract ResultSet displayRow(String primaryKey) throws ClassNotFoundException, SQLException;
+	
+	/**
+	 * returns a ResultSet of a given row 
+	 * @param primaryKey
+	 * @return
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	abstract ResultSet displayRow(int primaryKey) throws ClassNotFoundException, SQLException;
 	
 	// gets connection to database
 	protected void getConnection() throws ClassNotFoundException, SQLException {
@@ -25,11 +38,13 @@ public abstract class SQLiteDatabase {
 		con = DriverManager.getConnection("jdbc:sqlite:SQLiteTest1.db");
 		initialise();
 	}
-
-	
-
 		
-	//deletes from database 
+	/**
+	 * Deletes row with from database 
+	 * @param primarykey - the row we want to delete
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 */
 	public void delete(int primarykey) throws SQLException, ClassNotFoundException {
 		if (con == null) {
 			getConnection();
@@ -44,9 +59,14 @@ public abstract class SQLiteDatabase {
         prep.executeUpdate();
 				
     }
-	
-	
-	//adds new column to database 
+
+	/**
+	 * Adds new column to database 
+	 * @param columnName
+	 * @param type
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 */
 	public void addColumn(String columnName, String type) throws SQLException, ClassNotFoundException {
 		if (con == null) {
 			getConnection();
@@ -61,7 +81,9 @@ public abstract class SQLiteDatabase {
 				
     }
 	
-	// methods to return column values 
+	/**
+	 *  methods to return column values 
+	 */
 		public ResultSet displayColumns(String column) throws ClassNotFoundException, SQLException {
 			if (con == null) {
 				getConnection();
@@ -82,10 +104,15 @@ public abstract class SQLiteDatabase {
 			return res;
 		}
 		
+		// overloaded displayColumns method 3 columns
+		public ResultSet displayColumns(String column1, String column2, String column3) throws ClassNotFoundException, SQLException {
+			if (con == null) {
+				getConnection();
+			}
 
-	
-	
-	
-	
+			Statement state = con.createStatement();
+			ResultSet res = state.executeQuery("SELECT " + column1 + ", " + column2 + ", " + column3 + " FROM " + tableName);
+			return res;
+		}
 
 }
