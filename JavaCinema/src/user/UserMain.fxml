@@ -3,13 +3,23 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane prefHeight="500.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="user.UserMainController">
    <children>
-      <Label fx:id="HelloMessage" layoutX="93.0" layoutY="69.0" prefHeight="16.0" prefWidth="153.0" text="Hello!" />
-      <DatePicker layoutX="257.0" layoutY="273.0" />
-      <Button layoutX="336.0" layoutY="396.0" mnemonicParsing="false" text="See Screenings" />
-      <Label layoutX="93.0" layoutY="125.0" prefHeight="16.0" prefWidth="96.0" text="Label" />
+      <Label layoutX="93.0" layoutY="69.0" prefHeight="16.0" prefWidth="153.0" text="Hello!" />
+      <DatePicker fx:id="datePickerUser" layoutX="257.0" layoutY="64.0" />
+      <Button fx:id="seeScreenings" layoutX="323.0" layoutY="120.0" mnemonicParsing="false" onAction="#getScreenings" text="See Screenings" />
+      <Label fx:id="viewingsUser" layoutX="93.0" layoutY="125.0" prefHeight="16.0" prefWidth="214.0" text="Label" />
+      <TableView fx:id="tableView" layoutX="21.0" layoutY="216.0" prefHeight="200.0" prefWidth="450.0">
+        <columns>
+          <TableColumn fx:id="filmTimeColumn" prefWidth="82.0" text="Time" />
+          <TableColumn fx:id="filmNameColumn" prefWidth="83.0" text="Film" />
+            <TableColumn fx:id="filmDescriptionColumn" prefWidth="202.0" text="Film Description" />
+            <TableColumn prefWidth="82.0" text="Image" />
+        </columns>
+      </TableView>
    </children>
 </AnchorPane>

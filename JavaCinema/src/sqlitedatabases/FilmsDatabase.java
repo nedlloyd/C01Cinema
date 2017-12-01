@@ -114,6 +114,23 @@ public class FilmsDatabase extends SQLiteDatabase {
 			return res;
 		}
 		
+		public String filmDescriptionString(String filmName) throws ClassNotFoundException, SQLException{
+			if (con == null) {
+				getConnection();
+			}
+
+			PreparedStatement ps = con.prepareStatement("SELECT * FROM " + tableName + " WHERE filmName = ?");
+
+			//First search all persons with name "J.Baoby" and age = 5
+			ps.setString(1, filmName);
+			ResultSet set1 = ps.executeQuery();
+			// Do something with it 
+			// ....
+			String description = set1.getString("filmDescription");
+			
+			return description;			
+		}
+		
 
 	/** return file in output that can be stored in database
 	 * 

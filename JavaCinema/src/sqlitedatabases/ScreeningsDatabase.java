@@ -62,7 +62,7 @@ public class ScreeningsDatabase extends SQLiteDatabase {
 	}
 	
 		@Override
-		ResultSet displayRow(int primaryKey) throws ClassNotFoundException, SQLException {
+		public ResultSet displayRow(int primaryKey) throws ClassNotFoundException, SQLException {
 			if (con == null) {
 				getConnection();
 			}
@@ -70,6 +70,18 @@ public class ScreeningsDatabase extends SQLiteDatabase {
 			Statement state = con.createStatement();
 			ResultSet res = state.executeQuery("SELECT screeningID, filmName, time, date FROM " + tableName + " LIMIT " + 1 + " OFFSET " + (primaryKey - 1) + ";");
 			return res;
+		}
+		
+		//overloaded method 
+		public ResultSet date(String date) throws ClassNotFoundException, SQLException {
+			if (con == null) {
+				getConnection();
+			}
+			
+			Statement state = con.createStatement();
+			ResultSet res = state.executeQuery("SELECT ScreeningID, filmName, time, date FROM " + tableName + " WHERE date=\"" + date + "\";");
+			return res;
+			
 		}
 		
 		/**
@@ -89,5 +101,19 @@ public class ScreeningsDatabase extends SQLiteDatabase {
 			ResultSet res = state.executeQuery("SELECT ScreeningID, filmName, time, date FROM screenings WHERE time=\"" + time + "\" AND date=\"" + date + "\";");
 			
 			return res;
+		}
+		
+		public ResultSet getDataFromTwoTables(String table1, String table2, String date) throws ClassNotFoundException, SQLException {
+			if (con == null) {
+				getConnection();
+			}
+
+			PreparedStatement ps = con.prepareStatement("SELECT * FROM " + table1 + ", " + table2 + " WHERE "
+					+ table1 + ".filmName=" + table2 + ".filmName AND " + table2 + ".date=\"" + date + "\"" + ";");
+
+			ResultSet set1 = ps.executeQuery();
+			
+			return set1;
+				
 		}
 }
