@@ -1,8 +1,10 @@
 package user;
 
+
 import java.time.LocalTime;
 
 import javafx.beans.property.SimpleStringProperty;
+import javafx.scene.image.Image;
 
 public class AddDataToTable {
 		private SimpleStringProperty filmName, filmDescription, filmTime;
@@ -11,7 +13,7 @@ public class AddDataToTable {
 		public AddDataToTable(String filmName, String filmDescription, String filmTime) {
 		this.filmName = new SimpleStringProperty(filmName);
 		this.filmDescription = new SimpleStringProperty(filmDescription);
-		this.filmTime = new SimpleStringProperty(filmTime);				
+		this.filmTime = new SimpleStringProperty(filmTime);		
 		}
 		
 		public String getFilmDescription() {
