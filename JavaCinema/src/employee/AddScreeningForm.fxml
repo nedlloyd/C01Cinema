@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.ComboBox?>
@@ -12,7 +9,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="500.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="employee.AddFilmController">
+<AnchorPane prefHeight="500.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="employee.AddFilmController">
    <children>
       <Label layoutX="62.0" layoutY="185.0" prefHeight="17.0" prefWidth="102.0" text="Add Screening of:" />
       <Label fx:id="filmTitleLabel" layoutX="92.0" layoutY="219.0" prefHeight="17.0" prefWidth="42.0" text="Title" />
@@ -24,7 +21,7 @@
       <Label fx:id="filmDurationLabel" layoutX="83.0" layoutY="343.0" prefHeight="17.0" prefWidth="76.0" text="Film duration:" />
       <TextArea fx:id="description" layoutX="169.0" layoutY="250.0" prefHeight="78.0" prefWidth="219.0" promptText="Enter description of film" />
       <TextField fx:id="duration" layoutX="171.0" layoutY="339.0" prefHeight="25.0" prefWidth="219.0" promptText="Enter length of film (mins)" />
-      <Button fx:id="addImageButton" layoutX="172.0" layoutY="381.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="111.0" text="Upload image" />
+      <Button fx:id="addImageButton" layoutX="172.0" layoutY="381.0" mnemonicParsing="false" onAction="#addImage" prefHeight="25.0" prefWidth="111.0" text="Upload image" />
       <Label fx:id="filmImageLabel" layoutX="116.0" layoutY="385.0" prefHeight="17.0" prefWidth="63.0" text="Image:" />
       <Button fx:id="addScreeningBtn" layoutX="193.0" layoutY="434.0" mnemonicParsing="false" onAction="#addScreening" prefHeight="25.0" prefWidth="142.0" text="Add Screening" />
       <ComboBox fx:id="startTimeHour" layoutX="181.0" layoutY="139.0" prefHeight="25.0" prefWidth="76.0" promptText=" Hour" />

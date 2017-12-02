@@ -1,8 +1,11 @@
 package employee;
 
+import java.io.File;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -14,6 +17,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.stage.FileChooser;
 import sqlitedatabases.FilmsDatabase;
 import sqlitedatabases.ScreeningsDatabase;
 
@@ -45,6 +49,7 @@ public class AddFilmController {
 	TextArea description;
 	@FXML
 	TextField duration;
+	
 	@FXML
 	Button addImageButton;
 
@@ -56,6 +61,9 @@ public class AddFilmController {
 	Label filmDurationLabel;
 	@FXML 
 	Label filmImageLabel;
+	
+	String filePath = "/Users/nedlloyd/Desktop/vertigo.png";
+
 
 
 	@FXML
@@ -168,13 +176,14 @@ public class AddFilmController {
 		FilmsDatabase databaseFilms = new FilmsDatabase();
 		ScreeningsDatabase databaseScreenings = new ScreeningsDatabase();
 		try {
-			if(filmTypeChoiceBox.getValue().equals("New Film")){//if film has not been screened before 
-				databaseFilms.addFilm(title.getText(),  description.getText());
+			if(filmTypeChoiceBox.getValue().equals("New Film")){//if film has not been screened before
+				databaseFilms.addFilm(title.getText(),  description.getText(), filePath);
+		
 				//ADD BIT FOR IMAGE/DURATION^
-				databaseScreenings.addScreening(title.getText(), startTimeHour.getValue()+startTimeMinute.getValue(), datePicker.getValue().toString());
+				databaseScreenings.addScreening(title.getText(), startTimeHour.getValue()+startTimeMinute.getValue(), datePicker.getValue().format(DateTimeFormatter.ofPattern("dd/MM/yy")));
 
 			} else /*if film has been screened before*/{
-				databaseScreenings.addScreening(chooseFilmChoiceBox.getValue(), startTimeHour.getValue()+startTimeMinute.getValue(), datePicker.getValue().toString());
+				databaseScreenings.addScreening(chooseFilmChoiceBox.getValue(), startTimeHour.getValue()+startTimeMinute.getValue(), datePicker.getValue().format(DateTimeFormatter.ofPattern("dd/MM/yy")));
 			}	
 
 		} catch (ClassNotFoundException e1) {
@@ -184,6 +193,20 @@ public class AddFilmController {
 		}
 
 	}
+	
+	public void addImage(ActionEvent e) {
+		FileChooser fileChooser = new FileChooser();
+        
+        //Set extension filter
+        FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.JPG");
+        FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.PNG");
+        fileChooser.getExtensionFilters().addAll(extFilterJPG, extFilterPNG);
+          
+        //Show open file dialog
+        File file = fileChooser.showOpenDialog(null);
+        filePath = file.getAbsolutePath();
+        System.out.print(filePath);
+        	}
 
 
 

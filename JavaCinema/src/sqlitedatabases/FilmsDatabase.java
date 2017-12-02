@@ -75,8 +75,9 @@ public class FilmsDatabase extends SQLiteDatabase {
 		prep.setString(3, filmDescription);
 		prep.setBytes(4, readFile(imageFilePath));
 		prep.execute();
-		prep.close();
-        con.close();
+		// in order to add to both screenings and films database i had to not close this, i'm not sure if this has other bad effects
+		//prep.close();
+        //con.close();
 	}
 	
 	//adds to film database without an image
@@ -139,10 +140,11 @@ public class FilmsDatabase extends SQLiteDatabase {
 	 * @return
 	 */
 	// copied from: http://www.sqlitetutorial.net/sqlite-java/jdbc-read-write-blob/
-	private byte[] readFile(String file) {
+	private byte[] readFile(String filePath) {
         ByteArrayOutputStream bos = null;
         try {
-            File f = new File(file);
+        	
+            File f = new File(filePath);
             FileInputStream fis = new FileInputStream(f);
             byte[] buffer = new byte[1024];
             bos = new ByteArrayOutputStream();
@@ -159,7 +161,6 @@ public class FilmsDatabase extends SQLiteDatabase {
     }
 	
 	
-	
 	/**
 	 *  Adds picture to the row with primarykey sepcified 
 	 * @param materialId
@@ -168,7 +169,7 @@ public class FilmsDatabase extends SQLiteDatabase {
 	 * @throws ClassNotFoundException
 	 */
 	// based on: https://www.youtube.com/watch?v=s80sAEbF9Fk
-	public void addPicture(int materialId, String filename) throws SQLException, ClassNotFoundException {
+	public void addPicture(int materialId, String filePath) throws SQLException, ClassNotFoundException {
         // update sql
 		int num_rows = 0;
 		if (con == null) {
@@ -180,7 +181,7 @@ public class FilmsDatabase extends SQLiteDatabase {
                 + "WHERE id=?";
         
         PreparedStatement prep = con.prepareStatement(updateSQL);
-        prep.setBytes(1, readFile(filename));
+        prep.setBytes(1, readFile(filePath));
         prep.setInt(2, materialId);
 
         num_rows = prep.executeUpdate();
@@ -193,7 +194,7 @@ public class FilmsDatabase extends SQLiteDatabase {
 	
 	
 	// based on: http://www.sqlitetutorial.net/sqlite-java/jdbc-read-write-blob/
-	public void readPicture(int materialId, String filename) throws ClassNotFoundException, SQLException {
+	public void readPicture(int materialId, String filePath) throws ClassNotFoundException, SQLException {
 		if (con == null) {
 			getConnection();
 		}
@@ -212,7 +213,7 @@ public class FilmsDatabase extends SQLiteDatabase {
             rs = prep.executeQuery();
 
             // write binary stream into file
-            File file = new File(filename);
+            File file = new File(filePath);
             fos = new FileOutputStream(file);
  
             System.out.println("Writing BLOB to file " + file.getAbsolutePath());

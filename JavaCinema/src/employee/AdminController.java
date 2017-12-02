@@ -70,7 +70,7 @@ public class AdminController {
         filmDescriptionColumn.setCellValueFactory(new PropertyValueFactory<AddDataToTable, String>("filmDescription"));
         filmTimeColumn.setCellValueFactory(new PropertyValueFactory<AddDataToTable, String>("filmTime"));
         
-     // event listener for datePicker when date is changes films outputted are changed 
+        // event listener for datePicker when date is changes films outputted are changed 
         datePicker.valueProperty().addListener((ov, oldValue, newValue) -> {
         	try {
         		String theDate = datePicker.getValue().format(DateTimeFormatter.ofPattern("dd/MM/yy"));
