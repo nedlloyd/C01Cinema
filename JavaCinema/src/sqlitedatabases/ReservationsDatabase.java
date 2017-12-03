@@ -14,7 +14,7 @@ public class ReservationsDatabase extends SQLiteDatabase  {
 	
 	static boolean hasData = false;
 
-	ReservationsDatabase() {
+	public ReservationsDatabase() {
 		super("reservations");
 	}
 
@@ -23,10 +23,11 @@ public class ReservationsDatabase extends SQLiteDatabase  {
 		// TODO Auto-generated method stub
 				if (!hasData) {
 					hasData = true;
-					
+
 					Statement state = con.createStatement();
-					ResultSet res = state.executeQuery("SELECT name FROM sqlite_master WHERE type='table' AND name='"+super.tableName +"' "); 
-					//working out if there is a table of name users if there is it's the one we want to use
+					ResultSet res = state.executeQuery("SELECT name FROM sqlite_master WHERE type='table' AND name='"+super.tableName +"' ");
+
+					//working out if there is a table of name reservations if there is it's the one we want to use
 					if (!res.next()) {
 						System.out.println("Building the "+super.tableName+" table with prepopulated values");
 						
@@ -59,8 +60,8 @@ public class ReservationsDatabase extends SQLiteDatabase  {
 		prep.setInt(3, screeningId);
 		prep.setInt(4, seatId);
 		prep.execute();
-		prep.close();
-        con.close();
+		/*prep.close();
+        con.close();*/
 	}
 
 
@@ -75,5 +76,23 @@ public class ReservationsDatabase extends SQLiteDatabase  {
 		" seatID," + " FROM " + super.tableName + " LIMIT " + 1 + " OFFSET " + (reservationID - 1) + ";");
 		return res;
 	}
+	
+	public ResultSet displayRows(int screeningID) throws ClassNotFoundException, SQLException {
+		if (con == null) {
+			getConnection();
+		}
+		
+		String sql = "SELECT userID, screeningID, seatID"
+				+ " FROM " + super.tableName 
+                + " WHERE screeningID = " + screeningID;
+		
+		
+		Statement stmt = con.createStatement();
+        ResultSet res = stmt.executeQuery(sql);
+		
+		return res;
+	}
+	
+	
 
 }

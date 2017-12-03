@@ -15,6 +15,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import sqlitedatabases.UsersDatabase;
+import user.UserMainController;
 
 public class LoginController {
 
@@ -29,6 +30,9 @@ public class LoginController {
 	private TextField newUserName;
 	@FXML
 	private TextField newPassword;
+	
+	private String usernameAttempt;
+	private String passwordAttempt;
 
 	/**
 	 * Adds a new user to users database when they sign up
@@ -63,8 +67,8 @@ public class LoginController {
 
 	public void login(ActionEvent e) throws SQLException{
 
-		String usernameAttempt = txtUserName.getText();
-		String passwordAttempt = txtPassword.getText();
+		usernameAttempt = txtUserName.getText();
+		passwordAttempt = txtPassword.getText();
 
 		UsersDatabase users = new UsersDatabase();
 		ResultSet res;
@@ -99,7 +103,12 @@ public class LoginController {
 					//Launch user/customer portal
 					try{
 						Stage userStage = new Stage();
-						Parent root = FXMLLoader.load(getClass().getResource("/user/UserMain.fxml"));
+						FXMLLoader loader = new FXMLLoader();
+						Parent root = loader.load(getClass().getResource("/user/UserMain.fxml").openStream());
+						//calls userMainController in order to pass variables
+						UserMainController userMain = (UserMainController)loader.getController();
+						//passes usernameAttempt to userMainController
+						userMain.setuserID(usernameAttempt);
 						Scene scene = new Scene(root,400,400);
 						//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 						userStage.setScene(scene);

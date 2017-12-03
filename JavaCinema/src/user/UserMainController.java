@@ -16,6 +16,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -25,6 +28,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 import sqlitedatabases.ScreeningsDatabase;
 
 public class UserMainController {
@@ -34,9 +38,6 @@ public class UserMainController {
 	
 	@FXML
 	private Button seeScreenings;
-	
-	@FXML
-	private Button row;
 	
 	@FXML
 	private Label viewingsUser;
@@ -58,8 +59,22 @@ public class UserMainController {
 	
 	@FXML
 	private ImageView filmImage;
+	
+	@FXML 
+	private Button makeReservation;
+	
+	@FXML
+	private Label selectFilm;
 
 	private ObservableList<AddImageToTable> someImages = FXCollections.observableArrayList();
+	
+	private ObservableList<AddDataToTable> films = FXCollections.observableArrayList();
+	
+	private String currentFilm;
+	
+	private int screeningID;
+	
+	private String user;
 	
 
 	
@@ -67,7 +82,7 @@ public class UserMainController {
 	
 
 	@FXML
-	void initialize() throws ClassNotFoundException, SQLException{	
+	public void initialize() throws ClassNotFoundException, SQLException{	
 		
 		//Display current time
 		datePickerUser.setValue(LocalDate.now());
@@ -90,9 +105,15 @@ public class UserMainController {
         });
         
         //create even listener on table so by selecting row you can view the film poster
+        // it also sets the variable filmName to the film selected
         tableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {      	
 			try {
 				//sets image which is returned from the getImageFromTableMethod
+				TablePosition pos = tableView.getSelectionModel().getSelectedCells().get(0);
+				int row = pos.getRow();
+				// sets variable current film to the film selected 
+				currentFilm = tableView.getItems().get(row).getFilmName();
+				//sets image based on film selected
 				filmImage.setImage(getImageFromTable()); 
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
@@ -104,22 +125,15 @@ public class UserMainController {
 	
 	
 	// creates and returns an observable of the films on a certain date this can then be added to the table
+	// also gets the film poster and places it in another observableList
+	// both in the same method as both based on the same querry
 	public ObservableList<AddDataToTable>  getFilms(String date) throws ClassNotFoundException, SQLException, IOException
 	{	
 		ScreeningsDatabase screeningDatabase = new ScreeningsDatabase();
-
-
-		//initialises observable list 
-		ObservableList<AddDataToTable> films = FXCollections.observableArrayList();
-
-
-		//gets the date from the date picker in the correct format
-		//String date = datePickerUser.getValue().format(DateTimeFormatter.ofPattern("dd/MM/yy"));
-
-
+		
 		// creates a result set by calling  the detDataFromTwoTables method present in ScreeningDatabase
 		ResultSet res = screeningDatabase.getDataFromTwoTables("films", "screenings", date);
-
+		films.clear();
 		// populates two observableLists on with film data the other with film names and posters 
 		try {
 			int i = 1;
@@ -130,9 +144,10 @@ public class UserMainController {
 				String description = res.getString("filmDescription");
 				String time = res.getString("time");
 				InputStream binaryStream = res.getBinaryStream("image");
+				String id = res.getString("screeningID");
 
-				//initialises AddDataToTable object with constructor that takes the variables name, time and description
-				AddDataToTable nextObject = new AddDataToTable(name, description, time);
+				//initialises AddDataToTable object with constructor that takes the variables name, time and description and id
+				AddDataToTable nextObject = new AddDataToTable(name, description, time, id);
 
 				//ensures that there is a photo for a certain film 
 				if (binaryStream != null) {
@@ -175,16 +190,9 @@ public class UserMainController {
 		// image is initialised to curtains in case film does not contain a photo
 		Image theImage = new Image("images/cinemaCurtains.png");
 		
-		// gets index of row selected
-		TablePosition pos = tableView.getSelectionModel().getSelectedCells().get(0);
-		int row = pos.getRow();
-		
-		// gets film name of object on that row 
-		String fn = tableView.getItems().get(row).getFilmName();
-		
 		//returns the poster that matches the film name 
 		for (AddImageToTable item : someImages) {
-			if (item.getFilmName() == fn) {
+			if (item.getFilmName() == currentFilm) {
 				theImage = item.getFilmImage();
 			} 
 		}
@@ -192,5 +200,53 @@ public class UserMainController {
 		
 		return theImage;
 	}
+	
+	// when the make a reservation button is pressed the make a reservation window is opened
+	// variables of filmName, screeningid and user are also passed onto the next controller
+	public void makeReservation(ActionEvent e) {
+		String theDate = datePickerUser.getValue().format(DateTimeFormatter.ofPattern("dd/MM/yy"));
+		try {
+			// variable screeningID set to currently sleected films screening id
+			screeningID();
+			if (screeningID != 0) {
+				Stage newScreeningStage = new Stage();
+				FXMLLoader loader = new FXMLLoader();
+				Parent root = loader.load(getClass().getResource("/user/MakeReservation.fxml").openStream());
+				//calls up reservation controller allowing vraibles to be set from current controller
+				MakeReservationController reservationController = (MakeReservationController)loader.getController();
+				// uses the setScreening method from reservationController in order to pass the variable screeningID and set the seats bases on whether they are reserved
+				reservationController.setSeats(screeningID);
+				//does the same but with user
+				reservationController.setUser(user);
+				Scene scene = new Scene(root,500,500);
+				//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+				newScreeningStage.setScene(scene);
+				newScreeningStage.setTitle("New Screening");
+				newScreeningStage.show(); 	
+			} else {
+				selectFilm.setText("please select a screening");
+			}
+			
+		} catch(Exception exc) {
+			exc.printStackTrace();
+		}
+	}
+	
+	
+	// returns the Screening ID for the film selected
+	public void screeningID() {
+		
+		for (AddDataToTable item : films) {
+			if (item.getFilmName() == currentFilm) {
+				Integer si = Integer.parseInt(item.getScreeningID());
+				screeningID = si;
+			} 
+		}
+	}
+	//method in order to recieve variable username from login controller and set it as a variable 
+	public void setuserID(String user) {
+		this.user = user;
+	}
+	
 	
 }

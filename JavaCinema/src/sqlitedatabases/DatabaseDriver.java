@@ -14,6 +14,11 @@ public class DatabaseDriver {
 	public static void main(String[] args) throws ClassNotFoundException, SQLException{
 		// TODO Auto-generated method stub
 		
+		ReservationsDatabase rd = new ReservationsDatabase();
+		rd.createReservation(1, 1, 1);
+		
+		
+		
 		/*FilmsDatabase test = new FilmsDatabase();
 		ObservableList<AddDataToTable> films = FXCollections.observableArrayList();
 		

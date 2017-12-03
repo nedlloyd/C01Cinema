@@ -4,7 +4,8 @@ package application;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
-
+import user.MakeReservationController;
+import user.UserMainController;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 
@@ -23,6 +24,7 @@ public class Main extends Application {
 			e.printStackTrace();
 		}
 	}
+
 	
 	public static void main(String[] args) {
 		launch(args);
