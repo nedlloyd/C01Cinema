@@ -49,11 +49,13 @@ public class MakeReservationController {
 		seatList.add(3, new Chairs(btn4, 4, false, false));
 		seatList.add(4, new Chairs(btn5, 5, false, false));
 		seatList.add(5, new Chairs(btn6, 6, false, false));
-		
 	}
 
-	// sets the seats in the auditorium based on whether they have been reserved
-	//should porbably be split into a few methods
+	/**
+	 * Sets the seats in the auditorium based on whether they have been reserved
+	 * @param screeningID
+	 * should probably be split into a few methods.
+	 */
 	public void setSeats(int screeningID) {
 		
 		//variable this screening set to screeningID
@@ -98,7 +100,12 @@ public class MakeReservationController {
 		}	
 	}
 	
-	// arraylist created populated by seatIDs for reserved seats
+	/**
+	 * Arraylist created populated by seatIDs for reserved seats
+	 * @return 
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 */
 	public ArrayList getSeatID() throws SQLException, ClassNotFoundException {
 		//reservations database initialised 
 		ReservationsDatabase rd = new ReservationsDatabase();
@@ -116,7 +123,10 @@ public class MakeReservationController {
 		return seats;
 	}
 	
-	// method to change graphic when seat is clicked on by user 
+	/**
+	 * Method to change graphic when seat is clicked on by user 
+	 * @param chair
+	 */
 	public void changeGraphic(Chairs chair) {
 		//images created with which to add to reserved seats 
 		Image seatUnoccupied = new Image("/images/empty_chair.png", 40, 40, false, false);
@@ -137,7 +147,10 @@ public class MakeReservationController {
 		}
 	}
 	
-	// when a chair is clicked the image is changed based on the change graphic method 
+	/**
+	 * When a chair is clicked the image is changed based on the change graphic method 
+	 * @param event
+	 */
 	public void clickToBook(ActionEvent event) {
 		// gets the source of the ActionEvent so it know what seat to change
 		Button o = (Button)event.getSource();
@@ -150,7 +163,10 @@ public class MakeReservationController {
 			}
 		}	
 	
-	// when the make reservation button is pressed a new reservation is created including setting userID screeningID and seatID
+	/**
+	 * When the make reservation button is pressed a new reservation is created including setting userID screeningID and seatID
+	 * @param e
+	 */
 	public void reserve(ActionEvent e) {
 		
 		ReservationsDatabase rd = new ReservationsDatabase();
@@ -175,7 +191,12 @@ public class MakeReservationController {
 		
 	}
 	
-	// userID is set from the UserMainController, it takes the username and querries the databse to find the userID 
+	/**
+	 * userID is set from the UserMainController, it takes the username and querries the databse to find the userID 
+	 * @param user
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	public void setUser(String user) throws ClassNotFoundException, SQLException {
 		UsersDatabase ud = new UsersDatabase();
 		//finds the userID based on the username

@@ -13,8 +13,8 @@ public class Chairs {
 	public Chairs(Button btn, int id, boolean occupied, boolean fixed) {
 		this.button = btn;
 		this.id = id;
-		this.occupied = occupied;
-		this.fixed = fixed;
+		this.occupied = occupied; //user has just clicked it
+		this.fixed = fixed; //Already occupied by other user 
 		
 	}
 	

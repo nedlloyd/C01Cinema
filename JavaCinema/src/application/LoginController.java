@@ -49,11 +49,12 @@ public class LoginController {
 			//Launch user/customer portal after sign up
 			Stage userStage = new Stage();
 			Parent root = FXMLLoader.load(getClass().getResource("/user/UserMain.fxml"));
-			Scene scene = new Scene(root,400,400);
+			Scene scene = new Scene(root,600,400);
 			//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			userStage.setScene(scene);
 			userStage.setTitle("Cinema Booking");
 			userStage.show();
+			lblstatus.getScene().getWindow().hide();
 
 		} catch (ClassNotFoundException | SQLException e1) {
 			System.out.println("Error with sign up process. Error adding to users database.");
@@ -87,7 +88,7 @@ public class LoginController {
 					try{
 						Stage adminStage = new Stage();
 						Parent root = FXMLLoader.load(getClass().getResource("/employee/AdminMain.fxml"));
-						Scene scene = new Scene(root,400,400);
+						Scene scene = new Scene(root,600,400);
 						//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 						adminStage.setScene(scene);
 						adminStage.setTitle("Cinema Employee Portal");
@@ -109,7 +110,7 @@ public class LoginController {
 						UserMainController userMain = (UserMainController)loader.getController();
 						//passes usernameAttempt to userMainController
 						userMain.setuserID(usernameAttempt);
-						Scene scene = new Scene(root,400,400);
+						Scene scene = new Scene(root,600,400);
 						//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 						userStage.setScene(scene);
 						userStage.setTitle("Cinema Booking");

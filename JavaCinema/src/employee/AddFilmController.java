@@ -180,11 +180,14 @@ public class AddFilmController {
 				databaseFilms.addFilm(title.getText(),  description.getText(), filePath);
 		
 				//ADD BIT FOR IMAGE/DURATION^
-				databaseScreenings.addScreening(title.getText(), startTimeHour.getValue()+startTimeMinute.getValue(), datePicker.getValue().format(DateTimeFormatter.ofPattern("dd/MM/yy")));
+				databaseScreenings.addScreening(title.getText(), startTimeHour.getValue()+":"+startTimeMinute.getValue(), datePicker.getValue().format(DateTimeFormatter.ofPattern("dd/MM/yy")));
 
 			} else /*if film has been screened before*/{
-				databaseScreenings.addScreening(chooseFilmChoiceBox.getValue(), startTimeHour.getValue()+startTimeMinute.getValue(), datePicker.getValue().format(DateTimeFormatter.ofPattern("dd/MM/yy")));
+				databaseScreenings.addScreening(chooseFilmChoiceBox.getValue(), startTimeHour.getValue()+":"+startTimeMinute.getValue(), datePicker.getValue().format(DateTimeFormatter.ofPattern("dd/MM/yy")));
 			}	
+			
+			//Close the window once viewing is added to database:
+			chooseFilmLbl.getScene().getWindow().hide();
 
 		} catch (ClassNotFoundException e1) {
 			e1.printStackTrace();

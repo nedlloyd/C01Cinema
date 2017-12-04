@@ -35,51 +35,32 @@ public class UserMainController {
 	
 	@FXML
 	private Label helloMessage;
-	
 	@FXML
 	private Button seeScreenings;
-	
 	@FXML
 	private Label viewingsUser;
-	
 	@FXML
 	private DatePicker datePickerUser; 
-	
 	@FXML 
 	private TableView<AddDataToTable> tableView;
-	
 	@FXML 
 	private TableColumn<AddDataToTable, String> filmNameColumn;
-	
 	@FXML 
 	private TableColumn<AddDataToTable, String> filmDescriptionColumn;
-	
 	@FXML 
 	private TableColumn<AddDataToTable, String> filmTimeColumn;
-	
 	@FXML
 	private ImageView filmImage;
-	
 	@FXML 
 	private Button makeReservation;
-	
 	@FXML
 	private Label selectFilm;
 
 	private ObservableList<AddImageToTable> someImages = FXCollections.observableArrayList();
-	
 	private ObservableList<AddDataToTable> films = FXCollections.observableArrayList();
-	
 	private String currentFilm;
-	
 	private int screeningID;
-	
 	private String user;
-	
-
-	
-	
-	
 
 	@FXML
 	public void initialize() throws ClassNotFoundException, SQLException{	
@@ -91,7 +72,6 @@ public class UserMainController {
 		filmNameColumn.setCellValueFactory(new PropertyValueFactory<AddDataToTable, String>("filmName"));
         filmDescriptionColumn.setCellValueFactory(new PropertyValueFactory<AddDataToTable, String>("filmDescription"));
         filmTimeColumn.setCellValueFactory(new PropertyValueFactory<AddDataToTable, String>("filmTime"));
-        
         
         // event listener for datePicker when date is changes films outputted are changed 
         datePickerUser.valueProperty().addListener((ov, oldValue, newValue) -> {

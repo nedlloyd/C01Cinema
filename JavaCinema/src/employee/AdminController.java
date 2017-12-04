@@ -9,8 +9,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
+import application.Main;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -57,6 +57,9 @@ public class AdminController {
 	
 	@FXML
 	private ImageView filmImage;
+	
+	@FXML
+	private Button logOutButton;
 	
 	private ObservableList<AddImageToTable> someImages = FXCollections.observableArrayList();
 	
@@ -248,9 +251,24 @@ public class AdminController {
 					theImage = item.getFilmImage();
 				} 
 			}
-			
-			
 			return theImage;
+		}
+		
+		public void logOut(ActionEvent e){
+			try {
+				Stage primaryStage = new Stage();
+				Parent root = FXMLLoader.load(getClass().getResource("/application/Login.fxml"));
+				Scene scene = new Scene(root,800,500);
+				scene.getStylesheets().add(getClass().getResource("/application/application.css").toExternalForm());
+				primaryStage.setScene(scene);
+				primaryStage.show();
+				logOutButton.getScene().getWindow().hide();
+				
+			} catch(Exception exception) {
+				exception.printStackTrace();
+			}
+			
+			
 		}
 
 	

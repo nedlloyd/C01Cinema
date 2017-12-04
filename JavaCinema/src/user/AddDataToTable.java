@@ -11,7 +11,6 @@ import javafx.scene.image.Image;
 public class AddDataToTable {
 		private SimpleStringProperty filmName, filmDescription, filmTime, screeningID;
 
-		
 		public AddDataToTable(String filmName, String filmDescription, String filmTime, String screeningID) {
 			this.filmName = new SimpleStringProperty(filmName);
 			this.filmDescription = new SimpleStringProperty(filmDescription);
@@ -23,7 +22,6 @@ public class AddDataToTable {
 			this.filmName = new SimpleStringProperty(filmName);
 			this.filmDescription = new SimpleStringProperty(filmDescription);
 			this.filmTime = new SimpleStringProperty(filmTime);	
-
 		}
 		
 		public String getFilmDescription() {
