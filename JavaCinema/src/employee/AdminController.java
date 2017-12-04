@@ -9,8 +9,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-
-import application.Main;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -254,6 +252,11 @@ public class AdminController {
 			return theImage;
 		}
 		
+		/**
+		 * Logs out of employee portal (i.e. closes employee portal window)
+		 *  and re-opens login window. 
+		 *  Triggered when Log out button is pressed.
+		 */
 		public void logOut(ActionEvent e){
 			try {
 				Stage primaryStage = new Stage();

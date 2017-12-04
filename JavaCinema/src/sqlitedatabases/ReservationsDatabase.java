@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
- * Sets up SQLite database with columns: reservationID, userID, screeningID, seatID 
+ * Sets up SQLite database with columns: reservationID, userID, screeningID, seatID (varchar(3))
  * @author Samuel Bradshaw
  *
  */
@@ -34,7 +34,7 @@ public class ReservationsDatabase extends SQLiteDatabase  {
 						//and so we start to build a table				
 						Statement state2 = con.createStatement();
 						state2.execute("CREATE TABLE "+super.tableName+"(reservationID integer," +
-						"userID integer,"+"screeningID integer,"+"seatID integer,"+
+						"userID integer,"+"screeningID integer,"+"seatID varchar(3),"+
 								"primary key(reservationID));");
 						
 					}
@@ -50,7 +50,7 @@ public class ReservationsDatabase extends SQLiteDatabase  {
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public void createReservation(int userId, int screeningId, int seatId) throws ClassNotFoundException, SQLException {
+	public void createReservation(int userId, int screeningId, String seatId) throws ClassNotFoundException, SQLException {
 		if (con == null) {
 			getConnection();
 		}
@@ -58,7 +58,7 @@ public class ReservationsDatabase extends SQLiteDatabase  {
 		PreparedStatement prep = con.prepareStatement("INSERT INTO "+super.tableName+" values(?,?,?,?);");
 		prep.setInt(2, userId);
 		prep.setInt(3, screeningId);
-		prep.setInt(4, seatId);
+		prep.setString(4, seatId);
 		prep.execute();
 		/*prep.close();
         con.close();*/
@@ -77,6 +77,13 @@ public class ReservationsDatabase extends SQLiteDatabase  {
 		return res;
 	}
 	
+	/**
+	 * Returns the rows in the reservations database table for a given screeningID  
+	 * @param screeningID
+	 * @return
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	public ResultSet displayRows(int screeningID) throws ClassNotFoundException, SQLException {
 		if (con == null) {
 			getConnection();

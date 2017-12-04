@@ -15,7 +15,7 @@ public class DatabaseDriver {
 		// TODO Auto-generated method stub
 		
 		ReservationsDatabase rd = new ReservationsDatabase();
-		rd.createReservation(1, 1, 1);
+		//rd.createReservation(1, 1, 1);
 		
 		
 		

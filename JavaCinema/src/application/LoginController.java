@@ -19,7 +19,6 @@ import user.UserMainController;
 
 public class LoginController {
 
-
 	@FXML
 	private Label lblstatus;
 	@FXML
