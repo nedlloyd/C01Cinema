@@ -7,14 +7,16 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-
-
+import java.time.format.TextStyle;
+import java.util.Locale;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -30,16 +32,25 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import sqlitedatabases.ScreeningsDatabase;
-import sqlitedatabases.UsersDatabase;
+
 
 public class UserMainController {
-	
+
 	private String currentFilm;
 	private int screeningID;
 	private String user;
-	
+	//private int userID;
+	private int dayTracker;
+
 	@FXML
 	private Label helloMessage;
+
+	@FXML private Button todayBtn; @FXML private Button dayOfWeekBtn1; @FXML private Button dayOfWeekBtn2;
+	@FXML private Button dayOfWeekBtn3; @FXML private Button dayOfWeekBtn4; @FXML private Button dayOfWeekBtn5;
+	@FXML private Button dayOfWeekBtn6;
+	
+	Button[] buttonArray = new Button[7];
+
 	@FXML
 	private Button seeScreenings;
 	@FXML
@@ -63,33 +74,92 @@ public class UserMainController {
 
 	private ObservableList<AddImageToTable> someImages = FXCollections.observableArrayList();
 	private ObservableList<AddDataToTable> films = FXCollections.observableArrayList();
-	
+
 
 	@FXML
 	public void initialize() throws ClassNotFoundException, SQLException{	
 		
-		//Display current time
-		datePickerUser.setValue(LocalDate.now());
+		buttonArray[0] = todayBtn; buttonArray[1] = dayOfWeekBtn1; buttonArray[2] = dayOfWeekBtn2;
+		buttonArray[3] = dayOfWeekBtn3; buttonArray[4] = dayOfWeekBtn4; buttonArray[5] = dayOfWeekBtn5;
+		buttonArray[6] = dayOfWeekBtn6;
+
+		LocalDate todaysDate =LocalDate.now(); 
+		DayOfWeek day = todaysDate.getDayOfWeek();
+
+		//Set datePicker value to today
+		datePickerUser.setValue(todaysDate);
 		
+		//Set day of week buttons accordingly
+		dayTracker = day.getValue();
+		changeDatePickerAction(todayBtn, 0);
+		
+		dayTracker++;
+		loopDayTracker(dayTracker);
+		dayOfWeekBtn1.setText("Tomorrow");
+		changeDatePickerAction(dayOfWeekBtn1, 1);
+		
+		dayTracker++;
+		loopDayTracker(dayTracker);
+		String twoDaysAway = DayOfWeek.of(dayTracker).getDisplayName(TextStyle.FULL, Locale.UK);
+		dayOfWeekBtn2.setText(twoDaysAway);
+		changeDatePickerAction(dayOfWeekBtn2, 2);
+
+		dayTracker++;
+		loopDayTracker(dayTracker);
+		String threeDaysAway = DayOfWeek.of(dayTracker).getDisplayName(TextStyle.FULL, Locale.UK);
+		dayOfWeekBtn3.setText(threeDaysAway);
+		changeDatePickerAction(dayOfWeekBtn3, 3);
+
+		dayTracker++;
+		loopDayTracker(dayTracker);
+		String fourDaysAway = DayOfWeek.of(dayTracker).getDisplayName(TextStyle.FULL, Locale.UK);
+		dayOfWeekBtn4.setText(fourDaysAway);
+		changeDatePickerAction(dayOfWeekBtn4, 4);
+
+		dayTracker++;
+		loopDayTracker(dayTracker);
+		String fiveDaysAway = DayOfWeek.of(dayTracker).getDisplayName(TextStyle.FULL, Locale.UK);
+		dayOfWeekBtn5.setText(fiveDaysAway);
+		changeDatePickerAction(dayOfWeekBtn5, 5);
+
+		dayTracker++;
+		loopDayTracker(dayTracker);
+		String sixDaysAway = DayOfWeek.of(dayTracker).getDisplayName(TextStyle.FULL, Locale.UK);
+		dayOfWeekBtn6.setText(sixDaysAway);
+		changeDatePickerAction(dayOfWeekBtn6, 6);
+
+		//welcome user
+		/*	CAUSING PROBLEMS
+		try {
+			UsersDatabase udb = new UsersDatabase();
+			String userName = udb.displayRow(user).getString("userName");
+			helloMessage.setText("Welcome "+userName);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}*/
+
 		//set up columns in the table
 		filmNameColumn.setCellValueFactory(new PropertyValueFactory<AddDataToTable, String>("filmName"));
-        filmDescriptionColumn.setCellValueFactory(new PropertyValueFactory<AddDataToTable, String>("filmDescription"));
-        filmTimeColumn.setCellValueFactory(new PropertyValueFactory<AddDataToTable, String>("filmTime"));
-        
-        // event listener for datePicker when date is changes films outputted are changed 
-        datePickerUser.valueProperty().addListener((ov, oldValue, newValue) -> {
-        	try {
-        		String theDate = datePickerUser.getValue().format(DateTimeFormatter.ofPattern("dd/MM/yy"));
-        		tableView.setItems(getFilms(theDate));
+		filmDescriptionColumn.setCellValueFactory(new PropertyValueFactory<AddDataToTable, String>("filmDescription"));
+		filmTimeColumn.setCellValueFactory(new PropertyValueFactory<AddDataToTable, String>("filmTime"));
+
+		// event listener for datePicker when date is changes films outputted are changed 
+		datePickerUser.valueProperty().addListener((ov, oldValue, newValue) -> {
+			try {
+				String theDate = datePickerUser.getValue().format(DateTimeFormatter.ofPattern("dd/MM/yy"));
+				tableView.setItems(getFilms(theDate));
 			} catch (IOException | ClassNotFoundException | SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} 
-        });
-        
-        //create even listener on table so by selecting row you can view the film poster
-        // it also sets the variable filmName to the film selected
-        tableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {      	
+		});
+
+		//create even listener on table so by selecting row you can view the film poster
+		// it also sets the variable filmName to the film selected
+		tableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {      	
 			try {
 				//sets image which is returned from the getImageFromTableMethod
 				TablePosition pos = tableView.getSelectionModel().getSelectedCells().get(0);
@@ -103,17 +173,17 @@ public class UserMainController {
 				e1.printStackTrace();
 			}
 		});  
-        
+
 	}
-	
-	
+
+
 	// creates and returns an observable of the films on a certain date this can then be added to the table
 	// also gets the film poster and places it in another observableList
 	// both in the same method as both based on the same querry
 	public ObservableList<AddDataToTable>  getFilms(String date) throws ClassNotFoundException, SQLException, IOException
 	{	
 		ScreeningsDatabase screeningDatabase = new ScreeningsDatabase();
-		
+
 		// creates a result set by calling  the detDataFromTwoTables method present in ScreeningDatabase
 		ResultSet res = screeningDatabase.getDataFromTwoTables("films", "screenings", date);
 		films.clear();
@@ -165,24 +235,24 @@ public class UserMainController {
 		return films;
 	}
 
-	
+
 	// finds out what row of table is selected, gets the name of the film and returns the correct poster
 	public Image getImageFromTable() throws IOException {
-		
+
 		// image is initialised to curtains in case film does not contain a photo
 		Image theImage = new Image("images/cinemaCurtains.png");
-		
+
 		//returns the poster that matches the film name 
 		for (AddImageToTable item : someImages) {
 			if (item.getFilmName() == currentFilm) {
 				theImage = item.getFilmImage();
 			} 
 		}
-		
-		
+
+
 		return theImage;
 	}
-	
+
 	// when the make a reservation button is pressed the make a reservation window is opened
 	// variables of filmName, screeningid and user are also passed onto the next controller
 	public void makeReservation(ActionEvent e) {
@@ -194,14 +264,14 @@ public class UserMainController {
 				Stage newReservationStage = new Stage();
 				FXMLLoader loader = new FXMLLoader();
 				Parent root = loader.load(getClass().getResource("/user/MakeReservation.fxml").openStream());
-				
+
 				//calls up reservation controller allowing variables to be set from current controller
 				MakeReservationController reservationController = (MakeReservationController)loader.getController();
 				// uses the setScreening method from reservationController in order to pass the variable screeningID and set the seats bases on whether they are reserved
 				reservationController.setSeats(screeningID);
 				//does the same but with user
 				reservationController.setUser(user);
-				
+
 				Scene scene = new Scene(root,500,500);
 				//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 				newReservationStage.setScene(scene);
@@ -210,18 +280,18 @@ public class UserMainController {
 			} else {
 				selectFilm.setText("please select a screening");
 			}
-			
+
 		} catch(Exception exc) {
 			exc.printStackTrace();
 		}
 	}
-	
-	
+
+
 	/**
 	 *  Sets the screeningID variable of the class corresponding to the film selected
 	 */
 	public void setScreeningID() {
-		
+
 		for (AddDataToTable item : films) {
 			if (item.getFilmName() == currentFilm) {
 				Integer si = Integer.parseInt(item.getScreeningID());
@@ -229,16 +299,48 @@ public class UserMainController {
 			} 
 		}
 	}
-	
+
 	/**
 	 * method in order to receive variable username from login controller and
 	 * set it as a variable 
 	 * @param user
 	 */
-	public void setUser(String user) {
+	public void setUser(String user) throws ClassNotFoundException, SQLException{
 		this.user = user;
 	}
+	
+	/**
+	 * If the day tracker exceeds 7 (i.e. goes beyond Sunday), 
+	 * return it to the start of the week (back to Monday)
+	 * @param dayTracker
+	 */
+	private void loopDayTracker(int dayTracker){
+		if(dayTracker>7){
+			this.dayTracker = 1;
+		}
+	}
+	
+	/**
+	 * Changed the value of th datePicker when button is clicked
+	 * @param b
+	 * @param value
+	 */
+	private void changeDatePickerAction(Button b, int value){
+		b.setOnAction(new EventHandler<ActionEvent>() {
+		     public void handle(ActionEvent e) {
+		    	 datePickerUser.setValue(LocalDate.now().plusDays(value));
+		    	 for(int i = 0; i < buttonArray.length; i++){
+		    		 buttonArray[i].setStyle("-fx-text-fill: white;"+
+		    				 				"-fx-background-color: none;");
+		    	 }
+		    	 b.setStyle("-fx-text-fill: yellow;"+
+		    			 "-fx-background-color: none;");
+		    }
+		});	
+	}
+	
+	
 
-	
-	
+
+
 }

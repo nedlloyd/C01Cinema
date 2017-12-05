@@ -20,6 +20,7 @@ public class MakeReservationController {
 
 	public int screeningID;
 	private int userID;
+	private ArrayList<Chairs> seatList = new ArrayList<Chairs>(50);
 
 	@FXML private Label filmLabel; @FXML private Label timeLabel;
 	@FXML private Button makeReservation;
@@ -44,9 +45,6 @@ public class MakeReservationController {
 	@FXML private Button seat_e3;	@FXML private Button seat_e4;	@FXML private Button seat_e5;
 	@FXML private Button seat_e6;	@FXML private Button seat_e7;	@FXML private Button seat_e8;
 	@FXML private Button seat_e9;	@FXML private Button seat_e10;
-
-	// arraylist of class chairs
-	private ArrayList<Chairs> seatList = new ArrayList<Chairs>(50);
 
 	@FXML
 	public void initialize() {
@@ -239,6 +237,7 @@ public class MakeReservationController {
 			id = res.getInt("userID");
 		}
 		this.userID = id;
+		
 
 	}
 

@@ -63,7 +63,6 @@ public class LoginController {
 			userMain.setUser(username);
 			
 			Scene scene = new Scene(root,600,600);
-			//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			userStage.setScene(scene);
 			userStage.setTitle("Cinema Booking");
 			userStage.show();
@@ -101,7 +100,6 @@ public class LoginController {
 						Stage adminStage = new Stage();
 						Parent root = FXMLLoader.load(getClass().getResource("/employee/AdminMain.fxml"));
 						Scene scene = new Scene(root,600,400);
-						//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 						adminStage.setScene(scene);
 						adminStage.setTitle("Cinema Employee Portal");
 						adminStage.show();
@@ -125,7 +123,6 @@ public class LoginController {
 						//passes usernameAttempt to userMainController
 						userMain.setUser(usernameAttempt);
 						Scene scene = new Scene(root,600,600);
-						//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 						userStage.setScene(scene);
 						userStage.setTitle("Cinema Booking");
 						userStage.show();
