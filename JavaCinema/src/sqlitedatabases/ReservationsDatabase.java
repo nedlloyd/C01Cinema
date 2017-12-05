@@ -66,7 +66,7 @@ public class ReservationsDatabase extends SQLiteDatabase  {
 
 
 	@Override
-	ResultSet displayRow(int reservationID) throws ClassNotFoundException, SQLException {
+	public ResultSet displayRow(int reservationID) throws ClassNotFoundException, SQLException {
 		if (con == null) {
 			getConnection();
 		}

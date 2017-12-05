@@ -7,12 +7,19 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="user.UserMainController">
+<AnchorPane prefHeight="600.0" prefWidth="700.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="user.UserMainController">
    <children>
-      <Label layoutX="93.0" layoutY="69.0" prefHeight="16.0" prefWidth="153.0" text="Hello!" />
-      <DatePicker fx:id="datePickerUser" layoutX="257.0" layoutY="64.0" />
-      <Label fx:id="selectFilm" layoutX="21.0" layoutY="169.0" prefHeight="16.0" prefWidth="214.0" />
+      <Label layoutX="75.0" layoutY="42.0" prefHeight="16.0" prefWidth="153.0" text="Hello" textFill="WHITE">
+         <font>
+            <Font name="AR BONNIE" size="36.0" />
+         </font></Label>
+      <DatePicker fx:id="datePickerUser" layoutX="291.0" layoutY="126.0" />
+      <Label fx:id="selectFilm" layoutX="21.0" layoutY="169.0" prefHeight="16.0" prefWidth="214.0" textFill="WHITE">
+         <font>
+            <Font name="Cambria" size="12.0" />
+         </font></Label>
       <TableView fx:id="tableView" layoutX="21.0" layoutY="216.0" prefHeight="227.0" prefWidth="451.0">
         <columns>
           <TableColumn fx:id="filmTimeColumn" prefWidth="82.0" text="Time" />
@@ -21,6 +28,9 @@
         </columns>
       </TableView>
       <ImageView fx:id="filmImage" fitHeight="150.0" fitWidth="200.0" layoutX="486.0" layoutY="216.0" pickOnBounds="true" preserveRatio="true" />
-      <Button fx:id="makeReservation" layoutX="276.0" layoutY="473.0" mnemonicParsing="false" onAction="#makeReservation" prefHeight="26.0" prefWidth="171.0" text="Make Reservation" />
+      <Button fx:id="makeReservation" layoutX="276.0" layoutY="473.0" mnemonicParsing="false" onAction="#makeReservation" prefHeight="26.0" prefWidth="171.0" style="-fx-background-color: green;" text="Make Reservation" textFill="WHITE">
+         <font>
+            <Font name="Cambria" size="12.0" />
+         </font></Button>
    </children>
 </AnchorPane>

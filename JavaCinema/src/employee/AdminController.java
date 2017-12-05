@@ -262,7 +262,7 @@ public class AdminController {
 				Stage primaryStage = new Stage();
 				Parent root = FXMLLoader.load(getClass().getResource("/application/Login.fxml"));
 				Scene scene = new Scene(root,800,500);
-				scene.getStylesheets().add(getClass().getResource("/application/application.css").toExternalForm());
+				//scene.getStylesheets().add(getClass().getResource("/application/application.css").toExternalForm());
 				primaryStage.setScene(scene);
 				primaryStage.show();
 				logOutButton.getScene().getWindow().hide();

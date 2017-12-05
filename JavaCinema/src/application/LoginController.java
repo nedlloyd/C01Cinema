@@ -1,7 +1,11 @@
 package application;
 
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -21,6 +25,8 @@ public class LoginController {
 
 	@FXML
 	private Label lblstatus;
+	@FXML 
+	private Label lbl2;
 	@FXML
 	private TextField txtUserName;
 	@FXML
@@ -29,7 +35,7 @@ public class LoginController {
 	private TextField newUserName;
 	@FXML
 	private TextField newPassword;
-	
+
 	private String usernameAttempt;
 	private String passwordAttempt;
 
@@ -44,11 +50,19 @@ public class LoginController {
 		UsersDatabase users = new UsersDatabase();
 		try {
 			users.createUser(username, password, "customer");
+			
 			lblstatus.getScene().getWindow().hide();
 			//Launch user/customer portal after sign up
 			Stage userStage = new Stage();
-			Parent root = FXMLLoader.load(getClass().getResource("/user/UserMain.fxml"));
-			Scene scene = new Scene(root,600,400);
+			FXMLLoader loader = new FXMLLoader();
+			Parent root = loader.load(getClass().getResource("/user/UserMain.fxml").openStream());
+			
+			//calls userMainController in order to pass variables
+			UserMainController userMain = (UserMainController)loader.getController();
+			//passes usernameAttempt to userMainController
+			userMain.setUser(username);
+			
+			Scene scene = new Scene(root,600,600);
 			//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			userStage.setScene(scene);
 			userStage.setTitle("Cinema Booking");
@@ -73,8 +87,7 @@ public class LoginController {
 		UsersDatabase users = new UsersDatabase();
 		ResultSet res;
 		try {
-			res = users.displayRow(usernameAttempt);
-			//String username = res.getString("userName");
+			res = users.displayRow(usernameAttempt); //Fetches the user details from database
 			String pw = res.getString("password");
 			String role = res.getString("role");
 
@@ -82,7 +95,7 @@ public class LoginController {
 			if(passwordAttempt.equals(pw)){
 				//Check to see whether the user is an employee/admin or a customer
 				if(role.equals("employee")||role.equals("admin")){
-					
+
 					//Launch admin portal
 					try{
 						Stage adminStage = new Stage();
@@ -95,20 +108,22 @@ public class LoginController {
 						lblstatus.getScene().getWindow().hide();
 					}
 					catch(Exception ex){
+						ex.printStackTrace();
 						System.out.println("Launching employee portal failed: "+ex);
 					}
 				}
 				else /*if user is a customer*/{
-					
+
 					//Launch user/customer portal
 					try{
 						Stage userStage = new Stage();
 						FXMLLoader loader = new FXMLLoader();
 						Parent root = loader.load(getClass().getResource("/user/UserMain.fxml").openStream());
+						
 						//calls userMainController in order to pass variables
 						UserMainController userMain = (UserMainController)loader.getController();
 						//passes usernameAttempt to userMainController
-						userMain.setuserID(usernameAttempt);
+						userMain.setUser(usernameAttempt);
 						Scene scene = new Scene(root,600,600);
 						//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 						userStage.setScene(scene);
@@ -117,7 +132,8 @@ public class LoginController {
 						lblstatus.getScene().getWindow().hide();
 					}
 					catch(Exception ex){
-						System.out.println("Launching Admin Scene failed: "+ex);
+						ex.printStackTrace();
+						System.out.println("Launching Customer Scene failed: "+ex);
 					}
 				}
 

@@ -30,8 +30,13 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import sqlitedatabases.ScreeningsDatabase;
+import sqlitedatabases.UsersDatabase;
 
 public class UserMainController {
+	
+	private String currentFilm;
+	private int screeningID;
+	private String user;
 	
 	@FXML
 	private Label helloMessage;
@@ -58,9 +63,7 @@ public class UserMainController {
 
 	private ObservableList<AddImageToTable> someImages = FXCollections.observableArrayList();
 	private ObservableList<AddDataToTable> films = FXCollections.observableArrayList();
-	private String currentFilm;
-	private int screeningID;
-	private String user;
+	
 
 	@FXML
 	public void initialize() throws ClassNotFoundException, SQLException{	
@@ -99,7 +102,7 @@ public class UserMainController {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-		});
+		});  
         
 	}
 	
@@ -116,7 +119,6 @@ public class UserMainController {
 		films.clear();
 		// populates two observableLists on with film data the other with film names and posters 
 		try {
-			int i = 1;
 			while (res.next()) {
 
 				//creates variables for each field that we need for the Observable list and then the table
@@ -186,18 +188,20 @@ public class UserMainController {
 	public void makeReservation(ActionEvent e) {
 		String theDate = datePickerUser.getValue().format(DateTimeFormatter.ofPattern("dd/MM/yy"));
 		try {
-			// variable screeningID set to currently sleected films screening id
-			screeningID();
+			// variable screeningID set to currently selected films screening id
+			setScreeningID();
 			if (screeningID != 0) {
 				Stage newReservationStage = new Stage();
 				FXMLLoader loader = new FXMLLoader();
 				Parent root = loader.load(getClass().getResource("/user/MakeReservation.fxml").openStream());
-				//calls up reservation controller allowing vraibles to be set from current controller
+				
+				//calls up reservation controller allowing variables to be set from current controller
 				MakeReservationController reservationController = (MakeReservationController)loader.getController();
 				// uses the setScreening method from reservationController in order to pass the variable screeningID and set the seats bases on whether they are reserved
 				reservationController.setSeats(screeningID);
 				//does the same but with user
 				reservationController.setUser(user);
+				
 				Scene scene = new Scene(root,500,500);
 				//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 				newReservationStage.setScene(scene);
@@ -213,8 +217,10 @@ public class UserMainController {
 	}
 	
 	
-	// returns the Screening ID for the film selected
-	public void screeningID() {
+	/**
+	 *  Sets the screeningID variable of the class corresponding to the film selected
+	 */
+	public void setScreeningID() {
 		
 		for (AddDataToTable item : films) {
 			if (item.getFilmName() == currentFilm) {
@@ -223,10 +229,16 @@ public class UserMainController {
 			} 
 		}
 	}
-	//method in order to recieve variable username from login controller and set it as a variable 
-	public void setuserID(String user) {
+	
+	/**
+	 * method in order to receive variable username from login controller and
+	 * set it as a variable 
+	 * @param user
+	 */
+	public void setUser(String user) {
 		this.user = user;
 	}
+
 	
 	
 }

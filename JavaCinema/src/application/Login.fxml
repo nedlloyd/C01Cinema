@@ -11,36 +11,55 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="loginWindow" prefHeight="550.0" prefWidth="739.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.LoginController">
+<AnchorPane fx:id="loginWindow" prefHeight="550.0" prefWidth="739.0" style="-fx-background-color: BLACK;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.LoginController">
    <children>
-      <Button alignment="CENTER" layoutX="146.0" layoutY="171.0" mnemonicParsing="false" onAction="#login" text="log in">
+      <Button alignment="CENTER" layoutX="180.0" layoutY="323.0" mnemonicParsing="false" onAction="#login" prefHeight="26.0" prefWidth="79.0" style="-fx-background-color: #b81818; -fx-border-color: white;" text="Sign in" textFill="WHITE">
          <font>
-            <Font name="Arial" size="13.0" />
+            <Font name="Cambria" size="13.0" />
          </font>
       </Button>
-      <TextField fx:id="txtUserName" layoutX="89.0" layoutY="88.0" promptText="User Name">
+      <TextField fx:id="txtUserName" layoutX="144.0" layoutY="237.0" promptText="User Name">
          <font>
-            <Font name="Arial" size="13.0" />
+            <Font name="Cambria" size="13.0" />
          </font>
       </TextField>
-      <PasswordField fx:id="txtPassword" layoutX="89.0" layoutY="133.0" promptText="Password">
+      <PasswordField fx:id="txtPassword" layoutX="144.0" layoutY="281.0" promptText="Password">
          <font>
-            <Font name="Arial" size="13.0" />
+            <Font name="Cambria" size="13.0" />
          </font>
       </PasswordField>
-      <Label fx:id="lblstatus" layoutX="60.0" layoutY="51.0" prefHeight="16.0" prefWidth="198.0" text="Sign in" textAlignment="CENTER">
+      <Label fx:id="lblstatus" alignment="CENTER" contentDisplay="CENTER" layoutY="44.0" prefHeight="50.0" prefWidth="745.0" text="neam ARTS Cinema" textAlignment="CENTER" textFill="WHITE">
          <font>
-            <Font name="Arial" size="13.0" />
+            <Font name="AR BONNIE" size="41.0" />
          </font>
       </Label>
-      <Label layoutX="499.0" layoutY="287.0" prefHeight="17.0" prefWidth="186.0" text="Sign up below" />
-      <TextField fx:id="newUserName" layoutX="499.0" layoutY="321.0" prefHeight="25.0" prefWidth="164.0" promptText="Create User Name" />
-      <PasswordField fx:id="newPassword" layoutX="499.0" layoutY="361.0" promptText="New Password">
+      <Label layoutX="454.0" layoutY="214.0" prefHeight="17.0" prefWidth="186.0" text="Create an account below" textFill="WHITE">
          <font>
-            <Font name="Arial" size="13.0" />
+            <Font name="Cambria" size="12.0" />
+         </font></Label>
+      <TextField fx:id="newUserName" layoutX="449.0" layoutY="238.0" prefHeight="25.0" prefWidth="164.0" promptText="Create User Name">
+         <font>
+            <Font name="Cambria" size="13.0" />
+         </font></TextField>
+      <PasswordField fx:id="newPassword" layoutX="448.0" layoutY="281.0" promptText="New Password">
+         <font>
+            <Font name="Cambria" size="13.0" />
          </font>
       </PasswordField>
-      <Label layoutX="520.0" layoutY="258.0" prefHeight="17.0" prefWidth="121.0" text="New Customer?" />
-      <Button fx:id="createAccountBtn" layoutX="521.0" layoutY="407.0" mnemonicParsing="false" onAction="#signUp" prefHeight="25.0" prefWidth="121.0" text="Create Account" />
+      <Label layoutX="454.0" layoutY="190.0" prefHeight="24.0" prefWidth="154.0" text="New Customer?" textFill="WHITE">
+         <font>
+            <Font name="Cambria" size="20.0" />
+         </font></Label>
+      <Button fx:id="createAccountBtn" layoutX="470.0" layoutY="324.0" mnemonicParsing="false" onAction="#signUp" prefHeight="25.0" prefWidth="121.0" style="-fx-background-color: #b81818; -fx-border-color: white;" text="Create Account" textFill="WHITE" />
+      <Label fx:id="lblstatus1" layoutX="144.0" layoutY="190.0" prefHeight="16.0" prefWidth="198.0" text="Sign in" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="Cambria" size="19.0" />
+         </font>
+      </Label>
+      <Label fx:id="lbl2" alignment="CENTER" contentDisplay="CENTER" layoutX="-1.0" layoutY="94.0" prefHeight="50.0" prefWidth="745.0" text="All the best films screened here." textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="Cambria" size="19.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

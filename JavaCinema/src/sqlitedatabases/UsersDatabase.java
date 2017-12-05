@@ -86,7 +86,7 @@ public class UsersDatabase extends SQLiteDatabase {
 	}
 
 	@Override
-	ResultSet displayRow(int primaryKey) throws ClassNotFoundException, SQLException {
+	public ResultSet displayRow(int primaryKey) throws ClassNotFoundException, SQLException {
 		if (con == null) {
 			getConnection();
 		}

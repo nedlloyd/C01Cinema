@@ -88,8 +88,7 @@ public class MakeReservationController {
 			ResultSet screeningResult = sdb.displayRow(screeningID);
 			String filmName = screeningResult.getString("filmName");
 			String time = screeningResult.getString("time");
-			String date;
-			date = screeningResult.getString("date");
+			String date = screeningResult.getString("date");
 			
 			filmLabel.setText(filmName);
 			timeLabel.setText(date+" "+time);
@@ -99,14 +98,11 @@ public class MakeReservationController {
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-
-
-
-		
 	}
 
 	/**
-	 * Sets the seats in the auditorium based on whether they have been reserved
+	 * Sets the seats in the auditorium based on whether they have been reserved.
+	 * This method is called in the UserMainController class.
 	 * @param screeningID
 	 */
 	public void setSeats(int screeningID) {
@@ -116,13 +112,7 @@ public class MakeReservationController {
 
 		// sets each seat in cinema to unoccupied and sets the image as an unoccupied chair
 		for (int i = 0; i < seatList.size(); i++) {
-			// new image created from empty chair
-			//			Image seatUnoccupied = new Image("/images/empty_chair.png", 40, 40, false, false);
-			// image view created from seatUnoccupied
-			//			ImageView unoccupied = new ImageView(seatUnoccupied);
-
-			// sets seats images for seats to unoccupied 
-			//			seatList.get(i).getButton().setGraphic(unoccupied);
+			
 			seatList.get(i).getButton().setStyle("-fx-background-color: #2dd321;");
 		}
 
@@ -139,8 +129,6 @@ public class MakeReservationController {
 		// seats iterated over in order to change any seats that have been reserved to occupied 
 		for (String reservedSeat : reservedSeats) {		
 			for (int i = 0; i < seatList.size(); i++) {
-				//Image seatOccupied = new Image("/images/occupied_chair.png", 40, 40, false, false);
-				//ImageView occupied = new ImageView(seatOccupied);
 
 				// if the reserved SeatID matches a seat number it is changed to the occupied picture
 				if (reservedSeat.equals(seatList.get(i).getId())) {
@@ -154,7 +142,7 @@ public class MakeReservationController {
 	}
 
 	/**
-	 * Arraylist created populated by seatIDs for reserved seats
+	 * ArrayList created populated by seatIDs for reserved seats
 	 * @return 
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
@@ -168,7 +156,7 @@ public class MakeReservationController {
 
 		ArrayList<String> reservedSeats = new ArrayList<String>();
 
-		//reserved seatIDs are passed into an arraylist 
+		//reserved seatIDs are passed into an ArrayList 
 		while (res.next()) {
 			String seatID = res.getString("seatID");
 			reservedSeats.add(seatID);
@@ -181,14 +169,8 @@ public class MakeReservationController {
 	 * @param chair
 	 */
 	public void changeGraphic(Chairs chair) {
-		//images created with which to add to reserved seats 
-		//		Image seatUnoccupied = new Image("/images/empty_chair.png", 40, 40, false, false);
-		//		ImageView unoccupied = new ImageView(seatUnoccupied);
-		//		Image seatOccupied = new Image("/images/occupied_chair.png", 40, 40, false, false);
-		//		ImageView occupied = new ImageView(seatOccupied);
 
-
-		// the image can only be changed if it has not already been booked 
+		// The button colour can only be changed if it has not already been booked 
 		// if the chair is unoccupied then set to occupied
 		if (chair.isSelectedForBooking()==false  && chair.isOccupied()==false) {  			
 			//			chair.getButton().setGraphic(occupied);
@@ -250,7 +232,7 @@ public class MakeReservationController {
 	 */
 	public void setUser(String user) throws ClassNotFoundException, SQLException {
 		UsersDatabase ud = new UsersDatabase();
-		//finds the userID based on the username
+		//finds the userID based on the user name
 		ResultSet res = ud.displayRow(user);
 		int id = 0;
 		while (res.next()) {
