@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
- * Sets up SQLite database with columns: screeningId, filmName, time, date 
+ * Sets up SQLite database with columns: screeningId (int), filmName, time (varchar()), date (varchar()) 
  * @author Ned & Sam
  *
  */

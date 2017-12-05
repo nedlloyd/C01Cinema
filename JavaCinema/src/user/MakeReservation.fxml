@@ -12,345 +12,356 @@
 
 <AnchorPane prefHeight="500.0" prefWidth="500.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="user.MakeReservationController">
    <children>
-      <Button fx:id="seat_a1" layoutX="86.0" layoutY="186.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
+      <Button fx:id="seat_a1" layoutX="86.0" layoutY="209.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
          <font>
             <Font size="10.0" />
          </font></Button>
-      <Label fx:id="littleLabel" layoutX="68.0" layoutY="32.0" prefHeight="17.0" prefWidth="111.0" text="Booking:" textFill="WHITE">
+      <Label fx:id="filmLabel" alignment="TOP_CENTER" layoutX="16.0" layoutY="27.0" prefHeight="30.0" prefWidth="470.0" text="Booking:" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="AR BONNIE" size="24.0" />
          </font></Label>
-      <Button fx:id="seat_a6" layoutX="274.0" layoutY="186.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
+      <Button fx:id="seat_a6" layoutX="274.0" layoutY="209.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
          <font>
             <Font size="10.0" />
          </font></Button>
-      <Button fx:id="seat_a5" layoutX="202.0" layoutY="186.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
+      <Button fx:id="seat_a5" layoutX="202.0" layoutY="209.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
          <font>
             <Font size="10.0" />
          </font></Button>
-      <Button fx:id="seat_a4" layoutX="173.0" layoutY="186.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
+      <Button fx:id="seat_a4" layoutX="173.0" layoutY="209.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
          <font>
             <Font size="10.0" />
          </font></Button>
-      <Button fx:id="seat_a3" layoutX="144.0" layoutY="186.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
+      <Button fx:id="seat_a3" layoutX="144.0" layoutY="209.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
          <font>
             <Font size="10.0" />
          </font></Button>
-      <Button fx:id="seat_a2" layoutX="115.0" layoutY="186.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
+      <Button fx:id="seat_a2" layoutX="115.0" layoutY="209.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
          <font>
             <Font size="10.0" />
          </font></Button>
-      <Button fx:id="makeReservation" layoutX="196.0" layoutY="407.0" mnemonicParsing="false" onAction="#reserve" style="-fx-background-color: #ffdc00;" text="Make Reservation" textAlignment="CENTER">
+      <Button fx:id="makeReservation" contentDisplay="CENTER" layoutX="196.0" layoutY="430.0" mnemonicParsing="false" onAction="#reserve" style="-fx-background-color: #ffdc00;" text="Make Reservation" textAlignment="CENTER">
          <font>
             <Font name="Cambria" size="12.0" />
          </font></Button>
-      <Button fx:id="seat_b2" layoutX="115.0" layoutY="223.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
+      <Button fx:id="seat_b2" layoutX="115.0" layoutY="246.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
          <font>
             <Font size="10.0" />
          </font>
       </Button>
-      <Button fx:id="seat_b3" layoutX="144.0" layoutY="223.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
+      <Button fx:id="seat_b3" layoutX="144.0" layoutY="246.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
          <font>
             <Font size="10.0" />
          </font>
       </Button>
-      <Button fx:id="seat_b4" layoutX="173.0" layoutY="223.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
+      <Button fx:id="seat_b4" layoutX="173.0" layoutY="246.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
          <font>
             <Font size="10.0" />
          </font>
       </Button>
-      <Button fx:id="seat_b5" layoutX="202.0" layoutY="223.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
+      <Button fx:id="seat_b5" layoutX="202.0" layoutY="246.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
          <font>
             <Font size="10.0" />
          </font>
       </Button>
-      <Button fx:id="seat_b1" layoutX="86.0" layoutY="223.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
+      <Button fx:id="seat_b1" layoutX="86.0" layoutY="246.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
          <font>
             <Font size="10.0" />
          </font>
       </Button>
-      <Button fx:id="seat_c2" layoutX="115.0" layoutY="259.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
+      <Button fx:id="seat_c2" layoutX="115.0" layoutY="282.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
          <font>
             <Font size="10.0" />
          </font>
       </Button>
-      <Button fx:id="seat_c3" layoutX="144.0" layoutY="259.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
+      <Button fx:id="seat_c3" layoutX="144.0" layoutY="282.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
          <font>
             <Font size="10.0" />
          </font>
       </Button>
-      <Button fx:id="seat_c4" layoutX="173.0" layoutY="259.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
+      <Button fx:id="seat_c4" layoutX="173.0" layoutY="282.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
          <font>
             <Font size="10.0" />
          </font>
       </Button>
-      <Button fx:id="seat_c5" layoutX="202.0" layoutY="259.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
+      <Button fx:id="seat_c5" layoutX="202.0" layoutY="282.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
          <font>
             <Font size="10.0" />
          </font>
       </Button>
-      <Button fx:id="seat_c1" layoutX="86.0" layoutY="259.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
+      <Button fx:id="seat_c1" layoutX="86.0" layoutY="282.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
          <font>
             <Font size="10.0" />
          </font>
       </Button>
-      <Button fx:id="seat_a7" layoutX="303.0" layoutY="186.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
+      <Button fx:id="seat_a7" layoutX="303.0" layoutY="209.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
          <font>
             <Font size="10.0" />
          </font>
       </Button>
-      <Button fx:id="seat_a8" layoutX="332.0" layoutY="186.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
+      <Button fx:id="seat_a8" layoutX="332.0" layoutY="209.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
          <font>
             <Font size="10.0" />
          </font>
       </Button>
-      <Button fx:id="seat_a9" layoutX="361.0" layoutY="186.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
+      <Button fx:id="seat_a9" layoutX="361.0" layoutY="209.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
          <font>
             <Font size="10.0" />
          </font>
       </Button>
-      <Button fx:id="seat_a10" layoutX="390.0" layoutY="186.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
+      <Button fx:id="seat_a10" layoutX="390.0" layoutY="209.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
          <font>
             <Font size="10.0" />
          </font>
       </Button>
-      <Button fx:id="seat_b6" layoutX="274.0" layoutY="223.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
+      <Button fx:id="seat_b6" layoutX="274.0" layoutY="246.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
          <font>
             <Font size="10.0" />
          </font>
       </Button>
-      <Button fx:id="seat_b10" layoutX="390.0" layoutY="223.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
+      <Button fx:id="seat_b10" layoutX="390.0" layoutY="246.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
          <font>
             <Font size="10.0" />
          </font>
       </Button>
-      <Button fx:id="seat_b9" layoutX="361.0" layoutY="223.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
+      <Button fx:id="seat_b9" layoutX="361.0" layoutY="246.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
          <font>
             <Font size="10.0" />
          </font>
       </Button>
-      <Button fx:id="seat_b8" layoutX="332.0" layoutY="223.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
+      <Button fx:id="seat_b8" layoutX="332.0" layoutY="246.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
          <font>
             <Font size="10.0" />
          </font>
       </Button>
-      <Button fx:id="seat_b7" layoutX="303.0" layoutY="223.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
+      <Button fx:id="seat_b7" layoutX="303.0" layoutY="246.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
          <font>
             <Font size="10.0" />
          </font>
       </Button>
-      <Button fx:id="seat_c6" layoutX="275.0" layoutY="259.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
+      <Button fx:id="seat_c6" layoutX="275.0" layoutY="282.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
          <font>
             <Font size="10.0" />
          </font>
       </Button>
-      <Button fx:id="seat_c10" layoutX="391.0" layoutY="259.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
+      <Button fx:id="seat_c10" layoutX="391.0" layoutY="282.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
          <font>
             <Font size="10.0" />
          </font>
       </Button>
-      <Button fx:id="seat_c9" layoutX="362.0" layoutY="259.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
+      <Button fx:id="seat_c9" layoutX="362.0" layoutY="282.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
          <font>
             <Font size="10.0" />
          </font>
       </Button>
-      <Button fx:id="seat_c8" layoutX="333.0" layoutY="259.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
+      <Button fx:id="seat_c8" layoutX="333.0" layoutY="282.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
          <font>
             <Font size="10.0" />
          </font>
       </Button>
-      <Button fx:id="seat_c7" layoutX="304.0" layoutY="259.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
+      <Button fx:id="seat_c7" layoutX="304.0" layoutY="282.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
          <font>
             <Font size="10.0" />
          </font>
       </Button>
-      <Button fx:id="seat_d1" layoutX="86.0" layoutY="297.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
+      <Button fx:id="seat_d1" layoutX="86.0" layoutY="320.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
          <font>
             <Font size="10.0" />
          </font>
       </Button>
-      <Button fx:id="seat_d5" layoutX="202.0" layoutY="297.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
+      <Button fx:id="seat_d5" layoutX="202.0" layoutY="320.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
          <font>
             <Font size="10.0" />
          </font>
       </Button>
-      <Button fx:id="seat_d4" layoutX="173.0" layoutY="297.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
+      <Button fx:id="seat_d4" layoutX="173.0" layoutY="320.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
          <font>
             <Font size="10.0" />
          </font>
       </Button>
-      <Button fx:id="seat_d3" layoutX="144.0" layoutY="297.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
+      <Button fx:id="seat_d3" layoutX="144.0" layoutY="320.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
          <font>
             <Font size="10.0" />
          </font>
       </Button>
-      <Button fx:id="seat_d2" layoutX="115.0" layoutY="297.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
+      <Button fx:id="seat_d2" layoutX="115.0" layoutY="320.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
          <font>
             <Font size="10.0" />
          </font>
       </Button>
-      <Button fx:id="seat_d6" layoutX="274.0" layoutY="297.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
+      <Button fx:id="seat_d6" layoutX="274.0" layoutY="320.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
          <font>
             <Font size="10.0" />
          </font>
       </Button>
-      <Button fx:id="seat_d10" layoutX="390.0" layoutY="297.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
+      <Button fx:id="seat_d10" layoutX="390.0" layoutY="320.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
          <font>
             <Font size="10.0" />
          </font>
       </Button>
-      <Button fx:id="seat_d9" layoutX="361.0" layoutY="297.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
+      <Button fx:id="seat_d9" layoutX="361.0" layoutY="320.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
          <font>
             <Font size="10.0" />
          </font>
       </Button>
-      <Button fx:id="seat_d8" layoutX="332.0" layoutY="297.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
+      <Button fx:id="seat_d8" layoutX="332.0" layoutY="320.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
          <font>
             <Font size="10.0" />
          </font>
       </Button>
-      <Button fx:id="seat_d7" layoutX="303.0" layoutY="297.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
+      <Button fx:id="seat_d7" layoutX="303.0" layoutY="320.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
          <font>
             <Font size="10.0" />
          </font>
       </Button>
-      <Button fx:id="seat_e1" layoutX="86.0" layoutY="337.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
+      <Button fx:id="seat_e1" layoutX="86.0" layoutY="360.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
          <font>
             <Font size="10.0" />
          </font>
       </Button>
-      <Button fx:id="seat_e5" layoutX="202.0" layoutY="337.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
+      <Button fx:id="seat_e5" layoutX="202.0" layoutY="360.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
          <font>
             <Font size="10.0" />
          </font>
       </Button>
-      <Button fx:id="seat_e4" layoutX="173.0" layoutY="337.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
+      <Button fx:id="seat_e4" layoutX="173.0" layoutY="360.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
          <font>
             <Font size="10.0" />
          </font>
       </Button>
-      <Button fx:id="seat_e3" layoutX="144.0" layoutY="337.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
+      <Button fx:id="seat_e3" layoutX="144.0" layoutY="360.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
          <font>
             <Font size="10.0" />
          </font>
       </Button>
-      <Button fx:id="seat_e2" layoutX="115.0" layoutY="337.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
+      <Button fx:id="seat_e2" layoutX="115.0" layoutY="360.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
          <font>
             <Font size="10.0" />
          </font>
       </Button>
-      <Button fx:id="seat_e6" layoutX="274.0" layoutY="337.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;" textFill="#ffdc00">
+      <Button fx:id="seat_e6" layoutX="274.0" layoutY="360.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;" textFill="#ffdc00">
          <font>
             <Font size="10.0" />
          </font>
       </Button>
-      <Button fx:id="seat_e10" layoutX="390.0" layoutY="337.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
+      <Button fx:id="seat_e10" layoutX="390.0" layoutY="360.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
          <font>
             <Font size="10.0" />
          </font>
       </Button>
-      <Button fx:id="seat_e9" layoutX="361.0" layoutY="337.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
+      <Button fx:id="seat_e9" layoutX="361.0" layoutY="360.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
          <font>
             <Font size="10.0" />
          </font>
       </Button>
-      <Button fx:id="seat_e8" layoutX="332.0" layoutY="337.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
+      <Button fx:id="seat_e8" layoutX="332.0" layoutY="360.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
          <font>
             <Font size="10.0" />
          </font>
       </Button>
-      <Button fx:id="seat_e7" layoutX="303.0" layoutY="337.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
+      <Button fx:id="seat_e7" layoutX="303.0" layoutY="360.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
          <font>
             <Font size="10.0" />
          </font>
       </Button>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="9.0" layoutX="114.0" layoutY="90.0" stroke="BLACK" strokeType="INSIDE" width="271.0" />
-      <Label fx:id="littleLabel1" layoutX="61.0" layoutY="188.0" prefHeight="17.0" prefWidth="17.0" text="a" textFill="WHITE">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="9.0" layoutX="114.0" layoutY="100.0" stroke="BLACK" strokeType="INSIDE" width="271.0" />
+      <Label fx:id="littleLabel1" layoutX="61.0" layoutY="211.0" prefHeight="17.0" prefWidth="17.0" text="a" textFill="WHITE">
          <font>
             <Font name="AR ESSENCE" size="13.0" />
          </font>
       </Label>
-      <Label fx:id="littleLabel11" layoutX="60.0" layoutY="225.0" prefHeight="17.0" prefWidth="17.0" text="b" textFill="WHITE">
+      <Label fx:id="littleLabel11" layoutX="60.0" layoutY="248.0" prefHeight="17.0" prefWidth="17.0" text="b" textFill="WHITE">
          <font>
             <Font name="AR ESSENCE" size="13.0" />
          </font>
       </Label>
-      <Label fx:id="littleLabel111" layoutX="60.0" layoutY="261.0" prefHeight="17.0" prefWidth="17.0" text="c" textFill="WHITE">
+      <Label fx:id="littleLabel111" layoutX="60.0" layoutY="284.0" prefHeight="17.0" prefWidth="17.0" text="c" textFill="WHITE">
          <font>
             <Font name="AR ESSENCE" size="13.0" />
          </font>
       </Label>
-      <Label fx:id="littleLabel112" layoutX="60.0" layoutY="299.0" prefHeight="17.0" prefWidth="17.0" text="d" textFill="WHITE">
+      <Label fx:id="littleLabel112" layoutX="60.0" layoutY="322.0" prefHeight="17.0" prefWidth="17.0" text="d" textFill="WHITE">
          <font>
             <Font name="AR ESSENCE" size="13.0" />
          </font>
       </Label>
-      <Label fx:id="littleLabel113" layoutX="60.0" layoutY="339.0" prefHeight="17.0" prefWidth="17.0" text="e" textFill="WHITE">
+      <Label fx:id="littleLabel113" layoutX="60.0" layoutY="362.0" prefHeight="17.0" prefWidth="17.0" text="e" textFill="WHITE">
          <font>
             <Font name="AR ESSENCE" size="13.0" />
          </font>
       </Label>
-      <Label fx:id="littleLabel1131" layoutX="96.0" layoutY="369.0" prefHeight="17.0" prefWidth="17.0" text="1" textFill="WHITE">
+      <Label fx:id="littleLabel1131" layoutX="96.0" layoutY="392.0" prefHeight="17.0" prefWidth="17.0" text="1" textFill="WHITE">
          <font>
             <Font name="AR ESSENCE" size="13.0" />
          </font>
       </Label>
-      <Label fx:id="littleLabel1132" layoutX="125.0" layoutY="369.0" prefHeight="17.0" prefWidth="17.0" text="2" textAlignment="CENTER" textFill="WHITE">
+      <Label fx:id="littleLabel1132" layoutX="125.0" layoutY="392.0" prefHeight="17.0" prefWidth="17.0" text="2" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="AR ESSENCE" size="13.0" />
          </font>
       </Label>
-      <Label fx:id="littleLabel1133" layoutX="155.0" layoutY="369.0" prefHeight="17.0" prefWidth="17.0" text="3" textFill="WHITE">
+      <Label fx:id="littleLabel1133" layoutX="155.0" layoutY="392.0" prefHeight="17.0" prefWidth="17.0" text="3" textFill="WHITE">
          <font>
             <Font name="AR ESSENCE" size="13.0" />
          </font>
       </Label>
-      <Label fx:id="littleLabel1134" layoutX="184.0" layoutY="369.0" prefHeight="17.0" prefWidth="17.0" text="4" textFill="WHITE">
+      <Label fx:id="littleLabel1134" layoutX="184.0" layoutY="392.0" prefHeight="17.0" prefWidth="17.0" text="4" textFill="WHITE">
          <font>
             <Font name="AR ESSENCE" size="13.0" />
          </font>
       </Label>
-      <Label fx:id="littleLabel1135" layoutX="216.0" layoutY="369.0" prefHeight="17.0" prefWidth="17.0" text="5" textFill="WHITE">
+      <Label fx:id="littleLabel1135" layoutX="216.0" layoutY="392.0" prefHeight="17.0" prefWidth="17.0" text="5" textFill="WHITE">
          <font>
             <Font name="AR ESSENCE" size="13.0" />
          </font>
       </Label>
-      <Label fx:id="littleLabel1136" layoutX="281.0" layoutY="369.0" prefHeight="17.0" prefWidth="17.0" text="6" textFill="WHITE">
+      <Label fx:id="littleLabel1136" layoutX="281.0" layoutY="392.0" prefHeight="17.0" prefWidth="17.0" text="6" textFill="WHITE">
          <font>
             <Font name="AR ESSENCE" size="13.0" />
          </font>
       </Label>
-      <Label fx:id="littleLabel1137" layoutX="312.0" layoutY="369.0" prefHeight="17.0" prefWidth="17.0" text="7" textFill="WHITE">
+      <Label fx:id="littleLabel1137" layoutX="312.0" layoutY="392.0" prefHeight="17.0" prefWidth="17.0" text="7" textFill="WHITE">
          <font>
             <Font name="AR ESSENCE" size="13.0" />
          </font>
       </Label>
-      <Label fx:id="littleLabel1138" layoutX="344.0" layoutY="369.0" prefHeight="17.0" prefWidth="17.0" text="8" textFill="WHITE">
+      <Label fx:id="littleLabel1138" layoutX="344.0" layoutY="392.0" prefHeight="17.0" prefWidth="17.0" text="8" textFill="WHITE">
          <font>
             <Font name="AR ESSENCE" size="13.0" />
          </font>
       </Label>
-      <Label fx:id="littleLabel1139" layoutX="370.0" layoutY="369.0" prefHeight="17.0" prefWidth="17.0" text="9" textFill="WHITE">
+      <Label fx:id="littleLabel1139" layoutX="370.0" layoutY="392.0" prefHeight="17.0" prefWidth="17.0" text="9" textFill="WHITE">
          <font>
             <Font name="AR ESSENCE" size="13.0" />
          </font>
       </Label>
-      <Label fx:id="littleLabel11310" layoutX="396.0" layoutY="369.0" prefHeight="17.0" prefWidth="17.0" text="10" textFill="WHITE">
+      <Label fx:id="littleLabel11310" layoutX="396.0" layoutY="392.0" prefHeight="17.0" prefWidth="17.0" text="10" textFill="WHITE">
          <font>
             <Font name="AR ESSENCE" size="13.0" />
          </font>
       </Label>
-      <Label fx:id="keyLbl1" layoutX="355.0" layoutY="431.0" text="Available" textFill="WHITE">
-         <font>
-            <Font name="Cambria" size="12.0" />
-         </font>
-      </Label>
-      <Label fx:id="keyLbl2" layoutX="356.0" layoutY="455.0" text="Unavailable" textFill="WHITE">
+      <Label fx:id="keyLbl1" alignment="CENTER_RIGHT" layoutX="289.0" layoutY="127.0" prefHeight="16.0" prefWidth="105.0" text="Available" textAlignment="RIGHT" textFill="WHITE">
          <font>
             <Font name="Cambria" size="12.0" />
          </font>
       </Label>
-      <Circle fx:id="key1" fill="#2dd321" layoutX="341.0" layoutY="440.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
-      <Circle fx:id="key2" fill="#d31818" layoutX="341.0" layoutY="464.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+      <Label fx:id="keyLbl2" alignment="CENTER_RIGHT" layoutX="290.0" layoutY="152.0" prefHeight="16.0" prefWidth="105.0" text="Unavailable" textAlignment="RIGHT" textFill="WHITE">
+         <font>
+            <Font name="Cambria" size="12.0" />
+         </font>
+      </Label>
+      <Circle fx:id="key1" fill="#2dd321" layoutX="407.0" layoutY="135.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fx:id="key2" fill="#d31818" layoutX="408.0" layoutY="160.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+      <Label fx:id="timeLabel" alignment="TOP_CENTER" layoutX="112.0" layoutY="57.0" prefHeight="30.0" prefWidth="271.0" textFill="WHITE">
+         <font>
+            <Font name="AR BONNIE" size="24.0" />
+         </font>
+      </Label>
+      <Circle fx:id="key3" fill="#ffdc00" layoutX="408.0" layoutY="185.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+      <Label fx:id="keyLbl3" alignment="CENTER_RIGHT" layoutX="289.0" layoutY="177.0" text="Selected for booking" textAlignment="RIGHT" textFill="WHITE">
+         <font>
+            <Font name="Cambria" size="12.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

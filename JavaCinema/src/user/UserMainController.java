@@ -189,7 +189,7 @@ public class UserMainController {
 			// variable screeningID set to currently sleected films screening id
 			screeningID();
 			if (screeningID != 0) {
-				Stage newScreeningStage = new Stage();
+				Stage newReservationStage = new Stage();
 				FXMLLoader loader = new FXMLLoader();
 				Parent root = loader.load(getClass().getResource("/user/MakeReservation.fxml").openStream());
 				//calls up reservation controller allowing vraibles to be set from current controller
@@ -200,9 +200,9 @@ public class UserMainController {
 				reservationController.setUser(user);
 				Scene scene = new Scene(root,500,500);
 				//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-				newScreeningStage.setScene(scene);
-				newScreeningStage.setTitle("New Screening");
-				newScreeningStage.show(); 	
+				newReservationStage.setScene(scene);
+				newReservationStage.setTitle("Select a seat");
+				newReservationStage.show(); 	
 			} else {
 				selectFilm.setText("please select a screening");
 			}
