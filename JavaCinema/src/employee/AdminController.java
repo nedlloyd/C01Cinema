@@ -32,39 +32,24 @@ import user.AddImageToTable;
 
 public class AdminController {
 	
-	@FXML 
-	private Button addScreeningButton;
-	
-	@FXML
-	private Label viewingsLbl;
-	
-	@FXML
-	private DatePicker datePicker;
-	
-	@FXML 
-	private TableView<AddDataToTable> tableView;
-	
-	@FXML 
-	private TableColumn<AddDataToTable, String> filmNameColumn;
-	
-	@FXML 
-	private TableColumn<AddDataToTable, String> filmDescriptionColumn;
-	
-	@FXML 
-	private TableColumn<AddDataToTable, String> filmTimeColumn;
-	
-	@FXML
-	private ImageView filmImage;
-	
-	@FXML
-	private Button logOutButton;
+	@FXML private Button addScreeningButton;
+	@FXML private Label viewingsLbl;
+	@FXML private Label titleLbl; 
+	@FXML private Label chooseDateLbl;
+	@FXML private DatePicker datePicker;
+	@FXML private TableView<AddDataToTable> tableView;
+	@FXML private TableColumn<AddDataToTable, String> filmNameColumn;
+	@FXML private TableColumn<AddDataToTable, String> filmDescriptionColumn;
+	@FXML private TableColumn<AddDataToTable, String> filmTimeColumn;
+	@FXML private ImageView filmImage;
+	@FXML private Button logOutButton;
 	
 	private ObservableList<AddImageToTable> someImages = FXCollections.observableArrayList();
 	
 	@FXML 
 	void initialize(){
 		datePicker.setValue(LocalDate.now());	
-		//viewingsLbl.setText("Viewings on "+datePicker.getValue().toString());
+		viewingsLbl.setText("Viewing Screenings on "+datePicker.getValue().format(DateTimeFormatter.ofPattern("dd/MM/yy"))+":");
 		//Display viewings on that date
 		
 		filmNameColumn.setCellValueFactory(new PropertyValueFactory<AddDataToTable, String>("filmName"));
@@ -97,8 +82,12 @@ public class AdminController {
         
 	}
 	
+	/**
+	 * Triggered by datePicker
+	 * @param e
+	 */
 	public void changeViewingDayListings(ActionEvent e){
-		viewingsLbl.setText("Viewings on "+datePicker.getValue().toString());
+		viewingsLbl.setText("Viewings on "+datePicker.getValue().format(DateTimeFormatter.ofPattern("dd/MM/yy"))+":");
 		//Change to viewings on the given day
 	}
 
@@ -253,7 +242,7 @@ public class AdminController {
 		}
 		
 		/**
-		 * Logs out of employee portal (i.e. closes employee portal window)
+		 *  Logs out of employee portal (i.e. closes employee portal window)
 		 *  and re-opens login window. 
 		 *  Triggered when Log out button is pressed.
 		 */
@@ -264,8 +253,10 @@ public class AdminController {
 				Scene scene = new Scene(root,800,500);
 				//scene.getStylesheets().add(getClass().getResource("/application/application.css").toExternalForm());
 				primaryStage.setScene(scene);
+				primaryStage.setTitle("NEAM-Arts-Cinema Login");
 				primaryStage.show();
-				logOutButton.getScene().getWindow().hide();
+			
+				logOutButton.getScene().getWindow().hide(); //Close employee portal
 				
 			} catch(Exception exception) {
 				exception.printStackTrace();

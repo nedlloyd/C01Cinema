@@ -27,6 +27,7 @@ public class MakeReservationController {
 	@FXML private Circle key1; @FXML private Label keyLbl1;
 	@FXML private Circle key2; @FXML private Label keyLbl2;
 	@FXML private Circle key3; @FXML private Label keyLbl3;
+	
 	//Seats:
 	@FXML private Button seat_a1;	@FXML private Button seat_a2; 	@FXML private Button seat_a3;
 	@FXML private Button seat_a4;	@FXML private Button seat_a5;	@FXML private Button seat_a6;
@@ -95,6 +96,9 @@ public class MakeReservationController {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
+		} catch(Exception e){
+			e.printStackTrace();
+			System.out.println("Cannot update film label");
 		}
 	}
 
@@ -130,7 +134,6 @@ public class MakeReservationController {
 
 				// if the reserved SeatID matches a seat number it is changed to the occupied picture
 				if (reservedSeat.equals(seatList.get(i).getId())) {
-					//	seatList.get(i).getButton().setGraphic(occupied);
 					seatList.get(i).getButton().setStyle("-fx-background-color: #d31818;");
 					seatList.get(i).setOccupied(true);
 					break;
@@ -212,7 +215,10 @@ public class MakeReservationController {
 			if (seat.isSelectedForBooking() && seat.isOccupied()==false){
 				seatId = seat.getId();
 				try {
+					//Add reservation to database:
 					rd.createReservation(userID, screeningID, seatId);
+					//Close window 
+					filmLabel.getScene().getWindow().hide();
 				} catch (ClassNotFoundException e1) {
 					e1.printStackTrace();
 				} catch (SQLException e1) {

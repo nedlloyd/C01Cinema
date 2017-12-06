@@ -13,7 +13,7 @@
 
 <AnchorPane fx:id="loginWindow" prefHeight="550.0" prefWidth="739.0" style="-fx-background-color: BLACK; -fx-border-color: white; -fx-border-style: solid; -fx-border-insets: 10px;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.LoginController">
    <children>
-      <Button alignment="CENTER" layoutX="180.0" layoutY="323.0" mnemonicParsing="false" onAction="#login" prefHeight="26.0" prefWidth="79.0" style="-fx-background-color: #b81818; -fx-border-color: white;" text="Sign in" textFill="WHITE">
+      <Button alignment="CENTER" layoutX="180.0" layoutY="323.0" mnemonicParsing="false" onAction="#login" prefHeight="26.0" prefWidth="79.0" style="-fx-background-color: #b81818; -fx-border-color: white; -fx-border-radius: 4px;" text="Sign in" textFill="WHITE">
          <font>
             <Font name="Cambria" size="13.0" />
          </font>
@@ -50,7 +50,7 @@
          <font>
             <Font name="Cambria" size="20.0" />
          </font></Label>
-      <Button fx:id="createAccountBtn" layoutX="470.0" layoutY="324.0" mnemonicParsing="false" onAction="#signUp" prefHeight="25.0" prefWidth="121.0" style="-fx-background-color: #b81818; -fx-border-color: white;" text="Create Account" textFill="WHITE" />
+      <Button fx:id="createAccountBtn" layoutX="470.0" layoutY="324.0" mnemonicParsing="false" onAction="#signUp" prefHeight="25.0" prefWidth="121.0" style="-fx-background-color: #b81818; -fx-border-color: white; -fx-border-radius: 4px;" text="Create Account" textFill="WHITE" />
       <Label fx:id="lblstatus1" layoutX="144.0" layoutY="190.0" prefHeight="16.0" prefWidth="198.0" text="Sign in" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="Cambria" size="19.0" />

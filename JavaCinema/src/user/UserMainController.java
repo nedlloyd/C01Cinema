@@ -42,8 +42,7 @@ public class UserMainController {
 	//private int userID;
 	private int dayTracker;
 
-	@FXML
-	private Label helloMessage;
+	@FXML private Label titleLbl; @FXML private Label helloMessage; @FXML private Label lbl1;
 
 	@FXML private Button todayBtn; @FXML private Button dayOfWeekBtn1; @FXML private Button dayOfWeekBtn2;
 	@FXML private Button dayOfWeekBtn3; @FXML private Button dayOfWeekBtn4; @FXML private Button dayOfWeekBtn5;
@@ -51,26 +50,16 @@ public class UserMainController {
 
 	DayOfTheWeekButton[] dayButtonArray = new DayOfTheWeekButton[7];
 
-	@FXML
-	private Button seeScreenings;
-	@FXML
-	private Label viewingsUser;
-	@FXML
-	private DatePicker datePickerUser; 
-	@FXML 
-	private TableView<AddDataToTable> tableView;
-	@FXML 
-	private TableColumn<AddDataToTable, String> filmNameColumn;
-	@FXML 
-	private TableColumn<AddDataToTable, String> filmDescriptionColumn;
-	@FXML 
-	private TableColumn<AddDataToTable, String> filmTimeColumn;
-	@FXML
-	private ImageView filmImage;
-	@FXML 
-	private Button makeReservation;
-	@FXML
-	private Label selectFilm;
+	@FXML private Button seeScreenings;
+	@FXML private Label viewingsUser; 
+	@FXML private DatePicker datePickerUser; 
+	@FXML private TableView<AddDataToTable> tableView;
+	@FXML private TableColumn<AddDataToTable, String> filmNameColumn;
+	@FXML private TableColumn<AddDataToTable, String> filmDescriptionColumn;
+	@FXML private TableColumn<AddDataToTable, String> filmTimeColumn;
+	@FXML private ImageView filmImage;
+	@FXML private Button makeReservation;
+	@FXML private Label selectFilm;
 
 	private ObservableList<AddImageToTable> someImages = FXCollections.observableArrayList();
 	private ObservableList<AddDataToTable> films = FXCollections.observableArrayList();

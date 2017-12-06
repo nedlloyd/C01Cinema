@@ -99,7 +99,7 @@ public class LoginController {
 					try{
 						Stage adminStage = new Stage();
 						Parent root = FXMLLoader.load(getClass().getResource("/employee/AdminMain.fxml"));
-						Scene scene = new Scene(root,600,400);
+						Scene scene = new Scene(root,700,600);
 						adminStage.setScene(scene);
 						adminStage.setTitle("Cinema Employee Portal");
 						adminStage.show();
