@@ -122,7 +122,7 @@ public class LoginController {
 						UserMainController userMain = (UserMainController)loader.getController();
 						//passes usernameAttempt to userMainController
 						userMain.setUser(usernameAttempt);
-						Scene scene = new Scene(root,600,600);
+						Scene scene = new Scene(root,700,600);
 						userStage.setScene(scene);
 						userStage.setTitle("Cinema Booking");
 						userStage.show();

@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="loginWindow" prefHeight="550.0" prefWidth="739.0" style="-fx-background-color: BLACK;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.LoginController">
+<AnchorPane fx:id="loginWindow" prefHeight="550.0" prefWidth="739.0" style="-fx-background-color: BLACK; -fx-border-color: white; -fx-border-style: solid; -fx-border-insets: 10px;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.LoginController">
    <children>
       <Button alignment="CENTER" layoutX="180.0" layoutY="323.0" mnemonicParsing="false" onAction="#login" prefHeight="26.0" prefWidth="79.0" style="-fx-background-color: #b81818; -fx-border-color: white;" text="Sign in" textFill="WHITE">
          <font>
@@ -28,7 +28,7 @@
             <Font name="Cambria" size="13.0" />
          </font>
       </PasswordField>
-      <Label fx:id="lblstatus" alignment="CENTER" contentDisplay="CENTER" layoutY="44.0" prefHeight="50.0" prefWidth="745.0" text="neam ARTS Cinema" textAlignment="CENTER" textFill="WHITE">
+      <Label fx:id="lblstatus" alignment="CENTER" contentDisplay="CENTER" layoutY="44.0" prefHeight="50.0" prefWidth="745.0" text="neam ARTS Cinema" textAlignment="CENTER" textFill="WHITE" underline="true">
          <font>
             <Font name="AR BONNIE" size="41.0" />
          </font>

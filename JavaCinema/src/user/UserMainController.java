@@ -48,8 +48,8 @@ public class UserMainController {
 	@FXML private Button todayBtn; @FXML private Button dayOfWeekBtn1; @FXML private Button dayOfWeekBtn2;
 	@FXML private Button dayOfWeekBtn3; @FXML private Button dayOfWeekBtn4; @FXML private Button dayOfWeekBtn5;
 	@FXML private Button dayOfWeekBtn6;
-	
-	Button[] buttonArray = new Button[7];
+
+	DayOfTheWeekButton[] dayButtonArray = new DayOfTheWeekButton[7];
 
 	@FXML
 	private Button seeScreenings;
@@ -78,26 +78,31 @@ public class UserMainController {
 
 	@FXML
 	public void initialize() throws ClassNotFoundException, SQLException{	
-		
-		buttonArray[0] = todayBtn; buttonArray[1] = dayOfWeekBtn1; buttonArray[2] = dayOfWeekBtn2;
-		buttonArray[3] = dayOfWeekBtn3; buttonArray[4] = dayOfWeekBtn4; buttonArray[5] = dayOfWeekBtn5;
-		buttonArray[6] = dayOfWeekBtn6;
+
+		dayButtonArray[0] =  new DayOfTheWeekButton(todayBtn,LocalDate.now());
+		dayButtonArray[1] =  new DayOfTheWeekButton( dayOfWeekBtn1,LocalDate.now().plusDays(1));
+		dayButtonArray[2] =  new DayOfTheWeekButton( dayOfWeekBtn2,LocalDate.now().plusDays(2));
+		dayButtonArray[3] =  new DayOfTheWeekButton( dayOfWeekBtn3,LocalDate.now().plusDays(3));
+		dayButtonArray[4] =  new DayOfTheWeekButton( dayOfWeekBtn4,LocalDate.now().plusDays(4));
+		dayButtonArray[5] =  new DayOfTheWeekButton( dayOfWeekBtn5,LocalDate.now().plusDays(5));
+		dayButtonArray[6] =  new DayOfTheWeekButton( dayOfWeekBtn6,LocalDate.now().plusDays(6));
+		//LINK UP TO DATEPICKER SO DATEPICKER CHANGES COLOR OF DAY TAGS
 
 		LocalDate todaysDate =LocalDate.now(); 
 		DayOfWeek day = todaysDate.getDayOfWeek();
 
 		//Set datePicker value to today
 		datePickerUser.setValue(todaysDate);
-		
+
 		//Set day of week buttons accordingly
 		dayTracker = day.getValue();
 		changeDatePickerAction(todayBtn, 0);
-		
+
 		dayTracker++;
 		loopDayTracker(dayTracker);
 		dayOfWeekBtn1.setText("Tomorrow");
 		changeDatePickerAction(dayOfWeekBtn1, 1);
-		
+
 		dayTracker++;
 		loopDayTracker(dayTracker);
 		String twoDaysAway = DayOfWeek.of(dayTracker).getDisplayName(TextStyle.FULL, Locale.UK);
@@ -151,6 +156,18 @@ public class UserMainController {
 			try {
 				String theDate = datePickerUser.getValue().format(DateTimeFormatter.ofPattern("dd/MM/yy"));
 				tableView.setItems(getFilms(theDate));
+				//Selecting day of datePicker changes which day button is highlighted: 
+				for(int i = 0 ; i < dayButtonArray.length ; i++){
+					//Selected day has yellow text
+					if(datePickerUser.getValue().equals(dayButtonArray[i].getDate())){
+						dayButtonArray[i].getButton().setStyle("-fx-text-fill: yellow;"+
+								"-fx-background-color: none;");
+					}else{ 	//Non selected days have white text 
+						dayButtonArray[i].getButton().setStyle("-fx-text-fill: white;"+
+								"-fx-background-color: none;");
+					}
+				}
+
 			} catch (IOException | ClassNotFoundException | SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -308,7 +325,7 @@ public class UserMainController {
 	public void setUser(String user) throws ClassNotFoundException, SQLException{
 		this.user = user;
 	}
-	
+
 	/**
 	 * If the day tracker exceeds 7 (i.e. goes beyond Sunday), 
 	 * return it to the start of the week (back to Monday)
@@ -319,7 +336,7 @@ public class UserMainController {
 			this.dayTracker = 1;
 		}
 	}
-	
+
 	/**
 	 * Changed the value of th datePicker when button is clicked
 	 * @param b
@@ -327,19 +344,19 @@ public class UserMainController {
 	 */
 	private void changeDatePickerAction(Button b, int value){
 		b.setOnAction(new EventHandler<ActionEvent>() {
-		     public void handle(ActionEvent e) {
-		    	 datePickerUser.setValue(LocalDate.now().plusDays(value));
-		    	 for(int i = 0; i < buttonArray.length; i++){
-		    		 buttonArray[i].setStyle("-fx-text-fill: white;"+
-		    				 				"-fx-background-color: none;");
-		    	 }
-		    	 b.setStyle("-fx-text-fill: yellow;"+
-		    			 "-fx-background-color: none;");
-		    }
+			public void handle(ActionEvent e) {
+				datePickerUser.setValue(LocalDate.now().plusDays(value));
+				for(int i = 0; i < dayButtonArray.length; i++){
+					dayButtonArray[i].getButton().setStyle("-fx-text-fill: white;"+
+							"-fx-background-color: none;");
+				}
+				b.setStyle("-fx-text-fill: yellow;"+
+						"-fx-background-color: none;");
+			}
 		});	
 	}
-	
-	
+
+
 
 
 
