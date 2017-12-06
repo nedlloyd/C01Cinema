@@ -42,10 +42,12 @@ public class UserMainController {
 	//private int userID;
 	private int dayTracker;
 
-	@FXML private Label titleLbl; @FXML private Label helloMessage; @FXML private Label lbl1;
+	@FXML private Label titleLbl;  @FXML private Label lbl1;
+	@FXML public Label helloMessage;
 
-	@FXML private Button todayBtn; @FXML private Button dayOfWeekBtn1; @FXML private Button dayOfWeekBtn2;
-	@FXML private Button dayOfWeekBtn3; @FXML private Button dayOfWeekBtn4; @FXML private Button dayOfWeekBtn5;
+	@FXML private Button todayBtn; 	@FXML private Button dayOfWeekBtn1; 
+	@FXML private Button dayOfWeekBtn2; @FXML private Button dayOfWeekBtn3;
+	@FXML private Button dayOfWeekBtn4; @FXML private Button dayOfWeekBtn5;
 	@FXML private Button dayOfWeekBtn6;
 
 	DayOfTheWeekButton[] dayButtonArray = new DayOfTheWeekButton[7];
@@ -68,6 +70,7 @@ public class UserMainController {
 	@FXML
 	public void initialize() throws ClassNotFoundException, SQLException{	
 
+		//LINK UP TO DATEPICKER SO DATEPICKER CHANGES COLOR OF DAY TAGS
 		dayButtonArray[0] =  new DayOfTheWeekButton(todayBtn,LocalDate.now());
 		dayButtonArray[1] =  new DayOfTheWeekButton( dayOfWeekBtn1,LocalDate.now().plusDays(1));
 		dayButtonArray[2] =  new DayOfTheWeekButton( dayOfWeekBtn2,LocalDate.now().plusDays(2));
@@ -75,9 +78,9 @@ public class UserMainController {
 		dayButtonArray[4] =  new DayOfTheWeekButton( dayOfWeekBtn4,LocalDate.now().plusDays(4));
 		dayButtonArray[5] =  new DayOfTheWeekButton( dayOfWeekBtn5,LocalDate.now().plusDays(5));
 		dayButtonArray[6] =  new DayOfTheWeekButton( dayOfWeekBtn6,LocalDate.now().plusDays(6));
-		//LINK UP TO DATEPICKER SO DATEPICKER CHANGES COLOR OF DAY TAGS
 
-		LocalDate todaysDate =LocalDate.now(); 
+
+		LocalDate todaysDate = LocalDate.now(); 
 		DayOfWeek day = todaysDate.getDayOfWeek();
 
 		//Set datePicker value to today
@@ -121,19 +124,6 @@ public class UserMainController {
 		String sixDaysAway = DayOfWeek.of(dayTracker).getDisplayName(TextStyle.FULL, Locale.UK);
 		dayOfWeekBtn6.setText(sixDaysAway);
 		changeDatePickerAction(dayOfWeekBtn6, 6);
-
-		//welcome user
-		/*	CAUSING PROBLEMS
-		try {
-			UsersDatabase udb = new UsersDatabase();
-			String userName = udb.displayRow(user).getString("userName");
-			helloMessage.setText("Welcome "+userName);
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}*/
 
 		//set up columns in the table
 		filmNameColumn.setCellValueFactory(new PropertyValueFactory<AddDataToTable, String>("filmName"));
@@ -259,8 +249,11 @@ public class UserMainController {
 		return theImage;
 	}
 
-	// when the make a reservation button is pressed the make a reservation window is opened
-	// variables of filmName, screeningid and user are also passed onto the next controller
+	/**
+	 *  when the make a reservation button is pressed the make a reservation window is opened
+	 * 	variables of filmName, screeningid and user are also passed onto the next controller
+	 * @param e
+	 */
 	public void makeReservation(ActionEvent e) {
 		String theDate = datePickerUser.getValue().format(DateTimeFormatter.ofPattern("dd/MM/yy"));
 		try {
@@ -277,6 +270,24 @@ public class UserMainController {
 				reservationController.setSeats(screeningID);
 				//does the same but with user
 				reservationController.setUser(user);
+
+				//Update label with film title and viewing time/date on new window
+				try {
+					ScreeningsDatabase sdb = new ScreeningsDatabase();
+					ResultSet screeningResult = sdb.displayRow(screeningID);
+					String filmName = screeningResult.getString("filmName");
+					String time = screeningResult.getString("time");
+					String date = screeningResult.getString("date");
+
+					reservationController.filmLabel.setText(filmName);
+					reservationController.timeLabel.setText(date+" "+time);
+
+				} catch (SQLException ex) {
+					ex.printStackTrace();
+				} catch (ClassNotFoundException ex) {
+					ex.printStackTrace();
+				}
+
 
 				Scene scene = new Scene(root,500,500);
 				//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());

@@ -173,7 +173,6 @@ public class AdminController {
 
 			// populates two observableLists on with film data the other with film names and posters 
 			try {
-				int i = 1;
 				while (res.next()) {
 
 					//creates variables for each field that we need for the Observable list and then the table

@@ -1,11 +1,8 @@
 package application;
 
 
-import java.io.File;
-import java.io.FileOutputStream;
+
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -16,25 +13,19 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import sqlitedatabases.UsersDatabase;
 import user.UserMainController;
 
 public class LoginController {
 
-	@FXML
-	private Label lblstatus;
-	@FXML 
-	private Label lbl2;
-	@FXML
-	private TextField txtUserName;
-	@FXML
-	private TextField txtPassword;
-	@FXML
-	private TextField newUserName;
-	@FXML
-	private TextField newPassword;
+	@FXML private Label lblstatus;
+	@FXML private Label lblTitle;
+	@FXML private Label lbl2;
+	@FXML private TextField txtUserName;
+	@FXML private TextField txtPassword;
+	@FXML private TextField newUserName;
+	@FXML private TextField newPassword;
 
 	private String usernameAttempt;
 	private String passwordAttempt;
@@ -61,8 +52,10 @@ public class LoginController {
 			UserMainController userMain = (UserMainController)loader.getController();
 			//passes usernameAttempt to userMainController
 			userMain.setUser(username);
+			//Welcome the user
+			userMain.helloMessage.setText("Welcome "+username+"!");
 			
-			Scene scene = new Scene(root,600,600);
+			Scene scene = new Scene(root,700,600);
 			userStage.setScene(scene);
 			userStage.setTitle("Cinema Booking");
 			userStage.show();
@@ -122,6 +115,9 @@ public class LoginController {
 						UserMainController userMain = (UserMainController)loader.getController();
 						//passes usernameAttempt to userMainController
 						userMain.setUser(usernameAttempt);
+						//Welcome the user
+						userMain.helloMessage.setText("Welcome back "+usernameAttempt+"!");
+						
 						Scene scene = new Scene(root,700,600);
 						userStage.setScene(scene);
 						userStage.setTitle("Cinema Booking");

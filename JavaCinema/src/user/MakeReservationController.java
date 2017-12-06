@@ -22,7 +22,7 @@ public class MakeReservationController {
 	private int userID;
 	private ArrayList<Chairs> seatList = new ArrayList<Chairs>(50);
 
-	@FXML private Label filmLabel; @FXML private Label timeLabel;
+	@FXML Label filmLabel; @FXML Label timeLabel;
 	@FXML private Button makeReservation;
 	@FXML private Circle key1; @FXML private Label keyLbl1;
 	@FXML private Circle key2; @FXML private Label keyLbl2;
@@ -81,25 +81,7 @@ public class MakeReservationController {
 		seatList.add(46, new Chairs(seat_e7, "e7")); seatList.add(47, new Chairs(seat_e8, "e8"));
 		seatList.add(48, new Chairs(seat_e9, "e9")); seatList.add(49, new Chairs(seat_e10, "e10"));
 
-		//Update label with film title and viewing time/date
-		try {
-			ScreeningsDatabase sdb = new ScreeningsDatabase();
-			ResultSet screeningResult = sdb.displayRow(screeningID);
-			String filmName = screeningResult.getString("filmName");
-			String time = screeningResult.getString("time");
-			String date = screeningResult.getString("date");
-			
-			filmLabel.setText(filmName);
-			timeLabel.setText(date+" "+time);
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch(Exception e){
-			e.printStackTrace();
-			System.out.println("Cannot update film label");
-		}
+		 
 	}
 
 	/**
