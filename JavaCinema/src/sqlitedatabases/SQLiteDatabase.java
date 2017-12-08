@@ -16,21 +16,21 @@ import java.sql.Statement;
 import javafx.scene.image.Image;
 
 public abstract class SQLiteDatabase {
-	
+
 	protected static Connection con;
 	protected String tableName;
-	
+
 	SQLiteDatabase(String tableName){
 		this.tableName = tableName;
 	}
-	
+
 	/**
 	 * Checks to see if database already exists. If it does not exist, this method will create a new 
 	 * database. 
 	 * @throws SQLException
 	 */
 	abstract void initialise() throws SQLException;
-	
+
 	/**
 	 * returns a ResultSet of a given row 
 	 * @param primaryKey
@@ -39,15 +39,15 @@ public abstract class SQLiteDatabase {
 	 * @throws SQLException
 	 */
 	abstract ResultSet displayRow(int primaryKey) throws ClassNotFoundException, SQLException;
-	
+
 	// gets connection to database
 	protected void getConnection() throws ClassNotFoundException, SQLException {
 		Class.forName("org.sqlite.JDBC");
 		con = DriverManager.getConnection("jdbc:sqlite:SQLiteTest1.db");
 		initialise();
 	}
-	
-		
+
+
 	/**
 	 * Deletes row with from database 
 	 * @param primarykey - the row we want to delete
@@ -55,21 +55,21 @@ public abstract class SQLiteDatabase {
 	 * @throws ClassNotFoundException
 	 */
 
-	
+
 	public void delete(int primarykey) throws SQLException, ClassNotFoundException {
 		if (con == null) {
 			getConnection();
 		}
-		
+
 		String sql = "DELETE FROM "+tableName+" WHERE id = ?";
 		PreparedStatement prep = con.prepareStatement(sql);
-		
+
 		// set the corresponding param
-        prep.setInt(1, primarykey);
-        // execute the delete statement
-        prep.executeUpdate();
-				
-    }
+		prep.setInt(1, primarykey);
+		// execute the delete statement
+		prep.executeUpdate();
+
+	}
 
 	/**
 	 * Adds new column to database 
@@ -82,48 +82,63 @@ public abstract class SQLiteDatabase {
 		if (con == null) {
 			getConnection();
 		}
-		
+
 		String sql = "ALTER TABLE " + tableName + " ADD COLUMN " + columnName + " " + type + ";";
 		PreparedStatement prep = con.prepareStatement(sql);
-		
-        prep.executeUpdate();
-        prep.close();
-        con.close();
-				
-    }
-	
+
+		prep.executeUpdate();
+		prep.close();
+		con.close();
+
+	}
+
 	/**
 	 *  methods to return column values 
 	 */
-		public ResultSet displayColumns(String column) throws ClassNotFoundException, SQLException {
-			if (con == null) {
-				getConnection();
-			}
-			
-			Statement state = con.createStatement();
-			ResultSet res = state.executeQuery("SELECT " + column + " FROM " + tableName);
-			return res;
+	public ResultSet displayColumns(String column) throws ClassNotFoundException, SQLException {
+		if (con == null) {
+			getConnection();
 		}
-		// overloaded displayColumns method
-		public ResultSet displayColumns(String column1, String column2) throws ClassNotFoundException, SQLException {
-			if (con == null) {
-				getConnection();
-			}
-			
-			Statement state = con.createStatement();
-			ResultSet res = state.executeQuery("SELECT " + column1 + ", " + column2 + " FROM " + tableName);
-			return res;
-		}
-		
-		// overloaded displayColumns method 3 columns
-		public ResultSet displayColumns(String column1, String column2, String column3) throws ClassNotFoundException, SQLException {
-			if (con == null) {
-				getConnection();
-			}
 
-			Statement state = con.createStatement();
-			ResultSet res = state.executeQuery("SELECT " + column1 + ", " + column2 + ", " + column3 + " FROM " + tableName);
-			return res;
+		Statement state = con.createStatement();
+		ResultSet res = state.executeQuery("SELECT " + column + " FROM " + tableName);
+		return res;
+	}
+	// overloaded displayColumns method
+	public ResultSet displayColumns(String column1, String column2) throws ClassNotFoundException, SQLException {
+		if (con == null) {
+			getConnection();
 		}
+
+		Statement state = con.createStatement();
+		ResultSet res = state.executeQuery("SELECT " + column1 + ", " + column2 + " FROM " + tableName);
+		return res;
+	}
+
+	// overloaded displayColumns method 3 columns
+	public ResultSet displayColumns(String column1, String column2, String column3) throws ClassNotFoundException, SQLException {
+		if (con == null) {
+			getConnection();
+		}
+
+		Statement state = con.createStatement();
+		ResultSet res = state.executeQuery("SELECT " + column1 + ", " + column2 + ", " + column3 + " FROM " + tableName);
+		return res;
+	}
+
+	/**
+	 * Returns number of rows in a ResultSet
+	 * @param res
+	 * @return
+	 * @throws SQLException
+	 */
+	public int countRowsInResultSet(ResultSet res) throws SQLException{
+		int rowcount = 0;
+		while(res.next()){
+			rowcount = res.getRow();
+		}
+		return rowcount;
+
+	}
 
 }

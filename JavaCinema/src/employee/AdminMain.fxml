@@ -13,33 +13,35 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="458.0" prefWidth="501.0" style="-fx-background-color: black; -fx-border-color: white; -fx-border-style: solid; -fx-border-insets: 5px;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="employee.AdminController">
+<AnchorPane prefHeight="600.0" prefWidth="700.0" style="-fx-background-color: black; -fx-border-color: white; -fx-border-style: solid; -fx-border-insets: 5px;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="employee.AdminController">
    <children>
-      <Label fx:id="titleLbl" layoutX="151.0" layoutY="27.0" prefHeight="17.0" prefWidth="199.0" text="Employee Portal" textFill="WHITE" underline="true">
+      <Label fx:id="titleLbl" layoutX="251.0" layoutY="25.0" prefHeight="17.0" prefWidth="199.0" text="Employee Portal" textFill="WHITE" underline="true">
          <font>
             <Font name="AR BONNIE" size="36.0" />
          </font></Label>
-      <DatePicker fx:id="datePicker" layoutX="225.0" layoutY="100.0" onAction="#changeViewingDayListings" onMouseDragEntered="#getScreenings" promptText="Current date" />
-      <Label fx:id="chooseDateLbl" layoutX="16.0" layoutY="103.0" prefHeight="18.0" prefWidth="199.0" text="Choose Date for new screening:" textFill="WHITE">
+      <DatePicker fx:id="datePicker" layoutX="282.0" layoutY="100.0" onAction="#changeViewingDayListings" onMouseDragEntered="#getScreenings" promptText="Current date" />
+      <Label fx:id="chooseDateLbl" layoutX="63.0" layoutY="104.0" prefHeight="18.0" prefWidth="199.0" text="Choose Date to view screenings:" textFill="WHITE">
          <font>
             <Font name="Cambria" size="14.0" />
          </font></Label>
-      <Label fx:id="viewingsLbl" layoutX="27.0" layoutY="142.0" prefHeight="31.0" prefWidth="329.0" textFill="WHITE">
+      <Label fx:id="viewingsLbl" layoutX="49.0" layoutY="142.0" prefHeight="31.0" prefWidth="329.0" textFill="WHITE">
          <font>
             <Font name="Cambria" size="14.0" />
          </font></Label>
-      <Button fx:id="addViewingBtn" layoutX="108.0" layoutY="349.0" mnemonicParsing="false" onAction="#openAddNewScreeningWindow" prefHeight="25.0" prefWidth="174.0" style="-fx-background-color: #b81818; -fx-border-color: white; -fx-border-radius: 4px;" text="Add new viewing to schedule" textFill="WHITE">
+      <Button fx:id="addViewingBtn" layoutX="291.0" layoutY="539.0" mnemonicParsing="false" onAction="#openAddNewScreeningWindow" prefHeight="25.0" prefWidth="174.0" style="-fx-background-color: #b81818; -fx-border-color: white; -fx-border-radius: 4px;" text="Add new viewing to schedule" textFill="WHITE">
          <font>
             <Font name="Cambria" size="12.0" />
          </font></Button>
-      <TableView fx:id="tableView" layoutX="16.0" layoutY="196.0" prefHeight="135.0" prefWidth="357.0">
+      <TableView fx:id="tableView" layoutX="49.0" layoutY="173.0" minHeight="348.0" minWidth="613.0" prefHeight="348.0" prefWidth="613.0">
         <columns>
-          <TableColumn fx:id="filmTimeColumn" prefWidth="71.0" text="Time" />
-          <TableColumn fx:id="filmNameColumn" prefWidth="79.0" text="Film" />
-            <TableColumn fx:id="filmDescriptionColumn" prefWidth="205.0" text="Description" />
+            <TableColumn fx:id="pictureColumn" prefWidth="128.0" resizable="false" text="Picture" />
+          <TableColumn fx:id="filmNameColumn" prefWidth="153.0" text="Film" />
+            <TableColumn fx:id="filmDescriptionColumn" prefWidth="193.0" text="Description" />
+          <TableColumn fx:id="filmTimeColumn" prefWidth="47.0" resizable="false" text="Time" />
+            <TableColumn fx:id="availableSeatsColumn" prefWidth="91.0" resizable="false" text="Available Seats" />
         </columns>
       </TableView>
-      <ImageView fx:id="filmImage" fitHeight="135.0" fitWidth="99.0" layoutX="387.0" layoutY="196.0" pickOnBounds="true" preserveRatio="true" />
-      <Button fx:id="logOutButton" layoutX="419.0" layoutY="408.0" mnemonicParsing="false" onAction="#logOut" style="-fx-background-color: #b81818; -fx-border-color: white; -fx-border-radius: 4px;" text="Log out" textFill="WHITE" />
+      <ImageView fx:id="filmImage" fitHeight="135.0" fitWidth="99.0" layoutX="581.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true" />
+      <Button fx:id="logOutButton" layoutX="621.0" layoutY="558.0" mnemonicParsing="false" onAction="#logOut" style="-fx-background-color: #b81818; -fx-border-color: white; -fx-border-radius: 4px;" text="Log out" textFill="WHITE" />
    </children>
 </AnchorPane>

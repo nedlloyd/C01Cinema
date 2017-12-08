@@ -17,71 +17,97 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Control;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TablePosition;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Callback;
+import sqlitedatabases.ReservationsDatabase;
 import sqlitedatabases.ScreeningsDatabase;
 import user.AddDataToTable;
 import user.AddImageToTable;
 
 public class AdminController {
-	
+
 	@FXML private Button addScreeningButton;
 	@FXML private Label viewingsLbl;
 	@FXML private Label titleLbl; 
 	@FXML private Label chooseDateLbl;
 	@FXML private DatePicker datePicker;
 	@FXML private TableView<AddDataToTable> tableView;
+	@FXML private TableColumn<AddDataToTable, ImageView> pictureColumn;
 	@FXML private TableColumn<AddDataToTable, String> filmNameColumn;
 	@FXML private TableColumn<AddDataToTable, String> filmDescriptionColumn;
 	@FXML private TableColumn<AddDataToTable, String> filmTimeColumn;
+	@FXML private TableColumn<AddDataToTable, Integer> availableSeatsColumn;
 	@FXML private ImageView filmImage;
 	@FXML private Button logOutButton;
-	
+
 	private ObservableList<AddImageToTable> someImages = FXCollections.observableArrayList();
-	
+
 	@FXML 
 	void initialize(){
+		
 		datePicker.setValue(LocalDate.now());	
 		viewingsLbl.setText("Viewing Screenings on "+datePicker.getValue().format(DateTimeFormatter.ofPattern("dd/MM/yy"))+":");
-		//Display viewings on that date
-		
+
+		//Setting up columns in screenings table
 		filmNameColumn.setCellValueFactory(new PropertyValueFactory<AddDataToTable, String>("filmName"));
-        filmDescriptionColumn.setCellValueFactory(new PropertyValueFactory<AddDataToTable, String>("filmDescription"));
-        filmTimeColumn.setCellValueFactory(new PropertyValueFactory<AddDataToTable, String>("filmTime"));
-        
-        // event listener for datePicker when date is changes films outputted are changed 
-        datePicker.valueProperty().addListener((ov, oldValue, newValue) -> {
-        	try {
-        		String theDate = datePicker.getValue().format(DateTimeFormatter.ofPattern("dd/MM/yy"));
-        		tableView.setItems(getFilms(theDate));
+		filmDescriptionColumn.setCellValueFactory(new PropertyValueFactory<AddDataToTable, String>("filmDescription"));
+		filmTimeColumn.setCellValueFactory(new PropertyValueFactory<AddDataToTable, String>("filmTime"));
+		availableSeatsColumn.setCellValueFactory(new PropertyValueFactory<AddDataToTable, Integer>("availableSeats"));
+		pictureColumn.setCellValueFactory(new PropertyValueFactory<AddDataToTable, ImageView>("filmImage"));
+
+		//Wrapping text in description cell so it will always fit inside the cell.
+		//Found at https://stackoverflow.com/questions/22732013/javafx-tablecolumn-text-wrapping
+		filmDescriptionColumn.setCellFactory(new Callback<TableColumn<AddDataToTable, String>, TableCell<AddDataToTable, String>>() {
+			@Override
+			public TableCell<AddDataToTable, String> call(TableColumn<AddDataToTable, String> param) {
+		            
+					TableCell<AddDataToTable, String> cell = new TableCell<>();
+		            Text text = new Text();
+		            cell.setGraphic(text);
+		            cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
+		            text.wrappingWidthProperty().bind(cell.widthProperty());
+		            text.textProperty().bind(cell.itemProperty());
+		            return cell ;
+		        }
+		});
+		
+		// event listener for datePicker when date is changes films outputted are changed 
+		datePicker.valueProperty().addListener((ov, oldValue, newValue) -> {
+			try {
+				
+				String theDate = datePicker.getValue().format(DateTimeFormatter.ofPattern("dd/MM/yy"));
+				tableView.setItems(getFilms(theDate));
+			
 			} catch (IOException | ClassNotFoundException | SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} 
-        });
-        
-        filmImage.setImage(new Image("images/cinemaCurtains.png"));
-        
-        //create even listener on table so by selecting row you can view the film poster
-        tableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {      	
+		});
+
+		filmImage.setImage(new Image("images/cinemaCurtains.png"));
+
+		//create even listener on table so by selecting row you can view the film poster
+		tableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {      	
 			try {
 				//sets image which is returned from the getImageFromTableMethod
 				filmImage.setImage(getImageFromTable()); 
 			} catch (IOException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 		});
-        
+
 	}
-	
+
 	/**
 	 * Triggered by datePicker
 	 * @param e
@@ -92,23 +118,23 @@ public class AdminController {
 	}
 
 	public void openAddNewScreeningWindow(ActionEvent e){
-	
+
 		try {
 			Stage newScreeningStage = new Stage();
-		    Parent root = FXMLLoader.load(getClass().getResource("/employee/AddScreeningForm.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource("/employee/AddScreeningForm.fxml"));
 			Scene scene = new Scene(root,500,500);
 			//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			newScreeningStage.setScene(scene);
 			newScreeningStage.setTitle("New Screening");
 			newScreeningStage.show(); 	
-			
+
 		} catch(Exception exc) {
 			exc.printStackTrace();
 		}
-		
-		
+
+
 	}
-	
+
 	public ObservableList<AddDataToTable>  getFilms() throws ClassNotFoundException, SQLException
 	{	
 		ScreeningsDatabase screeningDatabase = new ScreeningsDatabase();
@@ -130,9 +156,10 @@ public class AdminController {
 				String name = res.getString("filmName");
 				String description = res.getString("filmDescription");
 				String time = res.getString("time");
+				String screeningId = res.getString("screeningId");
 
 				//initialises AddDataToTable object with constructor that takes the variables we just intialised
-				AddDataToTable i = new AddDataToTable(name, description, time);
+				AddDataToTable i = new AddDataToTable(name, description, time, screeningId);
 
 				//adds AddDataToTable objects to observable list 
 				films.add(i);
@@ -149,122 +176,130 @@ public class AdminController {
 		//returns the observable list 
 		return films;
 	}
-	
+
 	public void getScreenings(ActionEvent e) throws ClassNotFoundException, SQLException {
 		tableView.setItems(getFilms());
 	}
-	
-	// creates and returns an observable of the films on a certain date this can then be added to the table
-		public ObservableList<AddDataToTable>  getFilms(String date) throws ClassNotFoundException, SQLException, IOException
-		{	
-			ScreeningsDatabase screeningDatabase = new ScreeningsDatabase();
 
-
-			//initialises observable list 
-			ObservableList<AddDataToTable> films = FXCollections.observableArrayList();
-
-
-			//gets the date from the date picker in the correct format
-			//String date = datePicker.getValue().format(DateTimeFormatter.ofPattern("dd/MM/yy"));
-
-
-			// creates a result set by calling  the detDataFromTwoTables method present in ScreeningDatabase
-			ResultSet res = screeningDatabase.getDataFromTwoTables("films", "screenings", date);
-
-			// populates two observableLists on with film data the other with film names and posters 
-			try {
-				while (res.next()) {
-
-					//creates variables for each field that we need for the Observable list and then the table
-					String name = res.getString("filmName");
-					String description = res.getString("filmDescription");
-					String time = res.getString("time");
-					InputStream binaryStream = res.getBinaryStream("image");
-
-					//initialises AddDataToTable object with constructor that takes the variables name, time and description
-					AddDataToTable nextObject = new AddDataToTable(name, description, time);
-
-					//ensures that there is a photo for a certain film 
-					if (binaryStream != null) {
-						//creates file 
-						OutputStream os = new FileOutputStream (new File("photo.jpg"));
-						byte[] content = new byte[1024];
-						int size = 0;
-						//while binary Stream holds more than -1
-						while ((size = binaryStream.read(content)) != -1) {
-							//os becomes an image
-							os.write(content, 0, size);
-						}
-						os.close();
-						binaryStream.close();
-
-						//image variable becomes the file we just wrote
-						Image image = new Image("file:photo.jpg", 100, 150, true, true);
-
-						//image becomes an AddImageToTable
-						AddImageToTable nextImage = new AddImageToTable(image, name);
-						//it is then added to an observableList 
-						someImages.add(nextImage);
-					}				
-					//adds AddDataToTable objects to observable list 
-					films.add(nextObject);
-				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				System.out.println("error with populating table form database");
-			}
-			//returns the observable list 
-			return films;
-		}
+	/**
+	 * Creates and returns an observable of the films on a certain date this can then be added to the table
+	 * @param date
+	 * @return
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 * @throws IOException
+	 */
+	public ObservableList<AddDataToTable>  getFilms(String date) throws ClassNotFoundException, SQLException, IOException{	
+		//initialises observable list 
+		ObservableList<AddDataToTable> films = FXCollections.observableArrayList();
 		
-		// finds out what row of table is selected, gets the name of the film and returns the correct poster
-		public Image getImageFromTable() throws IOException {
-			
-			// image is initialised to curtains in case film does not contain a photo
-			Image theImage = new Image("images/cinemaCurtains.png");
-			
-			// gets index of row selected
-			TablePosition pos = tableView.getSelectionModel().getSelectedCells().get(0);
-			int row = pos.getRow();
-			
-			// gets film name of object on that row 
-			String fn = tableView.getItems().get(row).getFilmName();
-			
-			//returns the poster that matches the film name 
-			for (AddImageToTable item : someImages) {
-				if (item.getFilmName() == fn) {
-					theImage = item.getFilmImage();
-				} 
-			}
-			return theImage;
-		}
+		ScreeningsDatabase screeningDatabase = new ScreeningsDatabase();
+		// creates a result set by calling  the detDataFromTwoTables method present in ScreeningDatabase
+		ResultSet screeningsResultSet = screeningDatabase.getDataFromTwoTables("films", "screenings", date);
+
+		ReservationsDatabase reservationsDatabase = new ReservationsDatabase();
 		
-		/**
-		 *  Logs out of employee portal (i.e. closes employee portal window)
-		 *  and re-opens login window. 
-		 *  Triggered when Log out button is pressed.
-		 */
-		public void logOut(ActionEvent e){
-			try {
-				Stage primaryStage = new Stage();
-				Parent root = FXMLLoader.load(getClass().getResource("/application/Login.fxml"));
-				Scene scene = new Scene(root,800,500);
-				//scene.getStylesheets().add(getClass().getResource("/application/application.css").toExternalForm());
-				primaryStage.setScene(scene);
-				primaryStage.setTitle("NEAM-Arts-Cinema Login");
-				primaryStage.show();
-			
-				logOutButton.getScene().getWindow().hide(); //Close employee portal
+		// populates two observableLists on with film data the other with film names and posters 
+		try {
+			while (screeningsResultSet.next()) {
+
+				//creates variables for each field that we need for the Observable list and then the table
+				String name = screeningsResultSet.getString("filmName");
+				String description = screeningsResultSet.getString("filmDescription");
+				String time = screeningsResultSet.getString("time");
+				String screeningId = screeningsResultSet.getString("ScreeningId");
+				InputStream binaryStream = screeningsResultSet.getBinaryStream("image");
+
+				//initialises AddDataToTable object with constructor that takes the variables name, time and description
+				AddDataToTable nextObject = new AddDataToTable(name, description, time, screeningId);
 				
-			} catch(Exception exception) {
-				exception.printStackTrace();
+				nextObject.calculateAndSetAvailableSeatsCount(reservationsDatabase, screeningId, 50);
+				
+				//ensures that there is a photo for a certain film 
+				if (binaryStream != null) {
+					//creates file 
+					OutputStream os = new FileOutputStream (new File("photo.jpg"));
+					byte[] content = new byte[1024];
+					int size = 0;
+					//while binary Stream holds more than -1
+					while ((size = binaryStream.read(content)) != -1) {
+						//os becomes an image
+						os.write(content, 0, size);
+					}
+					os.close();
+					binaryStream.close();
+
+					//image variable becomes the file we just wrote
+					Image image = new Image("file:photo.jpg", 100, 150, true, true);
+					ImageView imageView = new ImageView();
+					imageView.setImage(image);
+					
+					nextObject.setFilmImage(imageView);
+
+					//image becomes an AddImageToTable
+					AddImageToTable nextImage = new AddImageToTable(image, name);
+					//it is then added to an observableList 
+					someImages.add(nextImage);
+				}				
+				//adds AddDataToTable objects to observable list 
+				films.add(nextObject);
 			}
-			
-			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("error with populating table form database");
 		}
+		//returns the observable list 
+		return films;
+	}
+
+	// finds out what row of table is selected, gets the name of the film and returns the correct poster
+	public Image getImageFromTable() throws IOException {
+
+		// image is initialised to curtains in case film does not contain a photo
+		Image theImage = new Image("images/cinemaCurtains.png");
+
+		// gets index of row selected
+		TablePosition pos = tableView.getSelectionModel().getSelectedCells().get(0);
+		int row = pos.getRow();
+
+		// gets film name of object on that row 
+		String fn = tableView.getItems().get(row).getFilmName();
+
+		//returns the poster that matches the film name 
+		for (AddImageToTable item : someImages) {
+			if (item.getFilmName() == fn) {
+				theImage = item.getFilmImage();
+			} 
+		}
+		return theImage;
+	}
 
 	
-	
+	/**
+	 *  Logs out of employee portal (i.e. closes employee portal window)
+	 *  and re-opens login window. 
+	 *  Triggered when Log out button is pressed.
+	 */
+	public void logOut(ActionEvent e){
+		try {
+			Stage primaryStage = new Stage();
+			Parent root = FXMLLoader.load(getClass().getResource("/application/Login.fxml"));
+			Scene scene = new Scene(root,800,500);
+			primaryStage.setScene(scene);
+			primaryStage.setTitle("NEAM-Arts-Cinema Login");
+			primaryStage.show();
+
+			logOutButton.getScene().getWindow().hide(); //Close employee portal
+
+		} catch(Exception exception) {
+			exception.printStackTrace();
+		}
+
+
+	}
+
+
+
 
 }
