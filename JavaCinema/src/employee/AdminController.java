@@ -27,6 +27,9 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -55,10 +58,12 @@ public class AdminController {
 
 	@FXML 
 	void initialize(){
-		
+
 		datePicker.setValue(LocalDate.now());	
 		viewingsLbl.setText("Viewing Screenings on "+datePicker.getValue().format(DateTimeFormatter.ofPattern("dd/MM/yy"))+":");
 
+		tableView.getStylesheets().add(getClass().getResource("/employee/tableview.css").toExternalForm());
+		
 		//Setting up columns in screenings table
 		filmNameColumn.setCellValueFactory(new PropertyValueFactory<AddDataToTable, String>("filmName"));
 		filmDescriptionColumn.setCellValueFactory(new PropertyValueFactory<AddDataToTable, String>("filmDescription"));
@@ -71,24 +76,28 @@ public class AdminController {
 		filmDescriptionColumn.setCellFactory(new Callback<TableColumn<AddDataToTable, String>, TableCell<AddDataToTable, String>>() {
 			@Override
 			public TableCell<AddDataToTable, String> call(TableColumn<AddDataToTable, String> param) {
-		            
-					TableCell<AddDataToTable, String> cell = new TableCell<>();
-		            Text text = new Text();
-		            cell.setGraphic(text);
-		            cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
-		            text.wrappingWidthProperty().bind(cell.widthProperty());
-		            text.textProperty().bind(cell.itemProperty());
-		            return cell ;
-		        }
+
+				TableCell<AddDataToTable, String> cell = new TableCell<>();
+				Text text = new Text();
+				cell.setGraphic(text);
+				cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
+				text.wrappingWidthProperty().bind(cell.widthProperty());
+				text.textProperty().bind(cell.itemProperty());
+
+				text.setFill(Color.WHITE);
+				cell.setBackground(new Background(new BackgroundFill(Color.BLACK, null, null)));
+				return cell ;
+			}
 		});
-		
+
+
 		// event listener for datePicker when date is changes films outputted are changed 
 		datePicker.valueProperty().addListener((ov, oldValue, newValue) -> {
 			try {
-				
+
 				String theDate = datePicker.getValue().format(DateTimeFormatter.ofPattern("dd/MM/yy"));
 				tableView.setItems(getFilms(theDate));
-			
+
 			} catch (IOException | ClassNotFoundException | SQLException e) {
 				e.printStackTrace();
 			} 
@@ -192,13 +201,13 @@ public class AdminController {
 	public ObservableList<AddDataToTable>  getFilms(String date) throws ClassNotFoundException, SQLException, IOException{	
 		//initialises observable list 
 		ObservableList<AddDataToTable> films = FXCollections.observableArrayList();
-		
+
 		ScreeningsDatabase screeningDatabase = new ScreeningsDatabase();
 		// creates a result set by calling  the detDataFromTwoTables method present in ScreeningDatabase
 		ResultSet screeningsResultSet = screeningDatabase.getDataFromTwoTables("films", "screenings", date);
 
 		ReservationsDatabase reservationsDatabase = new ReservationsDatabase();
-		
+
 		// populates two observableLists on with film data the other with film names and posters 
 		try {
 			while (screeningsResultSet.next()) {
@@ -212,9 +221,9 @@ public class AdminController {
 
 				//initialises AddDataToTable object with constructor that takes the variables name, time and description
 				AddDataToTable nextObject = new AddDataToTable(name, description, time, screeningId);
-				
+
 				nextObject.calculateAndSetAvailableSeatsCount(reservationsDatabase, screeningId, 50);
-				
+
 				//ensures that there is a photo for a certain film 
 				if (binaryStream != null) {
 					//creates file 
@@ -233,7 +242,7 @@ public class AdminController {
 					Image image = new Image("file:photo.jpg", 100, 150, true, true);
 					ImageView imageView = new ImageView();
 					imageView.setImage(image);
-					
+
 					nextObject.setFilmImage(imageView);
 
 					//image becomes an AddImageToTable
@@ -275,7 +284,7 @@ public class AdminController {
 		return theImage;
 	}
 
-	
+
 	/**
 	 *  Logs out of employee portal (i.e. closes employee portal window)
 	 *  and re-opens login window. 
@@ -289,17 +298,12 @@ public class AdminController {
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("NEAM-Arts-Cinema Login");
 			primaryStage.show();
-
 			logOutButton.getScene().getWindow().hide(); //Close employee portal
-
+			
 		} catch(Exception exception) {
 			exception.printStackTrace();
 		}
-
-
 	}
-
-
 
 
 }

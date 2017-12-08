@@ -1,17 +1,2 @@
 /* JavaFX CSS*/
 
-.root {
-	-fx-background-color: black;
-	-fx-background-image: url("BACKGROUND.jpg");
-	-fx-background-repeat: stretch;   
-	-fx-background-size: 400 400;
-	-fx-background-position: center center;
-}
-
-.label {
-	-fx-font-size: 16px;
-	-fx-font-weight: bold;
-	-fx-text-fill: white;
-	-fx-font-family: "Courier New";
-	-fx-alignment:center;
-}

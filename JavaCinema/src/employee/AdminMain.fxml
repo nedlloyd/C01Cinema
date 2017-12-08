@@ -32,13 +32,13 @@
          <font>
             <Font name="Cambria" size="12.0" />
          </font></Button>
-      <TableView fx:id="tableView" layoutX="49.0" layoutY="173.0" minHeight="348.0" minWidth="613.0" prefHeight="348.0" prefWidth="613.0">
+      <TableView fx:id="tableView" layoutX="49.0" layoutY="173.0" minHeight="348.0" minWidth="613.0" prefHeight="348.0" prefWidth="613.0" style="-fx-border-color: white; -fx-background-color: black;">
         <columns>
-            <TableColumn fx:id="pictureColumn" prefWidth="128.0" resizable="false" text="Picture" />
+            <TableColumn fx:id="pictureColumn" prefWidth="128.0" resizable="false" sortable="false" text="Picture" />
           <TableColumn fx:id="filmNameColumn" prefWidth="153.0" text="Film" />
-            <TableColumn fx:id="filmDescriptionColumn" prefWidth="193.0" text="Description" />
+            <TableColumn fx:id="filmDescriptionColumn" prefWidth="193.0" sortable="false" text="Description" />
           <TableColumn fx:id="filmTimeColumn" prefWidth="47.0" resizable="false" text="Time" />
-            <TableColumn fx:id="availableSeatsColumn" prefWidth="91.0" resizable="false" text="Available Seats" />
+            <TableColumn fx:id="availableSeatsColumn" prefWidth="91.0" resizable="false" sortable="false" text="Available Seats" />
         </columns>
       </TableView>
       <ImageView fx:id="filmImage" fitHeight="135.0" fitWidth="99.0" layoutX="581.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true" />
