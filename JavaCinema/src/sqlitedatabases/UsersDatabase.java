@@ -80,7 +80,7 @@ public class UsersDatabase extends SQLiteDatabase {
 
 		Statement state = con.createStatement();
 		ResultSet res = state.executeQuery("SELECT " +
-				"userID, "+ "userName, " + "password, "+ "role " +
+				"userID, "+ "userName, " + "password, "+ "role, " + "email" +
 				" FROM " + super.tableName + " WHERE userName="+ "\"" + userName + "\"" + ";");
 		return res;
 	}
@@ -97,7 +97,7 @@ public class UsersDatabase extends SQLiteDatabase {
 				" FROM " + super.tableName + " WHERE userID="+ "\"" + primaryKey + "\"" + ";");
 		return res;
 	}
-		
+	
 
 
 }

@@ -140,5 +140,35 @@ public abstract class SQLiteDatabase {
 		return rowcount;
 
 	}
+	
+	public ResultSet queryForProfile(String username, String date, int userID) throws SQLException, ClassNotFoundException {
+		if (con == null) {
+			getConnection();
+		}
+
+		PreparedStatement ps = con.prepareStatement("SELECT * FROM films "
+				+ "INNER JOIN screenings ON films.filmName=screenings.filmName "
+				+ "INNER JOIN reservations ON reservations.screeningID=screenings.screeningID "
+				+ "WHERE reservations.userID=" + userID + " AND screenings.date='" + date + "';");
+
+		ResultSet set1 = ps.executeQuery();
+		
+		return set1;
+	}
+	
+	public ResultSet queryForProfile(String username, int userID) throws SQLException, ClassNotFoundException {
+		if (con == null) {
+			getConnection();
+		}
+
+		PreparedStatement ps = con.prepareStatement("SELECT * FROM films "
+				+ "INNER JOIN screenings ON films.filmName=screenings.filmName "
+				+ "INNER JOIN reservations ON reservations.screeningID=screenings.screeningID "
+				+ "WHERE reservations.userID=" + userID + ";");
+
+		ResultSet set1 = ps.executeQuery();
+		
+		return set1;
+	}
 
 }

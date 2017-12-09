@@ -15,7 +15,8 @@ import sqlitedatabases.ScreeningsDatabase;
 
 
 public class AddDataToTable {
-	private SimpleStringProperty filmName, filmDescription, filmTime, screeningID;
+	private SimpleStringProperty filmName, filmDescription, filmTime, screeningID, filmDate, seatID;
+	private SimpleIntegerProperty reservationID;
 	private int availableSeats;
 	private ImageView filmImage;
 
@@ -25,6 +26,14 @@ public class AddDataToTable {
 		this.filmDescription = new SimpleStringProperty(filmDescription);
 		this.filmTime = new SimpleStringProperty(filmTime);	
 		this.screeningID = new SimpleStringProperty(screeningID);
+	}
+	
+	public AddDataToTable(String filmName, String filmTime, String filmDate, String seatID, Integer reservationID) {
+		this.filmName = new SimpleStringProperty(filmName);
+		this.filmTime = new SimpleStringProperty(filmTime);	
+		this.filmDate = new SimpleStringProperty(filmDate);	
+		this.seatID = new SimpleStringProperty(seatID);
+		this.reservationID = new SimpleIntegerProperty(reservationID);
 	}
 
 	public AddDataToTable(String filmName, String filmDescription, String filmTime, String screeningID, ImageView filmImage) {
@@ -82,6 +91,32 @@ public class AddDataToTable {
 	public int getAvailableSeats(){
 		return availableSeats;
 	}
+	
+	public String getFilmDate() {
+		return filmDate.get();
+	}
+	
+	public void setFilmDate(SimpleStringProperty filmDate) {
+		this.filmDate = filmDate;
+	}
+	
+	public int getReservationID() {
+		return reservationID.get();
+	}
+	
+	public void setReservationID(SimpleIntegerProperty reservationID) {
+		this.reservationID = reservationID;
+	}
+	
+	public String getSeatID() {
+		return seatID.get();
+	}
+	
+	public void setSeatID(SimpleStringProperty seatID) {
+		this.seatID = seatID;
+	}
+	
+	
 
 	/**
 	 * Calculates the number of available seats in a screening and sets the 

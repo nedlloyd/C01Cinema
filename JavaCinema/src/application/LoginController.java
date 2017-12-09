@@ -82,7 +82,8 @@ public class LoginController {
 			res = users.displayRow(usernameAttempt); //Fetches the user details from database
 			String pw = res.getString("password");
 			String role = res.getString("role");
-
+			String email = res.getString("email");
+			
 			//Check to see if password matched
 			if(passwordAttempt.equals(pw)){
 				//Check to see whether the user is an employee/admin or a customer

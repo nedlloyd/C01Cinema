@@ -101,5 +101,22 @@ public class ReservationsDatabase extends SQLiteDatabase  {
 	}
 	
 	
+	//http://www.sqlitetutorial.net/sqlite-java/delete/
+	public void delete(int id) throws ClassNotFoundException, SQLException {
+		if (con == null) {
+			getConnection();
+		}
+
+		String sql = "DELETE FROM reservations WHERE reservationID = ?";
+
+		PreparedStatement pstmt = con.prepareStatement(sql); {
+
+			pstmt.setInt(1, id);
+			// execute the delete statement
+			pstmt.executeUpdate();
+
+		}
+	}
+
 
 }

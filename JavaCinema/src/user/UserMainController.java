@@ -39,7 +39,6 @@ public class UserMainController {
 	private String currentFilm;
 	private int screeningID;
 	private String user;
-	//private int userID;
 	private int dayTracker;
 
 	@FXML private Label titleLbl;  @FXML private Label lbl1;
@@ -61,10 +60,17 @@ public class UserMainController {
 	@FXML private TableColumn<AddDataToTable, String> filmTimeColumn;
 	@FXML private ImageView filmImage;
 	@FXML private Button makeReservation;
+	@FXML private Button viewProfile;
 	@FXML private Label selectFilm;
+	@FXML private Label filmDescription;
+
+
+
+
 
 	private ObservableList<AddImageToTable> someImages = FXCollections.observableArrayList();
 	private ObservableList<AddDataToTable> films = FXCollections.observableArrayList();
+	private String currentDescription;
 
 
 	@FXML
@@ -134,7 +140,8 @@ public class UserMainController {
 		datePickerUser.valueProperty().addListener((ov, oldValue, newValue) -> {
 			try {
 				String theDate = datePickerUser.getValue().format(DateTimeFormatter.ofPattern("dd/MM/yy"));
-				tableView.setItems(getFilms(theDate));
+				getFilms(theDate);
+				tableView.setItems(films);
 				//Selecting day of datePicker changes which day button is highlighted: 
 				for(int i = 0 ; i < dayButtonArray.length ; i++){
 					//Selected day has yellow text
@@ -153,8 +160,7 @@ public class UserMainController {
 			} 
 		});
 
-		//create even listener on table so by selecting row you can view the film poster
-		// it also sets the variable filmName to the film selected
+		//event listener setting 'currentFilm' to film selected, then using this to set the correct poster 
 		tableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {      	
 			try {
 				//sets image which is returned from the getImageFromTableMethod
@@ -163,7 +169,7 @@ public class UserMainController {
 				// sets variable current film to the film selected 
 				currentFilm = tableView.getItems().get(row).getFilmName();
 				//sets image based on film selected
-				filmImage.setImage(getImageFromTable()); 
+				setImageAndDescription(); 
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -171,84 +177,135 @@ public class UserMainController {
 		});  
 
 	}
-
-
-	// creates and returns an observable of the films on a certain date this can then be added to the table
-	// also gets the film poster and places it in another observableList
-	// both in the same method as both based on the same querry
-	public ObservableList<AddDataToTable>  getFilms(String date) throws ClassNotFoundException, SQLException, IOException
+	
+	/**
+	 * queries the database for films booked on a certain date and by certain user (and therfore userID).  
+	 * then calls the setVriablesFromQuery method to set the variables 'films' and 'someImages' to the current query
+	 * @param date
+	 * @return
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 * @throws IOException
+	 */
+	public void getFilms(String date) throws ClassNotFoundException, SQLException, IOException
 	{	
 		ScreeningsDatabase screeningDatabase = new ScreeningsDatabase();
 
 		// creates a result set by calling  the detDataFromTwoTables method present in ScreeningDatabase
 		ResultSet res = screeningDatabase.getDataFromTwoTables("films", "screenings", date);
 		films.clear();
-		// populates two observableLists on with film data the other with film names and posters 
-		try {
-			while (res.next()) {
+		
+		// populates two observableLists on with film data the other with film names and posters 		
+		setVariablesFromQuery(res);		
 
-				//creates variables for each field that we need for the Observable list and then the table
-				String name = res.getString("filmName");
-				String description = res.getString("filmDescription");
-				String time = res.getString("time");
-				InputStream binaryStream = res.getBinaryStream("image");
-				String id = res.getString("screeningID");
-
-				//initialises AddDataToTable object with constructor that takes the variables name, time and description and id
-				AddDataToTable nextObject = new AddDataToTable(name, description, time, id);
-
-				//ensures that there is a photo for a certain film 
-				if (binaryStream != null) {
-					//creates file 
-					OutputStream os = new FileOutputStream (new File("photo.jpg"));
-					byte[] content = new byte[1024];
-					int size = 0;
-					//while binary Stream holds more than -1
-					while ((size = binaryStream.read(content)) != -1) {
-						//os becomes an image
-						os.write(content, 0, size);
-					}
-					os.close();
-					binaryStream.close();
-
-					//image variable becomes the file we just wrote
-					Image image = new Image("file:photo.jpg", 100, 150, true, true);
-
-					//image becomes an AddImageToTable
-					AddImageToTable nextImage = new AddImageToTable(image, name);
-					//it is then added to an observableList 
-					someImages.add(nextImage);
-				}				
-				//adds AddDataToTable objects to observable list 
-				films.add(nextObject);
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			System.out.println("error with populating table form database");
-		}
-		//returns the observable list 
-		return films;
 	}
+	
+	/**
+	 * takes variables from query and asigns them to two observable lists, 1 for 
+	 * images and description the other for the table 
+	 * @param res
+	 * @throws SQLException
+	 * @throws IOException
+	 */
+	public void setVariablesFromQuery(ResultSet res) throws SQLException, IOException {
+		
+		films.clear();
+		
+		while (res.next()) {
 
+			//creates variables for each field that we need for the Observable list and then the table
+			String filmName = res.getString("filmName");
+			String filmDate = res.getString("date");
+			String filmTime = res.getString("time");
+			String filmDescription = res.getString("filmDescription");
+			String id = res.getString("screeningID");
+			InputStream binaryStream = res.getBinaryStream("image");
+			
+			
+			if (binaryStream != null) {
+				addImageToList(binaryStream, filmName, filmDescription);
+			} else {
+				addImageToList(filmName, filmDescription);
+			}
+								
+			//initialises AddDataToTable object with constructor that takes the variables name, time and description and id
+			AddDataToTable nextObject = new AddDataToTable(filmName, filmTime, id);						
+			//adds AddDataToTable objects to observable list 
+			films.add(nextObject);
+		}
+	}
+	
+	/**
+	 * converts binary stream to image, creates an addImageToTable object and adds object to observableList
+	 * @param binaryStream
+	 * @param filmName
+	 * @param description
+	 * @throws IOException
+	 */
+	public void addImageToList(InputStream binaryStream, String filmName, String description) throws IOException {
+		//ensures that there is a photo for a certain film 
+		if (binaryStream != null) {
+			//creates file 
+			OutputStream os = new FileOutputStream (new File("photo.jpg"));
+			byte[] content = new byte[1024];
+			int size = 0;
+			//while binary Stream holds more than -1
+			while ((size = binaryStream.read(content)) != -1) {
+				//os becomes an image
+				os.write(content, 0, size);
+			}
+			os.close();
+			binaryStream.close();
 
-	// finds out what row of table is selected, gets the name of the film and returns the correct poster
-	public Image getImageFromTable() throws IOException {
+			//image variable becomes the file we just wrote
+			Image image = new Image("file:photo.jpg", 100, 150, true, true);
+			
+			//image becomes an AddImageToTable
+			AddImageToTable nextImage = new AddImageToTable(image, filmName, description);
+			//it is then added to an observableList 
+			someImages.add(nextImage);
+		}				
+	}
+	
+	/**
+	 * if film does not have an image in the database, creates an addImageToTable object and adds object to observableList
+	 * @param filmName
+	 * @param description
+	 * @throws IOException
+	 */
+	public void addImageToList(String filmName, String description) throws IOException {
+
+		//image becomes an AddImageToTable
+		AddImageToTable nextImage = new AddImageToTable(filmName, description);
+		//it is then added to an observableList 
+		someImages.add(nextImage);
+	}	
+	
+	/**
+	 * sets image and description based upon current film selected
+	 * @throws IOException
+	 */
+	public void setImageAndDescription() throws IOException {
+		
+		//clears the previous film and description
+		filmImage.setImage(null);
 
 		// image is initialised to curtains in case film does not contain a photo
-		Image theImage = new Image("images/cinemaCurtains.png");
+		Image theImage = new Image("images/cinema_curtains.png", 100, 150, true, true);
 
 		//returns the poster that matches the film name 
 		for (AddImageToTable item : someImages) {
 			if (item.getFilmName() == currentFilm) {
-				theImage = item.getFilmImage();
-			} 
+				if (item.getFilmImage() != null) {
+					theImage = item.getFilmImage();
+				}					
+				currentDescription = item.getFilmDescription();
+			} 			
+			filmImage.setImage(theImage);
+			filmDescription.setText(currentDescription);
 		}
-
-
-		return theImage;
 	}
-
+			
 	/**
 	 *  when the make a reservation button is pressed the make a reservation window is opened
 	 * 	variables of filmName, screeningid and user are also passed onto the next controller
@@ -355,6 +412,36 @@ public class UserMainController {
 			}
 		});	
 	}
+	
+	
+	public void viewProfile(ActionEvent e) {
+		
+		try {
+			// variable screeningID set to currently selected films screening id
+				Stage newProfileController = new Stage();
+				FXMLLoader loader = new FXMLLoader();
+				Parent root = loader.load(getClass().getResource("/user/ViewProfile.fxml").openStream());
+
+				//calls up reservation controller allowing variables to be set from current controller
+				ViewProfileController vp  = (ViewProfileController)loader.getController();
+				// uses the setScreening method from reservationController in order to pass the variable screeningID and set the seats bases on whether they are reserved
+				vp.setUserEmailName(user);
+				vp.viewAllReservations();
+
+				
+				Scene scene = new Scene(root,500,500);
+				//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+				newProfileController.setScene(scene);
+				newProfileController.setTitle("User Info");
+				newProfileController.show(); 	
+
+		} catch(Exception exc) {
+			exc.printStackTrace();
+		}
+				
+			
+	}
+	
 
 
 
