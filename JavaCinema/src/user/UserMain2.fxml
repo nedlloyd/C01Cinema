@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="600.0" prefWidth="700.0" style="-fx-background-color: black; -fx-border-color: white; -fx-border-style: solid; -fx-border-insets: 10px;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="user.UserMainController">
+   <children>
+      <Label fx:id="helloMessage" layoutX="29.0" layoutY="67.0" prefHeight="30.0" prefWidth="269.0" text="Welcome" textFill="WHITE">
+         <font>
+            <Font name="Cambria" size="21.0" />
+         </font></Label>
+      <DatePicker fx:id="datePickerUser" layoutX="351.0" layoutY="127.0" />
+      <Label fx:id="selectFilm" layoutX="38.0" layoutY="528.0" prefHeight="16.0" prefWidth="214.0" textFill="WHITE">
+         <font>
+            <Font name="Cambria" size="12.0" />
+         </font></Label>
+      <Button fx:id="dayOfWeekBtn1" alignment="CENTER" layoutX="111.0" layoutY="175.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="90.0" style="-fx-background-color: none;" text="Tomorrow" textAlignment="CENTER" textFill="WHITE" underline="true">
+         <font>
+            <Font name="Cambria" size="12.0" />
+         </font></Button>
+      <Button fx:id="dayOfWeekBtn2" alignment="CENTER" layoutX="201.0" layoutY="175.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="90.0" style="-fx-background-color: none;" text="Button" textAlignment="CENTER" textFill="WHITE" underline="true">
+         <font>
+            <Font name="Cambria" size="12.0" />
+         </font></Button>
+      <Button fx:id="dayOfWeekBtn3" alignment="CENTER" layoutX="287.0" layoutY="175.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="90.0" style="-fx-background-color: none;" text="Button" textAlignment="CENTER" textFill="WHITE" underline="true">
+         <font>
+            <Font name="Cambria" size="12.0" />
+         </font></Button>
+      <Button fx:id="dayOfWeekBtn4" alignment="CENTER" layoutX="377.0" layoutY="175.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="90.0" style="-fx-background-color: none;" text="Button" textAlignment="CENTER" textFill="WHITE" underline="true">
+         <font>
+            <Font name="Cambria" size="12.0" />
+         </font></Button>
+      <Button fx:id="dayOfWeekBtn5" alignment="CENTER" layoutX="467.0" layoutY="175.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="90.0" style="-fx-background-color: none;" text="Button" textAlignment="CENTER" textFill="WHITE" underline="true">
+         <font>
+            <Font name="Cambria" size="12.0" />
+         </font></Button>
+      <Button fx:id="dayOfWeekBtn6" alignment="CENTER" layoutX="557.0" layoutY="175.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="90.0" style="-fx-background-color: none;" text="Button" textAlignment="CENTER" textFill="WHITE" underline="true">
+         <font>
+            <Font name="Cambria" size="12.0" />
+         </font></Button>
+      <Button fx:id="todayBtn" alignment="CENTER" layoutX="21.0" layoutY="173.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="90.0" style="-fx-background-color: none;" text="Today" textAlignment="CENTER" textFill="YELLOW" underline="true">
+         <font>
+            <Font name="Cambria" size="12.0" />
+         </font></Button>
+      <Label fx:id="titleLbl" alignment="CENTER" contentDisplay="CENTER" layoutX="25.0" layoutY="14.0" prefHeight="44.0" prefWidth="684.0" text="NEAM ARTS CINEMA" textAlignment="CENTER" textFill="WHITE" underline="true">
+         <font>
+            <Font name="AR BONNIE" size="36.0" />
+         </font>
+      </Label>
+      <Label fx:id="lbl1" layoutX="29.0" layoutY="127.0" prefHeight="26.0" prefWidth="303.0" text="Please choose a day to view film screenings:" textFill="WHITE">
+         <font>
+            <Font name="Cambria" size="16.0" />
+         </font>
+      </Label>
+      <Button fx:id="viewProfile" layoutX="592.0" layoutY="69.0" mnemonicParsing="false" onAction="#viewProfile" style="-fx-background-color: #b81818; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 4px;" text="View Profile" />
+      <ScrollPane fx:id="scrollPane" layoutX="45.0" layoutY="213.0" maxWidth="631.0" minHeight="350.0" minWidth="631.0" prefHeight="330.0" prefWidth="631.0" style="-fx-background-color: black;">
+         <content>
+            <VBox fx:id="filmDisplayVbox" minHeight="350.0" minWidth="631.0" prefWidth="631.0" style="-fx-background-color: black;" />
+         </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>

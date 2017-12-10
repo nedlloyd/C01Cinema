@@ -1,0 +1,8 @@
+/* JavaFX CSS */
+
+.button:hover{
+	-fx-text-fill: yellow;
+}
+
+
+

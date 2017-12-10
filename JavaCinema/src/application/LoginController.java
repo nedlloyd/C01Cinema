@@ -110,10 +110,15 @@ public class LoginController {
 					try{
 						Stage userStage = new Stage();
 						FXMLLoader loader = new FXMLLoader();
-						Parent root = loader.load(getClass().getResource("/user/UserMain.fxml").openStream());
+						
+				
+						
+						Parent root = loader.load(getClass().getResource("/user/UserMain2.fxml").openStream());
 						
 						//calls userMainController in order to pass variables
+						
 						UserMainController userMain = (UserMainController)loader.getController();
+
 						//passes usernameAttempt to userMainController
 						userMain.setUser(usernameAttempt);
 						//Welcome the user
@@ -124,6 +129,7 @@ public class LoginController {
 						userStage.setTitle("Cinema Booking");
 						userStage.show();
 						lblstatus.getScene().getWindow().hide();
+	
 					}
 					catch(Exception ex){
 						ex.printStackTrace();

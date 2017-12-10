@@ -16,9 +16,9 @@
          <font>
             <Font size="10.0" />
          </font></Button>
-      <Label fx:id="filmLabel" alignment="TOP_CENTER" layoutX="16.0" layoutY="27.0" prefHeight="30.0" prefWidth="470.0" text="Booking:" textAlignment="CENTER" textFill="WHITE">
+      <Label fx:id="filmLabel" alignment="TOP_LEFT" layoutX="78.0" layoutY="20.0" prefHeight="30.0" prefWidth="387.0" text="Booking:" textAlignment="CENTER" textFill="WHITE">
          <font>
-            <Font name="AR BONNIE" size="24.0" />
+            <Font name="Impact" size="24.0" />
          </font></Label>
       <Button fx:id="seat_a6" layoutX="274.0" layoutY="209.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
          <font>
@@ -352,9 +352,9 @@
       </Label>
       <Circle fx:id="key1" fill="#2dd321" layoutX="407.0" layoutY="135.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
       <Circle fx:id="key2" fill="#d31818" layoutX="408.0" layoutY="160.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
-      <Label fx:id="timeLabel" alignment="TOP_CENTER" layoutX="112.0" layoutY="57.0" prefHeight="30.0" prefWidth="271.0" textFill="WHITE">
+      <Label fx:id="timeLabel" alignment="TOP_LEFT" layoutX="77.0" layoutY="50.0" prefHeight="30.0" prefWidth="330.0" textFill="WHITE">
          <font>
-            <Font name="AR BONNIE" size="24.0" />
+            <Font name="Impact" size="20.0" />
          </font>
       </Label>
       <Circle fx:id="key3" fill="#ffdc00" layoutX="408.0" layoutY="185.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
