@@ -190,36 +190,48 @@ public class AddFilmController {
 
 		String startDate = datePicker.getValue().format(DateTimeFormatter.ofPattern("dd/MM/yy"));
 		String startTime = startTimeHour.getValue()+":"+startTimeMinute.getValue();
-		String filmName = title.getText();
+		String filmName = "";
+		String filmDescription = "";
+		int filmDuration = 0;
 		filmName = chooseFilmChoiceBox.getValue();
 		System.out.println("filmname afterpicker " + filmName);
-		
-		if (!checkForOverlap(filmName, startDate, startTime)) {
-		
+		String successMessage = "Screening of " + filmName + " added at " + startTime + " on " + startDate;
+
+
 		FilmsDatabase databaseFilms = new FilmsDatabase();
 		ScreeningsDatabase databaseScreenings = new ScreeningsDatabase();
 		try {
 			if(filmTypeChoiceBox.getValue().equals("New Film")){//if film has not been screened before
-				databaseFilms.addFilm(title.getText(),  description.getText(), filePath);
-		
-				//ADD BIT FOR IMAGE/DURATION^
-				databaseScreenings.addScreening(title.getText(), startTimeHour.getValue()+":"+startTimeMinute.getValue(), datePicker.getValue().format(DateTimeFormatter.ofPattern("dd/MM/yy")));
+				filmName = title.getText();
+				filmDescription = description.getText();
+				filmDuration = Integer.parseInt(duration.getText());
 
+				if (!checkForOverlapDuration(filmName, startDate, startTime, filmDuration)) {
+					databaseFilms.addFilm(filmName,  filmDescription, filmDuration, filePath);
+					databaseScreenings.addScreening(filmName, startTime, startDate);
+					screeningAlreadyInProgress.setText(successMessage);
+				}
 			} else /*if film has been screened before*/{
-				databaseScreenings.addScreening(chooseFilmChoiceBox.getValue(), startTimeHour.getValue()+":"+startTimeMinute.getValue(), datePicker.getValue().format(DateTimeFormatter.ofPattern("dd/MM/yy")));
-			}	
-			
-			//Close the window once viewing is added to database:
-			chooseFilmLbl.getScene().getWindow().hide();
+				filmName = chooseFilmChoiceBox.getValue();
 
-		} catch (ClassNotFoundException e1) {
+				if (!checkForOverlap(filmName, startDate, startTime)) {
+					databaseScreenings.addScreening(filmName, startTime, startDate);
+					screeningAlreadyInProgress.setText(successMessage);
+				}	
+
+				//Close the window once viewing is added to database:
+				
+			}
+
+
+		}catch (ClassNotFoundException e1) {
 			e1.printStackTrace();
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
-		}
-
 	}
+
+	
 	
 	
 	public void addImage(ActionEvent e) {
@@ -287,6 +299,8 @@ public class AddFilmController {
 	 */
 	public boolean checkForOverlap(String filmNameAttempt, String dateAttempt, String timeAttempt) {
 
+		screeningAlreadyInProgress.setText("");
+		
 		boolean isOverlap = false;
 		String filmName = "";
 		String currentFilmTime = "";
@@ -343,6 +357,66 @@ public class AddFilmController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		return isOverlap;
+	}
+	
+	public boolean checkForOverlapDuration(String filmNameAttempt, String dateAttempt, String timeAttempt, int attemptDuration) {
+
+		boolean isOverlap = false;
+		String filmName = "";
+		String currentFilmTime = "";
+		int currentFilmDuration = 0;
+		int attemptFilmDuration = 0;
+
+		ScreeningsDatabase sd = new ScreeningsDatabase();
+
+		attemptFilmDuration = attemptDuration;
+
+		ResultSet res1;
+		try {
+			res1 = sd.durationAndTime(dateAttempt);
+			
+			while (res1.next()) {
+
+				filmName = res1.getString("filmName");
+				currentFilmTime = res1.getString("time");
+					currentFilmDuration = res1.getInt("filmDuration");
+					
+					setStartAndEnd(currentFilmTime, currentFilmDuration, timeAttempt, attemptFilmDuration);
+
+					String filmFinishString = currentEndTime.getHours() + ":" + currentEndTime.getMinutes();
+					
+					String errorMessage = "sorry, " + filmName + " is starting at " + currentFilmTime +
+							" and will go on until " + filmFinishString + " please try another time";
+					
+					// if the film being suggested end or stats in another film
+					if ((attemptStartTime.before(currentEndTime) && attemptStartTime.after(currentStartTime)) 
+							|| (attemptEndTime.before(currentEndTime) && attemptEndTime.after(currentStartTime))) {
+						
+						screeningAlreadyInProgress.setText(errorMessage);
+						isOverlap = true;
+						break;
+					// if the being suggested shares a start time or an end time with another film
+					} else if (attemptStartTime.equals(currentStartTime) || attemptStartTime.equals(currentEndTime) 
+							|| (attemptEndTime.equals(currentEndTime) && attemptEndTime.equals(currentStartTime))) {
+						
+						screeningAlreadyInProgress.setText(errorMessage);
+						isOverlap = true;
+						break;
+					}
+				}
+			
+			
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		
 		
 		return isOverlap;
 	}

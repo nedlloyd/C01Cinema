@@ -65,15 +65,16 @@ public class FilmsDatabase extends SQLiteDatabase {
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public void addFilm(String filmName, String filmDescription, String imageFilePath) throws ClassNotFoundException, SQLException {
+	public void addFilm(String filmName, String filmDescription, int filmDuration, String imageFilePath) throws ClassNotFoundException, SQLException {
 		if (con == null) {
 			getConnection();
 		}
 
-		PreparedStatement prep = con.prepareStatement("INSERT INTO films values(?,?,?,?);");
+		PreparedStatement prep = con.prepareStatement("INSERT INTO films values(?,?,?,?,?);");
 		prep.setString(2, filmName);
 		prep.setString(3, filmDescription);
 		prep.setBytes(4, readFile(imageFilePath));
+		prep.setInt(5, filmDuration);
 		prep.execute();
 		// in order to add to both screenings and films database i had to not close this, i'm not sure if this has other bad effects
 		//prep.close();
