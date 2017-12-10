@@ -46,7 +46,7 @@ public class LoginController {
 			//Launch user/customer portal after sign up
 			Stage userStage = new Stage();
 			FXMLLoader loader = new FXMLLoader();
-			Parent root = loader.load(getClass().getResource("/user/UserMain.fxml").openStream());
+			Parent root = loader.load(getClass().getResource("/user/UserMain2.fxml").openStream());
 			
 			//calls userMainController in order to pass variables
 			UserMainController userMain = (UserMainController)loader.getController();
@@ -110,13 +110,9 @@ public class LoginController {
 					try{
 						Stage userStage = new Stage();
 						FXMLLoader loader = new FXMLLoader();
-						
-				
-						
 						Parent root = loader.load(getClass().getResource("/user/UserMain2.fxml").openStream());
 						
 						//calls userMainController in order to pass variables
-						
 						UserMainController userMain = (UserMainController)loader.getController();
 
 						//passes usernameAttempt to userMainController

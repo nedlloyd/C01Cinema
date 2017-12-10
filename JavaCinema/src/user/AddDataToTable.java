@@ -128,9 +128,9 @@ public class AddDataToTable {
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public void calculateAndSetAvailableSeatsCount(ReservationsDatabase reservationsDatabase, String screeningId, int cinemaCapacity) throws ClassNotFoundException, SQLException{
+	public void calculateAndSetAvailableSeatsCount(ReservationsDatabase reservationsDatabase, int screeningId, int cinemaCapacity) throws ClassNotFoundException, SQLException{
 		
-		ResultSet reservationsResultSet = reservationsDatabase.displayRows(Integer.parseInt(screeningId));
+		ResultSet reservationsResultSet = reservationsDatabase.displayRows(screeningId);
 		int reservationCount = reservationsDatabase.countRowsInResultSet(reservationsResultSet);
 		this.availableSeats = cinemaCapacity - reservationCount;
 	}

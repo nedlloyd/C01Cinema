@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
@@ -8,25 +13,48 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="500.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="user.ViewProfileController">
+<AnchorPane prefHeight="500.0" prefWidth="500.0" style="-fx-background-color: black; -fx-border-color: white; -fx-border-insets: 10px;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="user.ViewProfileController">
    <children>
-      <Label fx:id="name" layoutX="43.0" layoutY="48.0" text="Name:" />
+      <Label fx:id="name" layoutX="43.0" layoutY="48.0" text="Name:" textFill="WHITE">
+         <font>
+            <Font name="Cambria" size="14.0" />
+         </font></Label>
       <Label layoutX="145.0" layoutY="145.0" />
-      <Label fx:id="email" layoutX="44.0" layoutY="77.0" text="Email:" />
+      <Label fx:id="email" layoutX="44.0" layoutY="77.0" text="Email:" textFill="WHITE">
+         <font>
+            <Font name="Cambria" size="14.0" />
+         </font></Label>
       <TableView fx:id="tableView" layoutX="28.0" layoutY="224.0" prefHeight="200.0" prefWidth="445.0">
         <columns>
-          <TableColumn fx:id="reservationIDColumn" prefWidth="98.0" text="Reservation ID" />
-          <TableColumn fx:id="seatIDColumn" prefWidth="53.0" text="Seat ID" />
-            <TableColumn fx:id="filmNameColumn" prefWidth="90.0" text="Film" />
-            <TableColumn fx:id="filmTimeColumn" prefWidth="97.0" text="Time" />
-            <TableColumn fx:id="filmDateColumn" prefWidth="106.0" text="Date" />
+          <TableColumn fx:id="reservationIDColumn" prefWidth="91.0" text="Reservation ID" />
+          <TableColumn fx:id="seatIDColumn" prefWidth="60.0" text="Seat ID" />
+            <TableColumn fx:id="filmNameColumn" prefWidth="132.0" text="Film" />
+            <TableColumn fx:id="filmTimeColumn" prefWidth="83.0" text="Time" />
+            <TableColumn fx:id="filmDateColumn" prefWidth="78.0" text="Date" />
         </columns>
       </TableView>
       <DatePicker fx:id="datePickerUser" layoutX="272.0" layoutY="43.0" />
       <ImageView fx:id="filmImage" fitHeight="120.0" fitWidth="106.0" layoutX="226.0" layoutY="88.0" pickOnBounds="true" preserveRatio="true" />
-      <Button fx:id="deleteReservation" layoutX="63.0" layoutY="450.0" mnemonicParsing="false" onAction="#deleteReservation" prefHeight="26.0" prefWidth="141.0" text="Delete Reservation" />
-      <Button fx:id="editLogin" layoutX="43.0" layoutY="104.0" mnemonicParsing="false" onAction="#editUserInfo" prefHeight="26.0" prefWidth="115.0" text="Edit User Info" />
-      <Button fx:id="allReservations" layoutX="279.0" layoutY="450.0" mnemonicParsing="false" onAction="#viewAllReservations" prefHeight="26.0" prefWidth="141.0" text="View all reservations" />
-      <Label fx:id="filmDescription" layoutX="338.0" layoutY="92.0" prefHeight="106.0" prefWidth="135.0" text="      Film description" wrapText="true" />
+      <Button fx:id="deleteReservation" layoutX="63.0" layoutY="450.0" mnemonicParsing="false" onAction="#deleteReservation" prefHeight="26.0" prefWidth="141.0" style="-fx-background-color: #b81818; -fx-border-color: white; -fx-border-radius: 4px;" text="Delete Reservation" textFill="WHITE">
+         <font>
+            <Font name="Cambria" size="12.0" />
+         </font></Button>
+      <Button fx:id="editLogin" layoutX="43.0" layoutY="104.0" mnemonicParsing="false" onAction="#editUserInfo" prefHeight="26.0" prefWidth="115.0" style="-fx-background-color: #b81818; -fx-border-color: white; -fx-border-radius: 4px;" text="Edit User Info" textFill="WHITE">
+         <font>
+            <Font name="Cambria" size="12.0" />
+         </font></Button>
+      <Button fx:id="allReservations" layoutX="279.0" layoutY="450.0" mnemonicParsing="false" onAction="#viewAllReservations" prefHeight="26.0" prefWidth="141.0" style="-fx-background-color: #b81818; -fx-border-color: white; -fx-border-radius: 4px;" text="View all reservations" textFill="WHITE">
+         <font>
+            <Font name="Cambria" size="12.0" />
+         </font></Button>
+      <Label fx:id="filmDescription" layoutX="338.0" layoutY="92.0" prefHeight="106.0" prefWidth="135.0" text="      Film description" textFill="WHITE" wrapText="true">
+         <font>
+            <Font name="Cambria" size="14.0" />
+         </font></Label>
+      <Label fx:id="name1" layoutX="34.0" layoutY="189.0" prefHeight="18.0" prefWidth="141.0" text="Reservations:" textFill="WHITE">
+         <font>
+            <Font name="Cambria" size="14.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

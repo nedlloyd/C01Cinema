@@ -265,6 +265,7 @@ public class UserMainController {
 				newReservationStage.setScene(scene);
 				newReservationStage.setTitle("Select a seat");
 				newReservationStage.show(); 	
+				
 			} else {
 				selectFilm.setText("please select a screening");
 			}

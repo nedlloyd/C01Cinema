@@ -62,9 +62,6 @@ public class AdminController {
 	@FXML 
 	void initialize(){
 
-		datePicker.setValue(LocalDate.now());	
-		viewingsLbl.setText("Viewing Screenings on "+datePicker.getValue().format(DateTimeFormatter.ofPattern("dd/MM/yy"))+":");
-
 		tableView.getStylesheets().add(getClass().getResource("/employee/tableview.css").toExternalForm());
 		
 		//Setting up columns in screenings table
@@ -105,6 +102,10 @@ public class AdminController {
 				e.printStackTrace();
 			} 
 		});
+		
+		//Set the current date to now
+		datePicker.setValue(LocalDate.now());	
+		viewingsLbl.setText("Viewing Screenings on "+datePicker.getValue().format(DateTimeFormatter.ofPattern("dd/MM/yy"))+":");
 
 		filmImage.setImage(new Image("images/cinemaCurtains.png"));
 
@@ -225,7 +226,7 @@ public class AdminController {
 				//initialises AddDataToTable object with constructor that takes the variables name, time and description
 				AddDataToTable nextObject = new AddDataToTable(name, description, time, screeningId);
 
-				//nextObject.calculateAndSetAvailableSeatsCount(reservationsDatabase, screeningId, 50);
+				nextObject.calculateAndSetAvailableSeatsCount(reservationsDatabase, screeningId, 50);
 
 				//ensures that there is a photo for a certain film 
 				if (binaryStream != null) {

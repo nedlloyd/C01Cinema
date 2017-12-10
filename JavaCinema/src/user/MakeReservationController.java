@@ -22,7 +22,7 @@ public class MakeReservationController {
 	private int userID;
 	private ArrayList<Chairs> seatList = new ArrayList<Chairs>(50);
 
-	@FXML Label filmLabel; @FXML Label timeLabel;
+	@FXML public Label filmLabel; @FXML public Label timeLabel;
 	@FXML private Button makeReservation;
 	@FXML private Circle key1; @FXML private Label keyLbl1;
 	@FXML private Circle key2; @FXML private Label keyLbl2;
