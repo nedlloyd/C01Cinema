@@ -73,7 +73,7 @@ public class ReservationsDatabase extends SQLiteDatabase  {
 		
 		Statement state = con.createStatement();
 		ResultSet res = state.executeQuery("SELECT " + "reservationID, " + "userID, " + "screeningID,"+
-		" seatID," + " FROM " + super.tableName + " LIMIT " + 1 + " OFFSET " + (reservationID - 1) + ";");
+		" seatID," + " FROM " + super.tableName + " WHERE reservationID="+ "\"" + reservationID + "\"" + ";");
 		return res;
 	}
 	

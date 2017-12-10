@@ -248,11 +248,13 @@ public class UserMainController {
 				try {
 					ScreeningsDatabase sdb = new ScreeningsDatabase();
 					ResultSet screeningResult = sdb.displayRow(screeningID);
+					System.out.println(screeningID);
 					String filmName = screeningResult.getString("filmName");
 					String time = screeningResult.getString("time");
 					String date = screeningResult.getString("date");
 
 					reservationController.filmLabel.setText(filmName);
+					System.out.println(filmName);
 					reservationController.timeLabel.setText(date+" "+time);
 
 				} catch (SQLException ex) {

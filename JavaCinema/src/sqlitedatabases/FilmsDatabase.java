@@ -102,7 +102,7 @@ public class FilmsDatabase extends SQLiteDatabase {
 		}
 
 		Statement state = con.createStatement();
-		ResultSet res = state.executeQuery("SELECT " + "id, " + "filmName, " + "filmDescription" + " FROM " + tableName + " LIMIT " + 1 + " OFFSET " + (id - 1) + ";");
+		ResultSet res = state.executeQuery("SELECT " + "id, " + "filmName, " + "filmDescription" + " FROM " + tableName + " WHERE id="+ "\"" + id + "\"" + ";");
 		return res;
 	}
 

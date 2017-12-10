@@ -68,7 +68,8 @@ public class ScreeningsDatabase extends SQLiteDatabase {
 			}
 			
 			Statement state = con.createStatement();
-			ResultSet res = state.executeQuery("SELECT screeningID, filmName, time, date FROM " + tableName + " LIMIT " + 1 + " OFFSET " + (primaryKey - 1) + ";");
+			ResultSet res = state.executeQuery("SELECT screeningID, filmName, time, date FROM " + tableName +
+					" WHERE screeningID=\"" + primaryKey + "\";");
 			return res;
 		}
 		
