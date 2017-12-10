@@ -103,6 +103,17 @@ public class ScreeningsDatabase extends SQLiteDatabase {
 			return res;
 		}
 		
+		public ResultSet getAll() throws ClassNotFoundException, SQLException {
+			if (con == null) {
+				getConnection();
+			}
+			
+			Statement state = con.createStatement();
+			ResultSet res = state.executeQuery("SELECT ScreeningID, filmName, time, date FROM screenings;");
+			
+			return res;
+		}
+		
 		public ResultSet getDataFromTwoTables(String table1, String table2, String date) throws ClassNotFoundException, SQLException {
 			if (con == null) {
 				getConnection();
@@ -115,5 +126,20 @@ public class ScreeningsDatabase extends SQLiteDatabase {
 			
 			return set1;
 				
+		}
+		
+		public ResultSet durationAndTime(String date) throws ClassNotFoundException, SQLException {
+			if (con == null) {
+				getConnection();
+			}
+			
+			PreparedStatement ps = con.prepareStatement("SELECT * FROM screenings "
+					+ "INNER JOIN films ON films.filmName=screenings.filmName "
+					+ "WHERE screenings.date='" + date + "';");
+
+			
+			ResultSet res = ps.executeQuery();
+			return res;
+			
 		}
 }

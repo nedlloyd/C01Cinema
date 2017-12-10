@@ -3,8 +3,12 @@ package employee;
 import java.io.File;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -20,8 +24,11 @@ import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import sqlitedatabases.FilmsDatabase;
 import sqlitedatabases.ScreeningsDatabase;
+import user.AddDataToTable;
 
 public class AddFilmController {
+	
+	static final long ONE_MINUTE_IN_MILLIS=60000;
 
 	ObservableList<String> hourOptions = FXCollections.observableArrayList();
 	ObservableList<String> minuteOptions = FXCollections.observableArrayList();
@@ -36,9 +43,12 @@ public class AddFilmController {
 	ComboBox<String> startTimeMinute;
 	@FXML 
 	Button addScreeningBtn;
-
+	
+	
 	@FXML
 	Label chooseFilmLbl;
+	@FXML
+	Label screeningAlreadyInProgress;
 	@FXML
 	ChoiceBox<String> chooseFilmChoiceBox;
 
@@ -63,6 +73,11 @@ public class AddFilmController {
 	Label filmImageLabel;
 	
 	String filePath = "/Users/nedlloyd/Desktop/vertigo.png";
+	
+	private Date currentStartTime;
+	private Date currentEndTime;
+	private Date attemptStartTime;
+	private Date attemptEndTime;
 
 
 
@@ -173,6 +188,14 @@ public class AddFilmController {
 
 	public void addScreening(ActionEvent e){
 
+		String startDate = datePicker.getValue().format(DateTimeFormatter.ofPattern("dd/MM/yy"));
+		String startTime = startTimeHour.getValue()+":"+startTimeMinute.getValue();
+		String filmName = title.getText();
+		filmName = chooseFilmChoiceBox.getValue();
+		System.out.println("filmname afterpicker " + filmName);
+		
+		if (!checkForOverlap(filmName, startDate, startTime)) {
+		
 		FilmsDatabase databaseFilms = new FilmsDatabase();
 		ScreeningsDatabase databaseScreenings = new ScreeningsDatabase();
 		try {
@@ -194,8 +217,10 @@ public class AddFilmController {
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
+		}
 
 	}
+	
 	
 	public void addImage(ActionEvent e) {
 		FileChooser fileChooser = new FileChooser();
@@ -210,7 +235,117 @@ public class AddFilmController {
         filePath = file.getAbsolutePath();
         System.out.print(filePath);
         	}
+	
+	
+	/**
+	 * method converts date as string object to date as Date Object 
+	 * @param time
+	 * @return
+	 */
+	public Date convertToDateObject(String time) {
 
+		DateFormat sdf = new SimpleDateFormat("hh:mm");
+		Date date = null;
+		try {
+			date = sdf.parse(time);		
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
+		return date;				
+	}
+	
+	
+	/**
+	 * 
+	 * sets variables based upon the start and end of the film suggested and a film already in the database
+	 * 
+	 * @param currentStartTime
+	 * @param currentDuration
+	 * @param attemptStartTime
+	 * @param attemptDuration
+	 */
+	public void setStartAndEnd(String currentStartTime, int currentDuration, String attemptStartTime, int attemptDuration) {
+		
+		this.currentStartTime = convertToDateObject(currentStartTime);		
+		long sum1 = this.currentStartTime.getTime() + (currentDuration * ONE_MINUTE_IN_MILLIS);
+		this.currentEndTime = new Date(sum1);
+		
+		this.attemptStartTime = convertToDateObject(attemptStartTime);
+		long sum2 = this.attemptStartTime.getTime() + (attemptDuration * ONE_MINUTE_IN_MILLIS);
+		this.attemptEndTime = new Date(sum2);
+	}
+	
+	
+	/**
+	 * checks if the current film being added will overlap with any films already in the database
+	 * @param filmNameAttempt
+	 * @param dateAttempt
+	 * @param timeAttempt
+	 * @return
+	 */
+	public boolean checkForOverlap(String filmNameAttempt, String dateAttempt, String timeAttempt) {
+
+		boolean isOverlap = false;
+		String filmName = "";
+		String currentFilmTime = "";
+		int currentFilmDuration = 0;
+		int attemptFilmDuration = 0;
+
+		ScreeningsDatabase sd = new ScreeningsDatabase();
+		FilmsDatabase fd = new FilmsDatabase();
+
+		try {
+			ResultSet res2 = fd.displayRow(filmNameAttempt);
+			ResultSet res1 = sd.durationAndTime(dateAttempt);
+			
+			if (res2 != null) {
+				attemptFilmDuration = res2.getInt("filmDuration");
+				res2.close();
+			}
+
+			
+			while (res1.next()) {
+				
+				filmName = res1.getString("filmName");
+				currentFilmTime = res1.getString("time");
+				currentFilmDuration = res1.getInt("filmDuration");
+				
+				setStartAndEnd(currentFilmTime, currentFilmDuration, timeAttempt, attemptFilmDuration);
+
+				String filmFinishString = currentEndTime.getHours() + ":" + currentEndTime.getMinutes();
+				
+				String errorMessage = "sorry, " + filmName + " is starting at " + currentFilmTime +
+						" and will go on until " + filmFinishString + " please try another time";
+				
+				// if the film being suggested end or stats in another film
+				if ((attemptStartTime.before(currentEndTime) && attemptStartTime.after(currentStartTime)) 
+						|| (attemptEndTime.before(currentEndTime) && attemptEndTime.after(currentStartTime))) {
+					
+					screeningAlreadyInProgress.setText(errorMessage);
+					isOverlap = true;
+					break;
+				// if the being suggested shares a start time or an end time with another film
+				} else if (attemptStartTime.equals(currentStartTime) || attemptStartTime.equals(currentEndTime) 
+						|| (attemptEndTime.equals(currentEndTime) && attemptEndTime.equals(currentStartTime))) {
+					
+					screeningAlreadyInProgress.setText(errorMessage);
+					isOverlap = true;
+					break;
+				}
+			}
+			
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return isOverlap;
+	}
+	
 
 }

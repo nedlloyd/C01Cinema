@@ -8,10 +8,15 @@
     -fx-text-fill: white;
     -fx-font-weight: bold;
     -fx-background-color: black;
+    -fx-text-base-color: red;
     
 }
 
 .table-view .table-cell{
     -fx-text-fill: white;
     -fx-background-color: black;
+}
+
+.screeningAlreadyInProgress{
+	-fx-text-base-color: red;
 }

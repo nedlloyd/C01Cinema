@@ -15,17 +15,17 @@ import sqlitedatabases.ScreeningsDatabase;
 
 
 public class AddDataToTable {
-	private SimpleStringProperty filmName, filmDescription, filmTime, screeningID, filmDate, seatID;
-	private SimpleIntegerProperty reservationID;
+	private SimpleStringProperty filmName, filmDescription, filmTime, filmDate, seatID;
+	private SimpleIntegerProperty reservationID, screeningID;
 	private int availableSeats;
 	private ImageView filmImage;
 
 
-	public AddDataToTable(String filmName, String filmDescription, String filmTime, String screeningID) {
+	public AddDataToTable(String filmName, String filmDescription, String filmTime, int screeningID) {
 		this.filmName = new SimpleStringProperty(filmName);
 		this.filmDescription = new SimpleStringProperty(filmDescription);
 		this.filmTime = new SimpleStringProperty(filmTime);	
-		this.screeningID = new SimpleStringProperty(screeningID);
+		this.screeningID = new SimpleIntegerProperty(screeningID);
 	}
 	
 	public AddDataToTable(String filmName, String filmTime, String filmDate, String seatID, Integer reservationID) {
@@ -36,11 +36,11 @@ public class AddDataToTable {
 		this.reservationID = new SimpleIntegerProperty(reservationID);
 	}
 
-	public AddDataToTable(String filmName, String filmDescription, String filmTime, String screeningID, ImageView filmImage) {
+	public AddDataToTable(String filmName, String filmDescription, String filmTime, int screeningID, ImageView filmImage) {
 		this.filmName = new SimpleStringProperty(filmName);
 		this.filmDescription = new SimpleStringProperty(filmDescription);
 		this.filmTime = new SimpleStringProperty(filmTime);	
-		this.screeningID = new SimpleStringProperty(screeningID);
+		this.screeningID = new SimpleIntegerProperty(screeningID);
 		this.filmImage = filmImage;
 	}
 
@@ -73,9 +73,10 @@ public class AddDataToTable {
 	public void setFilmTime(SimpleStringProperty filmTime) {
 		this.filmTime = filmTime;
 	}
+	
 
-	public String getScreeningID() {
-		return screeningID.get();
+	public int getScreeningID() {
+		return this.screeningID.get();
 	}
 
 	public ImageView getFilmImage() {

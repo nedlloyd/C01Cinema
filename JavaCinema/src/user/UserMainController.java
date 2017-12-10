@@ -193,7 +193,7 @@ public class UserMainController {
 			String filmDate = res.getString("date");
 			String filmTime = res.getString("time");
 			String filmDescription = res.getString("filmDescription");
-			String id = res.getString("screeningID");
+			int id = res.getInt("screeningID");
 			InputStream binaryStream = res.getBinaryStream("image");
 
 			//initialises AddDataToTable object with constructor that takes the variables name, time and description and id
@@ -384,7 +384,7 @@ public class UserMainController {
 			//Booking button for screening
 			Button screeningTimebutton = new Button();
 			screeningTimebutton.setText(films.get(i).getFilmTime());
-			screeningTimebutton.setId(films.get(i).getScreeningID());
+			screeningTimebutton.setId(Integer.toString( films.get(i).getScreeningID()));
 			screeningTimebutton.setLayoutX(120);
 			screeningTimebutton.setLayoutY(120);
 			screeningTimebutton.getStylesheets().add(getClass().getResource("application.css").toExternalForm());

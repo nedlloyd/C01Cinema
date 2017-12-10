@@ -105,14 +105,25 @@ public class FilmsDatabase extends SQLiteDatabase {
 		return res;
 	}
 
-	//		return row based on filmName
+	//return row based on filmName
 	public ResultSet displayRow(String filmName) throws ClassNotFoundException, SQLException {
 		if (con == null) {
 			getConnection();
 		}
 
 		Statement state = con.createStatement();
-		ResultSet res = state.executeQuery("SELECT " + "id, " + "filmName, " + "filmDescription" + " FROM " + tableName + " WHERE filmName="+ "\"" + filmName + "\"" + ";");
+		ResultSet res = state.executeQuery("SELECT " + "id, " + "filmName, " + "filmDescription, " + "filmDuration" + " FROM " + tableName + " WHERE filmName="+ "\"" + filmName + "\"" + ";");
+		return res;
+	}
+	
+	public ResultSet displayRows(String filmName1, String filmName2) throws ClassNotFoundException, SQLException {
+		if (con == null) {
+			getConnection();
+		}
+
+		Statement state = con.createStatement();
+		ResultSet res = state.executeQuery("SELECT " + "id, " + "filmName, " + "filmDescription, " + "filmDuration" + " FROM " + tableName + 
+				" WHERE (filmName=\"" + filmName1 + "\") OR (filmName=\"" + filmName2 + "\");");
 		return res;
 	}
 

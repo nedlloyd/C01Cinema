@@ -1,10 +1,12 @@
 package employee;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -52,6 +54,7 @@ public class AdminController {
 	@FXML private TableColumn<AddDataToTable, String> filmTimeColumn;
 	@FXML private TableColumn<AddDataToTable, Integer> availableSeatsColumn;
 	@FXML private ImageView filmImage;
+	@FXML private Button writeData;
 	@FXML private Button logOutButton;
 
 	private ObservableList<AddImageToTable> someImages = FXCollections.observableArrayList();
@@ -165,7 +168,7 @@ public class AdminController {
 				String name = res.getString("filmName");
 				String description = res.getString("filmDescription");
 				String time = res.getString("time");
-				String screeningId = res.getString("screeningId");
+				int screeningId = res.getInt("screeningId");
 
 				//initialises AddDataToTable object with constructor that takes the variables we just intialised
 				AddDataToTable i = new AddDataToTable(name, description, time, screeningId);
@@ -216,13 +219,13 @@ public class AdminController {
 				String name = screeningsResultSet.getString("filmName");
 				String description = screeningsResultSet.getString("filmDescription");
 				String time = screeningsResultSet.getString("time");
-				String screeningId = screeningsResultSet.getString("ScreeningId");
+				int screeningId = screeningsResultSet.getInt("ScreeningId");
 				InputStream binaryStream = screeningsResultSet.getBinaryStream("image");
 
 				//initialises AddDataToTable object with constructor that takes the variables name, time and description
 				AddDataToTable nextObject = new AddDataToTable(name, description, time, screeningId);
 
-				nextObject.calculateAndSetAvailableSeatsCount(reservationsDatabase, screeningId, 50);
+				//nextObject.calculateAndSetAvailableSeatsCount(reservationsDatabase, screeningId, 50);
 
 				//ensures that there is a photo for a certain film 
 				if (binaryStream != null) {
@@ -283,6 +286,45 @@ public class AdminController {
 		}
 		return theImage;
 	}
+	
+	public void writeDataToFile(ActionEvent e) {
+		String fileName = "screening_data.txt";
+		ScreeningsDatabase sd = new ScreeningsDatabase();
+		ReservationsDatabase rd = new ReservationsDatabase();
+		ResultSet res1 = null;
+		ResultSet res2 = null;		
+		
+		try {
+			res1 = sd.getAll();
+			PrintWriter outputStream = new PrintWriter(fileName);
+			while(res1.next()) {
+				
+				String name = res1.getString("filmName");
+				String time = res1.getString("time");
+				String date = res1.getString("date");
+				int screeningID = res1.getInt("screeningID");
+				
+				res2 = rd.displayRows(screeningID);
+				int reservationCount = rd.countRowsInResultSet(res2);
+				int availableSeats = 50 - reservationCount;
+				
+				outputStream.println(name + "," + date + "," + time + ",seatsbooked:" + reservationCount + 
+						",availableSeats:" + availableSeats);				
+			}			
+			outputStream.close();
+			
+		} catch (ClassNotFoundException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		} catch (SQLException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+	}
 
 
 	/**
@@ -304,6 +346,7 @@ public class AdminController {
 			exception.printStackTrace();
 		}
 	}
+	
 
 
 }
