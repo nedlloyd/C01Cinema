@@ -95,7 +95,7 @@ public class AddFilmController {
 			chooseFilmChoiceBox.getItems().add(filmNames.getString("filmName"));
 		}
 
-		//Hiding controls. Toggle controls displays them again
+		//Hiding controls. ToggleControls method displays them again
 		filmDescriptionLabel.setVisible(false);
 		filmTitleLabel.setVisible(false);
 		filmDurationLabel.setVisible(false);
@@ -138,7 +138,7 @@ public class AddFilmController {
 			chooseFilmLbl.setVisible(true);
 			chooseFilmChoiceBox.setVisible(true);
 			chooseFilmChoiceBox.setDisable(false);
-		} else {
+		} else /*if new adding screening of new film*/ {
 			filmDescriptionLabel.setVisible(true);
 			filmTitleLabel.setVisible(true);
 			filmDurationLabel.setVisible(true);
@@ -163,6 +163,10 @@ public class AddFilmController {
 		}
 	}
 
+	/**
+	 * Takes data entered in AddFilm form and adds a new screening to the screenings database.
+	 * @param e
+	 */
 	public void addScreening(ActionEvent e){
 
 		String startDate = datePicker.getValue().format(DateTimeFormatter.ofPattern("dd/MM/yy"));
@@ -182,24 +186,22 @@ public class AddFilmController {
 				filmName = title.getText();
 				filmDescription = description.getText();
 				filmDuration = Integer.parseInt(duration.getText());
-
-				if (!checkForOverlapDuration(filmName, startDate, startTime, filmDuration)) {
+				
+				boolean overlap = checkForOverlapDuration(filmName, startDate, startTime, filmDuration);
+				
+				if (!overlap) {
 					databaseFilms.addFilm(filmName,  filmDescription, filmDuration, filePath);
 					databaseScreenings.addScreening(filmName, startTime, startDate);
-					screeningAlreadyInProgress.setText(successMessage);
+					screeningAlreadyInProgress.setText(successMessage);	
 				}
 			} else /*if film has been screened before*/{
 				filmName = chooseFilmChoiceBox.getValue();
-
-				if (!checkForOverlap(filmName, startDate, startTime)) {
+				boolean overlap = checkForOverlap(filmName, startDate, startTime);
+				if (!overlap) {
 					databaseScreenings.addScreening(filmName, startTime, startDate);
 					screeningAlreadyInProgress.setText(successMessage);
-				}	
-
-				//Close the window once viewing is added to database:
-				
+				}		
 			}
-
 
 		}catch (ClassNotFoundException e1) {
 			e1.printStackTrace();
@@ -208,8 +210,6 @@ public class AddFilmController {
 		}
 	}
 
-	
-	
 	
 	public void addImage(ActionEvent e) {
 		FileChooser fileChooser = new FileChooser();
@@ -238,7 +238,6 @@ public class AddFilmController {
 		try {
 			date = sdf.parse(time);		
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -295,7 +294,6 @@ public class AddFilmController {
 				attemptFilmDuration = res2.getInt("filmDuration");
 				res2.close();
 			}
-
 			
 			while (res1.next()) {
 				
@@ -307,8 +305,8 @@ public class AddFilmController {
 
 				String filmFinishString = currentEndTime.getHours() + ":" + currentEndTime.getMinutes();
 				
-				String errorMessage = "sorry, " + filmName + " is starting at " + currentFilmTime +
-						" and will go on until " + filmFinishString + " please try another time";
+				String errorMessage = "Sorry, " + filmName + " is starting at " + currentFilmTime +
+						" and will go on until " + filmFinishString + ". Please try another time.";
 				
 				// if the film being suggested end or stats in another film
 				if ((attemptStartTime.before(currentEndTime) && attemptStartTime.after(currentStartTime)) 
@@ -384,17 +382,12 @@ public class AddFilmController {
 					}
 				}
 			
-			
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-		
-		
 		return isOverlap;
 	}
 	
