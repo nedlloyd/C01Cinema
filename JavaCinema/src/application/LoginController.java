@@ -27,6 +27,7 @@ public class LoginController {
 	@FXML private TextField newUserName;
 	@FXML private TextField newPassword;
 	@FXML private TextField newEmail;
+	@FXML private Label createAccountLbl;
 
 	private String usernameAttempt;
 	private String passwordAttempt;
@@ -41,8 +42,21 @@ public class LoginController {
 		String email = newEmail.getText();
 
 		UsersDatabase users = new UsersDatabase();
+		boolean usernameTaken = false;
+		
+		//If the username already exists, make the user enter a unique username
+		try{
+		ResultSet results = users.displayRow(username);
+		usernameTaken = true;
+		createAccountLbl.setText("User name taken. Enter different user name.");
+		} catch(ClassNotFoundException ex){
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		
 		try {
-			if(!username.isEmpty() && !email.isEmpty() && !password.isEmpty()){
+			if(!username.isEmpty() && !email.isEmpty() && !password.isEmpty()&& usernameTaken==false){
+				
 				users.createUser(username, password, email, "customer");
 
 				lblstatus.getScene().getWindow().hide();

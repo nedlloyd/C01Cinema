@@ -33,7 +33,7 @@
             <Font name="AR BONNIE" size="41.0" />
          </font>
       </Label>
-      <Label layoutX="460.0" layoutY="214.0" prefHeight="17.0" prefWidth="186.0" text="Create an account below" textFill="WHITE">
+      <Label fx:id="createAccountLbl" layoutX="460.0" layoutY="214.0" prefHeight="17.0" prefWidth="272.0" text="Create an account below" textFill="WHITE">
          <font>
             <Font name="Cambria" size="12.0" />
          </font></Label>
