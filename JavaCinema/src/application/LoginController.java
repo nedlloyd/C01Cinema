@@ -17,7 +17,7 @@ import sqlitedatabases.UsersDatabase;
 import user.UserMainController;
 
 /**
- * Class defining methods and components of Login screen. 
+ * Controller class defining methods and components of Login screen. 
  * Methods defined in LoginController are login and signUp, for returning and new users respectively. 
  */
 public class LoginController {
@@ -33,13 +33,13 @@ public class LoginController {
 	@FXML private Label createAccountLbl;
 	@FXML private Button createAccountBtn;
 	@FXML private Button signInBtn;
-	
 
 	private String usernameAttempt;
 	private String passwordAttempt;
 
 	/**
-	 * Adds a new user to users database when they sign up. 
+	 * Takes data entered by user in related TextFields and adds a new user to users
+	 * database.
 	 * Triggered by createAccountBtn button. 
 	 * @param e
 	 */
@@ -57,7 +57,7 @@ public class LoginController {
 			ResultSet results = users.displayRow(username);
 			usernameTaken = true;
 			createAccountLbl.setText("User name taken. Enter different user name.");
-			
+
 		} catch(ClassNotFoundException ex){ //We want this exception to be thrown in order for usernameTaken to remain false.
 		} catch (SQLException e1) {
 			e1.printStackTrace();
@@ -93,7 +93,6 @@ public class LoginController {
 				e2.printStackTrace();
 			}
 		}
-
 	}
 
 	/**
@@ -156,9 +155,7 @@ public class LoginController {
 						userStage.setTitle("Cinema Booking");
 						userStage.show();
 						lblstatus.getScene().getWindow().hide();
-
-					}
-					catch(Exception ex){
+					} catch(Exception ex){
 						ex.printStackTrace();
 						System.out.println("Launching Customer Scene failed: "+ex);
 					}
