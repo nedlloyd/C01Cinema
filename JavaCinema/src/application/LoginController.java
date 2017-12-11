@@ -46,6 +46,7 @@ public class LoginController {
 		
 		//If the username already exists, make the user enter a unique username
 		try{
+		@SuppressWarnings("unused")
 		ResultSet results = users.displayRow(username);
 		usernameTaken = true;
 		createAccountLbl.setText("User name taken. Enter different user name.");
@@ -100,7 +101,6 @@ public class LoginController {
 			res = users.displayRow(usernameAttempt); //Fetches the user details from database
 			String pw = res.getString("password");
 			String role = res.getString("role");
-			String email = res.getString("email");
 
 			//Check to see if password matched
 			if(passwordAttempt.equals(pw)){

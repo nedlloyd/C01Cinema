@@ -273,7 +273,7 @@ public class UserMainController {
 					reservationController.setTime(time);
 					reservationController.setFilmName(filmName);
 					reservationController.filmLabel.setText(filmName);
-					reservationController.timeLabel.setText(date+" "+time);
+					reservationController.timeLabel.setText(time+" "+date);
 
 					Scene scene = new Scene(root,500,500);
 					newReservationStage.setScene(scene);
