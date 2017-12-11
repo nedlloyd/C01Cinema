@@ -17,11 +17,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
+import javafx.util.Callback;
 import sqlitedatabases.FilmsDatabase;
 import sqlitedatabases.ScreeningsDatabase;
 import user.AddDataToTable;
@@ -81,6 +83,26 @@ public class AddFilmController {
 		startTimeMinute.setItems(minuteOptions);
 
 		datePicker.setValue(LocalDate.now());
+		
+		//Disables past dates in date picker
+		final Callback<DatePicker, DateCell> dayCellFactory = 
+				new Callback<DatePicker, DateCell>() {
+			@Override
+			public DateCell call(final DatePicker datePicker) {
+				return new DateCell() {
+					@Override
+					public void updateItem(LocalDate item, boolean empty) {
+						super.updateItem(item, empty);
+						if (item.isBefore(LocalDate.now())){
+							setDisable(true);
+							setStyle("-fx-background-color: gray;");
+						}
+
+					}
+				};
+			}
+		};
+		datePicker.setDayCellFactory(dayCellFactory);
 
 		//Adding options to box which selects whether we are screening a film which
 		//has been previously screened or a new film

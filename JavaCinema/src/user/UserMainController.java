@@ -27,6 +27,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
+import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -145,7 +146,27 @@ public class UserMainController {
 		loopDayTracker(dayTracker);
 		String sixDaysAway = DayOfWeek.of(dayTracker).getDisplayName(TextStyle.FULL, Locale.UK);
 		dayOfWeekBtn6.setText(sixDaysAway);
-		changeDatePickerAction(dayOfWeekBtn6, 6);		
+		changeDatePickerAction(dayOfWeekBtn6, 6);	
+
+		//Disables past dates
+		final Callback<DatePicker, DateCell> dayCellFactory = 
+				new Callback<DatePicker, DateCell>() {
+			@Override
+			public DateCell call(final DatePicker datePicker) {
+				return new DateCell() {
+					@Override
+					public void updateItem(LocalDate item, boolean empty) {
+						super.updateItem(item, empty);
+						if (item.isBefore(todaysDate)){
+							setDisable(true);
+							setStyle("-fx-background-color: gray;");
+						}
+
+					}
+				};
+			}
+		};
+		datePickerUser.setDayCellFactory(dayCellFactory);
 
 		// event listener for datePicker when date is changes films outputted are changed 
 		datePickerUser.valueProperty().addListener((ov, oldValue, newValue) -> {
