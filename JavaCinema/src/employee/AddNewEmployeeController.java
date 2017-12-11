@@ -11,9 +11,9 @@ import javafx.scene.control.TextField;
 import sqlitedatabases.UsersDatabase;
 
 /**
- * Class defining method and components in AddNewEmployee2.fxml window. 
+ * Controller class defining method and components in AddNewEmployee2.fxml window. 
  * The only method is the createEmployeeAccount method which adds a
- * new employee account to the database. 
+ * new employee account to the database and subsequently closes the Add new employee window. 
  * @author Samuel Bradshaw
  *
  */
@@ -31,6 +31,7 @@ public class AddNewEmployeeController {
 	 * @param e
 	 */
 	public void createEmployeeAccount(ActionEvent e){
+		
 		String username = newEmployeeUsername.getText();
 		String email = newEmployeeEmail.getText();
 		String pw = newEmployeePassword.getText();
@@ -39,10 +40,10 @@ public class AddNewEmployeeController {
 		boolean usernameTaken = false;
 
 		//If the user name already exists, make the user enter a unique user name and prompt them
-		//by changing text on label. 
+		//by changing text on label: 
 		try{
 			@SuppressWarnings("unused")
-			ResultSet results = users.displayRow(username);
+			ResultSet results = users.displayRow(username); 
 			usernameTaken = true;
 			createAccountLbl.setText("User name taken.");
 		} catch(ClassNotFoundException ex){//We want this exception to be thrown in order for usernameTaken to remain false.

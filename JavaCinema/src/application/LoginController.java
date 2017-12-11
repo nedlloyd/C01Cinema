@@ -66,7 +66,6 @@ public class LoginController {
 			try {
 				users.createUser(username, password, email, "customer");
 
-				lblstatus.getScene().getWindow().hide();
 				//Launch user/customer portal after sign up
 				Stage userStage = new Stage();
 				FXMLLoader loader = new FXMLLoader();

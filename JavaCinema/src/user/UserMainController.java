@@ -53,8 +53,9 @@ import javafx.util.Callback;
 import sqlitedatabases.ScreeningsDatabase;
 
 /**
- * Class responsible for updating the content on the UserMain.fxml GUI. Contains method for displaying films on a selected date,
- * and launches new windows for making reservation and viewing user info. 
+ * Controller class responsible for updating the content on the customer window (UserMain.fxml). 
+ * Contains methods for displaying films on a selected date, and launches new windows
+ * for making reservation and viewing user info. 
  */
 
 public class UserMainController {
@@ -80,7 +81,7 @@ public class UserMainController {
 	@FXML private DatePicker datePickerUser; 
 	@FXML private Button viewProfile;
 	@FXML private Button logOutBtn;
-	@FXML private Label selectFilm;
+
 	@FXML private ScrollPane scrollPane;
 	@FXML private VBox filmDisplayVbox;
 	@FXML private Label noScreeningsLbl;
@@ -152,9 +153,9 @@ public class UserMainController {
 				String theDate = datePickerUser.getValue().format(DateTimeFormatter.ofPattern("dd/MM/yy"));
 
 				getFilms(theDate);
-					
+
 				displayFilms();
-				
+
 				if(films.isEmpty()){
 					noScreeningsLbl.setVisible(true);
 					filmDisplayVbox.getChildren().add(noScreeningsLbl);
@@ -248,46 +249,41 @@ public class UserMainController {
 	 */
 	public void makeReservation() {
 		try {
-			if (screeningID != 0) {
-				Stage newReservationStage = new Stage();
-				FXMLLoader loader = new FXMLLoader();
-				Parent root = loader.load(getClass().getResource("/user/MakeReservation.fxml").openStream());
+			Stage newReservationStage = new Stage();
+			FXMLLoader loader = new FXMLLoader();
+			Parent root = loader.load(getClass().getResource("/user/MakeReservation.fxml").openStream());
 
-				//calls up reservation controller allowing variables to be set from current controller
-				MakeReservationController reservationController = (MakeReservationController)loader.getController();
-				// uses the setScreening method from reservationController in order to pass the variable screeningID and set the seats bases on whether they are reserved
-				reservationController.setSeats(screeningID);
-				//does the same but with user
-				reservationController.setUser(user);
+			//calls up reservation controller allowing variables to be set from current controller
+			MakeReservationController reservationController = (MakeReservationController)loader.getController();
+			// uses the setScreening method from reservationController in order to pass the variable screeningID and set the seats bases on whether they are reserved
+			reservationController.setSeats(screeningID);
+			//does the same but with user
+			reservationController.setUser(user);
 
-				//Update label with film title and viewing time/date on new window
-				try {
-					ScreeningsDatabase sdb = new ScreeningsDatabase();
-					ResultSet screeningResult = sdb.displayRow(screeningID);
-					String filmName = screeningResult.getString("filmName");
-					String time = screeningResult.getString("time");
-					String date = screeningResult.getString("date");
+			//Update label with film title and viewing time/date on new window
+			try {
+				ScreeningsDatabase sdb = new ScreeningsDatabase();
+				ResultSet screeningResult = sdb.displayRow(screeningID);
+				String filmName = screeningResult.getString("filmName");
+				String time = screeningResult.getString("time");
+				String date = screeningResult.getString("date");
 
-					//Passing data onto reservationController window
-					reservationController.setDate(date);
-					reservationController.setTime(time);
-					reservationController.setFilmName(filmName);
-					reservationController.filmLabel.setText(filmName);
-					reservationController.timeLabel.setText(time+" "+date);
+				//Passing data onto reservationController window
+				reservationController.setDate(date);
+				reservationController.setTime(time);
+				reservationController.setFilmName(filmName);
+				reservationController.filmLabel.setText(filmName);
+				reservationController.timeLabel.setText(time+" "+date);
 
-					Scene scene = new Scene(root,500,500);
-					newReservationStage.setScene(scene);
-					newReservationStage.setTitle("Select a seat: "+filmName+" "+time+" "+date);
-					newReservationStage.show(); 
+				Scene scene = new Scene(root,500,500);
+				newReservationStage.setScene(scene);
+				newReservationStage.setTitle("Select a seat: "+filmName+" "+time+" "+date);
+				newReservationStage.show(); 
 
-				} catch (SQLException ex) {
-					ex.printStackTrace();
-				} catch (ClassNotFoundException ex) {
-					ex.printStackTrace();
-				}
-
-			} else {
-				selectFilm.setText("please select a screening");
+			} catch (SQLException ex) {
+				ex.printStackTrace();
+			} catch (ClassNotFoundException ex) {
+				ex.printStackTrace();
 			}
 
 		} catch(Exception exc) {
@@ -376,13 +372,13 @@ public class UserMainController {
 		ArrayList<Pane> filmPanes = new ArrayList<Pane>();
 
 		for(int i = 0; i < films.size();i++){
-			
+
 			Pane sameFilmPane = new Pane();
 			boolean repeatedScreening = false;
 
 			String filmTitle = films.get(i).getFilmName();
 
-			
+
 			for(int j = 0; j < filmPanes.size(); j++){
 				if(filmPanes.get(j).getId().equals(filmTitle)){
 					repeatedScreening = true;
@@ -394,22 +390,22 @@ public class UserMainController {
 			//If the film is a repeated screening, instead of creating a whole new pane for it, just add an 
 			//additional button the the existing pane for that film.
 			if(repeatedScreening){
-				
+
 				String currentfilm = sameFilmPane.getId();
 
 				Button screeningTimebutton = new Button();
 				screeningTimebutton.setText(films.get(i).getFilmTime());
 				screeningTimebutton.setId(Integer.toString(films.get(i).getScreeningID()));
-				
+
 				//The button is the last item in the Pane's getChildren() list.
 				int buttonIndex = sameFilmPane.getChildren().size() - 1;
 				double position = sameFilmPane.getChildren().get(buttonIndex).getLayoutX();
 				//Place the position of the new button to the right of the other button.
 				screeningTimebutton.setLayoutX(position+60);
-				
+
 				screeningTimebutton.setLayoutY(120);
 				screeningTimebutton.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-				
+
 				//The booking buttons trigger the makeReservation() method: 
 				screeningTimebutton.setOnAction(new EventHandler<ActionEvent>() {
 					@Override
@@ -419,7 +415,7 @@ public class UserMainController {
 						makeReservation();
 					}
 				});
-				
+
 				sameFilmPane.getChildren().addAll(screeningTimebutton);
 
 			}else/*if the film is the first in the list of screenings for that film on the selected date*/{
