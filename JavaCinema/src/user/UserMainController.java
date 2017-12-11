@@ -74,6 +74,7 @@ public class UserMainController {
 	@FXML private DatePicker datePickerUser; 
 
 	@FXML private Button viewProfile;
+	@FXML private Button logOutBtn;
 	@FXML private Label selectFilm;
 	@FXML private ScrollPane scrollPane;
 	@FXML private VBox filmDisplayVbox;
@@ -252,6 +253,10 @@ public class UserMainController {
 					String time = screeningResult.getString("time");
 					String date = screeningResult.getString("date");
 
+					//Passing data onto reservationController window
+					reservationController.setDate(date);
+					reservationController.setTime(time);
+					reservationController.setFilmName(filmName);
 					reservationController.filmLabel.setText(filmName);
 					reservationController.timeLabel.setText(date+" "+time);
 					
@@ -404,6 +409,27 @@ public class UserMainController {
 			
 		}	
 	}
+	
+	/**
+	 *  Logs out of user portal (i.e. closes user portal window)
+	 *  and re-opens login window. 
+	 *  Triggered when Log out button is pressed.
+	 */
+	public void logOut(ActionEvent e){
+		try {
+			Stage primaryStage = new Stage();
+			Parent root = FXMLLoader.load(getClass().getResource("/application/Login.fxml"));
+			Scene scene = new Scene(root,800,500);
+			primaryStage.setScene(scene);
+			primaryStage.setTitle("NEAM-Arts-Cinema Login");
+			primaryStage.show();
+			logOutBtn.getScene().getWindow().hide(); //Close employee portal
+			
+		} catch(Exception exception) {
+			exception.printStackTrace();
+		}
+	}
+	
 
 
 }

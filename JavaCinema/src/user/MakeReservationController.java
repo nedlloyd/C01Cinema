@@ -1,23 +1,29 @@
 package user;
 
 
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Circle;
+import javafx.stage.Stage;
 import sqlitedatabases.ReservationsDatabase;
 import sqlitedatabases.ScreeningsDatabase;
 import sqlitedatabases.UsersDatabase;
 
 public class MakeReservationController {
 
+	String date; String time; String filmName;
 	public int screeningID;
 	private int userID;
 	private ArrayList<Chairs> seatList = new ArrayList<Chairs>(50);
@@ -189,28 +195,59 @@ public class MakeReservationController {
 	/**
 	 * When the make reservation button is pressed a new reservation is created including setting userID screeningID and seatID
 	 * @param e
+	 * @throws IOException 
 	 */
-	public void reserve(ActionEvent e) {
+	public void reserve(ActionEvent e) throws IOException {
 
 		ReservationsDatabase rd = new ReservationsDatabase();
+		
 		String seatId;
+		//If booking multiple seats add seatIds to an arrayList to keep track:
+		ArrayList<String> seatbookings = new ArrayList<String>();
+		boolean bookingConfirmed = false;
+		
 		// for each seat which has been newly set to occupied a new reservation has been created 
 		for (Chairs seat : seatList) {
 			// if seat is occupied now and it was not like that to begin with then a reservation is created
 			if (seat.isSelectedForBooking() && seat.isOccupied()==false){
 				seatId = seat.getId();
+				seatbookings.add(seatId);
 				try {
 					//Add reservation to database:
 					rd.createReservation(userID, screeningID, seatId);
+					bookingConfirmed = true;
 					//Close window 
 					filmLabel.getScene().getWindow().hide();
+				
 				} catch (ClassNotFoundException e1) {
 					e1.printStackTrace();
 				} catch (SQLException e1) {
 					e1.printStackTrace();
-				}
+				} 
 			}
 		}
+		
+		
+		if(bookingConfirmed == true){
+		
+		Stage bookingConfirmationStage = new Stage();
+		FXMLLoader loader = new FXMLLoader();
+		Parent root = loader.load(getClass().getResource("/user/BookingConfirmation.fxml").openStream());
+		
+		BookingConfirmationController bookingConfirmation = (BookingConfirmationController) loader.getController();
+		
+		
+		bookingConfirmation.filmLbl.setText(this.filmName);
+		bookingConfirmation.timeLbl.setText(this.date+" "+this.time);
+		String seatbook = seatbookings.toString();
+		bookingConfirmation.seatLbl.setText("Seats booked: "+seatbook.substring(1, seatbook.length()-1));
+		
+		Scene scene = new Scene(root,400,200);
+		bookingConfirmationStage.setScene(scene);
+		bookingConfirmationStage.setTitle("Booking Confirmation");
+		bookingConfirmationStage.show();
+		}
+			
 	}
 
 	/**
@@ -231,5 +268,24 @@ public class MakeReservationController {
 		
 
 	}
+	
+	void setDate(String date){
+		this.date = date;
+	}
+	
+	void setTime(String date){
+		this.time = date;
+	}
+	
+	void setFilmName(String name){
+		this.filmName = name;
+	}
+	
+	
+	
+	
+	
+	
+	
 	
 }
