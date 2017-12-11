@@ -83,6 +83,7 @@ public class UserMainController {
 	@FXML private Label selectFilm;
 	@FXML private ScrollPane scrollPane;
 	@FXML private VBox filmDisplayVbox;
+	@FXML private Label noScreeningsLbl;
 
 	//Contains all the data for the films 
 	private ObservableList<AddDataToTable> films = FXCollections.observableArrayList();
@@ -92,6 +93,7 @@ public class UserMainController {
 
 		filmDisplayVbox.setSpacing(50);
 		scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+		noScreeningsLbl.setVisible(false);
 
 		//LINK UP TO DATEPICKER SO DATEPICKER CHANGES COLOR OF DAY TAGS
 		dayButtonArray[0] =  new DayOfTheWeekButton( todayBtn,LocalDate.now());
@@ -150,8 +152,15 @@ public class UserMainController {
 				String theDate = datePickerUser.getValue().format(DateTimeFormatter.ofPattern("dd/MM/yy"));
 
 				getFilms(theDate);
-
-				displayFilms();		
+					
+				displayFilms();
+				
+				if(films.isEmpty()){
+					noScreeningsLbl.setVisible(true);
+					filmDisplayVbox.getChildren().add(noScreeningsLbl);
+				}else{
+					noScreeningsLbl.setVisible(false);
+				}
 
 				//Selecting day of datePicker changes which day button is highlighted: 
 				for(int i = 0 ; i < dayButtonArray.length ; i++){

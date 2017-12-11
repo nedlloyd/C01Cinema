@@ -66,7 +66,14 @@
       <Button fx:id="viewProfile" layoutX="517.0" layoutY="69.0" mnemonicParsing="false" onAction="#viewProfile" style="-fx-background-color: #b81818; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 4px;" text="View Profile" />
       <ScrollPane fx:id="scrollPane" layoutX="45.0" layoutY="213.0" maxWidth="631.0" minHeight="350.0" minWidth="631.0" prefHeight="330.0" prefWidth="631.0" style="-fx-background-color: black;">
          <content>
-            <VBox fx:id="filmDisplayVbox" minHeight="350.0" minWidth="631.0" prefWidth="631.0" style="-fx-background-color: black;" />
+            <VBox fx:id="filmDisplayVbox" minHeight="350.0" minWidth="631.0" prefWidth="631.0" style="-fx-background-color: black;">
+               <children>
+                  <Label fx:id="noScreeningsLbl" prefHeight="36.0" prefWidth="314.0" text="No Screenings today..." textFill="WHITE">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </Label>
+               </children></VBox>
          </content>
       </ScrollPane>
       <Button fx:id="logOutBtn" layoutX="607.0" layoutY="69.0" mnemonicParsing="false" onAction="#logOut" style="-fx-background-color: #b81818; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 4px;" text="Log out" />
