@@ -27,6 +27,7 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TablePosition;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -38,6 +39,7 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import sqlitedatabases.ReservationsDatabase;
 import sqlitedatabases.ScreeningsDatabase;
+import sqlitedatabases.UsersDatabase;
 import user.AddDataToTable;
 import user.AddImageToTable;
 import user.MakeReservationController;
@@ -45,8 +47,10 @@ import user.MakeReservationController;
 public class AdminController {
 
 	@FXML private Button addScreeningButton;
+
 	@FXML private Label viewingsLbl;
 	@FXML private Label titleLbl; 
+	@FXML private Button OpenNewEmployeeWindowBtn;
 	@FXML private Label chooseDateLbl;
 	@FXML private DatePicker datePicker;
 	@FXML private TableView<AddDataToTable> tableView;
@@ -59,13 +63,14 @@ public class AdminController {
 	@FXML private Button writeData;
 	@FXML private Button logOutButton;
 
+
 	private ObservableList<AddImageToTable> someImages = FXCollections.observableArrayList();
 
 	@FXML 
 	void initialize(){
 
 		tableView.getStylesheets().add(getClass().getResource("/employee/tableview.css").toExternalForm());
-		
+
 		//Setting up columns in screenings table
 		filmNameColumn.setCellValueFactory(new PropertyValueFactory<AddDataToTable, String>("filmName"));
 		filmDescriptionColumn.setCellValueFactory(new PropertyValueFactory<AddDataToTable, String>("filmDescription"));
@@ -104,7 +109,7 @@ public class AdminController {
 				e.printStackTrace();
 			} 
 		});
-		
+
 		//Set the current date to now
 		datePicker.setValue(LocalDate.now());	
 		viewingsLbl.setText("Viewing Screenings on "+datePicker.getValue().format(DateTimeFormatter.ofPattern("dd/MM/yy"))+":");
@@ -116,11 +121,11 @@ public class AdminController {
 			try {
 				//sets image which is returned from the getImageFromTableMethod
 				filmImage.setImage(getImageFromTable()); 
-				
+
 				Stage screeningDataStage = new Stage();
 				FXMLLoader loader = new FXMLLoader();
 				Parent root = loader.load(getClass().getResource("/employee/ScreeningData.fxml").openStream());
-				
+
 				//calls up reservation controller allowing variables to be set from current controller
 				MakeReservationController reservationController = (MakeReservationController)loader.getController();
 				// uses the setScreening method from reservationController in order to pass the variable screeningID and set the seats bases on whether they are reserved
@@ -135,7 +140,7 @@ public class AdminController {
 					String filmName = screeningResult.getString("filmName");
 					String time = screeningResult.getString("time");
 					String date = screeningResult.getString("date");
-					
+
 					ReservationsDatabase reservationsDatabase = new ReservationsDatabase();
 					ResultSet reservationsResultSet = reservationsDatabase.displayRows(screeningID);
 					int reservationCount = reservationsDatabase.countRowsInResultSet(reservationsResultSet);
@@ -145,26 +150,26 @@ public class AdminController {
 					reservationController.timeLabel.setText(date+" "+time);
 					reservationController.availableSeatsLbl.setText(Integer.toString(availableSeats));
 					reservationController.bookedSeatsLbl.setText(Integer.toString(reservationCount));
-					
+
 					Scene scene = new Scene(root,500,500);
 					scene.getStylesheets().add(getClass().getResource("tableview.css").toExternalForm());
 					screeningDataStage.setScene(scene);
 					screeningDataStage.setTitle(filmName+" "+time+" "+date+" Booking data");
 					screeningDataStage.show(); 	
-					
+
 				} catch (SQLException ex) {
 					ex.printStackTrace();
 				} catch (ClassNotFoundException ex) {
 					ex.printStackTrace();
 				}
-				
-			
-				
-				
-				
-				
-				
-				
+
+
+
+
+
+
+
+
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
@@ -338,33 +343,33 @@ public class AdminController {
 		}
 		return theImage;
 	}
-	
+
 	public void writeDataToFile(ActionEvent e) {
 		String fileName = "screening_data.txt";
 		ScreeningsDatabase sd = new ScreeningsDatabase();
 		ReservationsDatabase rd = new ReservationsDatabase();
 		ResultSet res1 = null;
 		ResultSet res2 = null;		
-		
+
 		try {
 			res1 = sd.getAll();
 			PrintWriter outputStream = new PrintWriter(fileName);
 			while(res1.next()) {
-				
+
 				String name = res1.getString("filmName");
 				String time = res1.getString("time");
 				String date = res1.getString("date");
 				int screeningID = res1.getInt("screeningID");
-				
+
 				res2 = rd.displayRows(screeningID);
 				int reservationCount = rd.countRowsInResultSet(res2);
 				int availableSeats = 50 - reservationCount;
-				
+
 				outputStream.println(name + "," + date + "," + time + ",seatsbooked:" + reservationCount + 
 						",availableSeats:" + availableSeats);				
 			}			
 			outputStream.close();
-			
+
 		} catch (ClassNotFoundException e2) {
 			// TODO Auto-generated catch block
 			e2.printStackTrace();
@@ -375,7 +380,7 @@ public class AdminController {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
+
 	}
 
 
@@ -393,12 +398,33 @@ public class AdminController {
 			primaryStage.setTitle("NEAM-Arts-Cinema Login");
 			primaryStage.show();
 			logOutButton.getScene().getWindow().hide(); //Close employee portal
-			
+
 		} catch(Exception exception) {
 			exception.printStackTrace();
 		}
 	}
+
+	/**
+	 * Opens a new window for creating a new employee account and adding it to database.
+	 * @param e
+	 */
+	public void openAddEmployeeWindow(ActionEvent e){
+		try {
+			Stage addEmployeeStage = new Stage();
+			Parent root = FXMLLoader.load(getClass().getResource("/employee/AddNewEmployee2.fxml"));
+			Scene scene = new Scene(root,400,250);
+			addEmployeeStage.setScene(scene);
+			addEmployeeStage.setTitle("Create New Employee Account");
+			addEmployeeStage.show();
+
+		} catch(Exception exception) {
+			exception.printStackTrace();
+		}
+	}
+
 	
+
+
 
 
 }

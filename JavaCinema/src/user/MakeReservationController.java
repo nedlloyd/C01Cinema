@@ -238,7 +238,7 @@ public class MakeReservationController {
 		
 		
 		bookingConfirmation.filmLbl.setText(this.filmName);
-		bookingConfirmation.timeLbl.setText(this.date+" "+this.time);
+		bookingConfirmation.timeLbl.setText(this.date+"  "+this.time);
 		String seatbook = seatbookings.toString();
 		bookingConfirmation.seatLbl.setText("Seats booked: "+seatbook.substring(1, seatbook.length()-1));
 		

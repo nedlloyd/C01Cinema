@@ -52,6 +52,10 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import sqlitedatabases.ScreeningsDatabase;
 
+/**
+ * Class responsible for updating the content on the UserMain.fxml GUI. Contains method for displaying films on a selected date,
+ * and launches new windows for making reservation and viewing user info. 
+ */
 
 public class UserMainController {
 
@@ -63,23 +67,24 @@ public class UserMainController {
 	@FXML private Label titleLbl;  @FXML private Label lbl1;
 	@FXML public Label helloMessage;
 
+	//Day of the week buttons provide an alternative way of selecting date for screenings. Instead of 
+	//having to click the DatePicker, the user can click a button representing a day in the next week. 
 	@FXML private Button todayBtn; 	@FXML private Button dayOfWeekBtn1; 
 	@FXML private Button dayOfWeekBtn2; @FXML private Button dayOfWeekBtn3;
 	@FXML private Button dayOfWeekBtn4; @FXML private Button dayOfWeekBtn5;
 	@FXML private Button dayOfWeekBtn6;
-
 	DayOfTheWeekButton[] dayButtonArray = new DayOfTheWeekButton[7];
 
 	@FXML private Button seeScreenings;
 	@FXML private Label viewingsUser; 
 	@FXML private DatePicker datePickerUser; 
-
 	@FXML private Button viewProfile;
 	@FXML private Button logOutBtn;
 	@FXML private Label selectFilm;
 	@FXML private ScrollPane scrollPane;
 	@FXML private VBox filmDisplayVbox;
 
+	//Contains all the data for the films 
 	private ObservableList<AddDataToTable> films = FXCollections.observableArrayList();
 
 	@FXML
@@ -408,7 +413,7 @@ public class UserMainController {
 				
 				sameFilmPane.getChildren().addAll(screeningTimebutton);
 
-			}else{
+			}else/*if the film is the first in the list of screenings for that film on the selected date*/{
 
 				//Create a new Pane and add it to the VBox for each film in the 'films' 
 				//ArrayList on that date. Within that pane there is a title label, 

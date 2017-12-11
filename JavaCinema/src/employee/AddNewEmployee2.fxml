@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="250.0" maxWidth="400.0" minHeight="250.0" minWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="employee.AddNewEmployeeController">
+   <children>
+      <AnchorPane maxHeight="255.0" maxWidth="405.0" minHeight="250.0" minWidth="400.0" prefHeight="255.0" prefWidth="405.0" style="-fx-background-color: black;">
+         <children>
+            <Label layoutX="51.0" layoutY="33.0" prefHeight="27.0" prefWidth="269.0" text="Enter new admin account details:" textFill="WHITE">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <Label alignment="CENTER_RIGHT" layoutX="54.0" layoutY="80.0" text="User name:" textFill="WHITE" />
+            <Label alignment="CENTER_RIGHT" layoutX="54.0" layoutY="119.0" prefHeight="17.0" prefWidth="56.0" text="Email:" textFill="WHITE" />
+            <Label alignment="CENTER_RIGHT" layoutX="56.0" layoutY="157.0" prefHeight="17.0" prefWidth="56.0" text="Password:" textFill="WHITE" />
+            <PasswordField fx:id="newEmployeePassword" layoutX="133.0" layoutY="153.0" prefHeight="25.0" prefWidth="185.0" promptText="Create password" />
+            <Button fx:id="createEmployeeBtn" layoutX="134.0" layoutY="196.0" mnemonicParsing="false" onAction="#createEmployeeAccount" prefHeight="25.0" prefWidth="103.0" style="-fx-background-color: #b81818; -fx-border-color: white; -fx-border-radius: 4px;" text="Add Employee" textFill="WHITE" />
+            <TextField fx:id="newEmployeeUsername" layoutX="133.0" layoutY="76.0" prefHeight="25.0" prefWidth="185.0" promptText="Create user name" />
+            <TextField fx:id="newEmployeeEmail" layoutX="133.0" layoutY="115.0" prefHeight="25.0" prefWidth="185.0" promptText="Enter Employee email" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
