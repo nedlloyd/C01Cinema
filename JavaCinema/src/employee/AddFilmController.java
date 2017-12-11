@@ -97,7 +97,6 @@ public class AddFilmController {
 							setDisable(true);
 							setStyle("-fx-background-color: gray;");
 						}
-
 					}
 				};
 			}
@@ -325,6 +324,7 @@ public class AddFilmController {
 
 				setStartAndEnd(currentFilmTime, currentFilmDuration, timeAttempt, attemptFilmDuration);
 
+				@SuppressWarnings("deprecation")
 				String filmFinishString = currentEndTime.getHours() + ":" + currentEndTime.getMinutes();
 
 				String errorMessage = "Sorry, " + filmName + " is starting at " + currentFilmTime +

@@ -66,6 +66,6 @@
          <font>
             <Font name="AR BONNIE" size="32.0" />
          </font></Label>
-      <Label fx:id="screeningAlreadyInProgress" layoutX="28.0" layoutY="412.0" prefHeight="39.0" prefWidth="434.0" style="-fx-color: white" textAlignment="CENTER" textFill="WHITE" wrapText="true" />
+      <Label fx:id="screeningAlreadyInProgress" alignment="CENTER" contentDisplay="CENTER" layoutX="28.0" layoutY="412.0" prefHeight="39.0" prefWidth="447.0" style="-fx-color: white" textAlignment="CENTER" textFill="WHITE" wrapText="true" />
    </children>
 </AnchorPane>
