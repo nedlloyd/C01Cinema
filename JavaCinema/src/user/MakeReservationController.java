@@ -46,6 +46,9 @@ public class MakeReservationController {
 	@FXML private Button seat_e3;	@FXML private Button seat_e4;	@FXML private Button seat_e5;
 	@FXML private Button seat_e6;	@FXML private Button seat_e7;	@FXML private Button seat_e8;
 	@FXML private Button seat_e9;	@FXML private Button seat_e10;
+	
+	//FXML Components in /employee/ScreeningData.fxml
+	@FXML public Label availableSeatsLbl; @FXML public Label bookedSeatsLbl;
 
 	@FXML
 	public void initialize() {

@@ -230,7 +230,7 @@ public class UserMainController {
 	 * 	variables of filmName, screeningid and user are also passed onto the next controller
 	 * @param e
 	 */
-	public void makeReservation(/*ActionEvent e*/) {
+	public void makeReservation() {
 		try {
 			if (screeningID != 0) {
 				Stage newReservationStage = new Stage();

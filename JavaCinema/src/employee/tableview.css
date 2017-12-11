@@ -20,3 +20,7 @@
 .screeningAlreadyInProgress{
 	-fx-text-base-color: red;
 }
+
+* :disabled {
+    -fx-opacity: 1;
+}

@@ -22,6 +22,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Control;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TablePosition;
@@ -39,6 +40,7 @@ import sqlitedatabases.ReservationsDatabase;
 import sqlitedatabases.ScreeningsDatabase;
 import user.AddDataToTable;
 import user.AddImageToTable;
+import user.MakeReservationController;
 
 public class AdminController {
 
@@ -114,6 +116,55 @@ public class AdminController {
 			try {
 				//sets image which is returned from the getImageFromTableMethod
 				filmImage.setImage(getImageFromTable()); 
+				
+				Stage screeningDataStage = new Stage();
+				FXMLLoader loader = new FXMLLoader();
+				Parent root = loader.load(getClass().getResource("/employee/ScreeningData.fxml").openStream());
+				
+				//calls up reservation controller allowing variables to be set from current controller
+				MakeReservationController reservationController = (MakeReservationController)loader.getController();
+				// uses the setScreening method from reservationController in order to pass the variable screeningID and set the seats bases on whether they are reserved
+				int screeningID = tableView.getSelectionModel().getSelectedItem().getScreeningID();
+				reservationController.setSeats(screeningID);
+				//does the same but with user;
+
+				//Update label with film title and viewing time/date on new window
+				try {
+					ScreeningsDatabase sdb = new ScreeningsDatabase();
+					ResultSet screeningResult = sdb.displayRow(screeningID);
+					String filmName = screeningResult.getString("filmName");
+					String time = screeningResult.getString("time");
+					String date = screeningResult.getString("date");
+					
+					ReservationsDatabase reservationsDatabase = new ReservationsDatabase();
+					ResultSet reservationsResultSet = reservationsDatabase.displayRows(screeningID);
+					int reservationCount = reservationsDatabase.countRowsInResultSet(reservationsResultSet);
+					int availableSeats = 50 - reservationCount;
+
+					reservationController.filmLabel.setText(filmName);
+					reservationController.timeLabel.setText(date+" "+time);
+					reservationController.availableSeatsLbl.setText(Integer.toString(availableSeats));
+					reservationController.bookedSeatsLbl.setText(Integer.toString(reservationCount));
+					
+					Scene scene = new Scene(root,500,500);
+					scene.getStylesheets().add(getClass().getResource("tableview.css").toExternalForm());
+					screeningDataStage.setScene(scene);
+					screeningDataStage.setTitle(filmName+" "+time+" "+date+" Booking data");
+					screeningDataStage.show(); 	
+					
+				} catch (SQLException ex) {
+					ex.printStackTrace();
+				} catch (ClassNotFoundException ex) {
+					ex.printStackTrace();
+				}
+				
+			
+				
+				
+				
+				
+				
+				
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
@@ -212,7 +263,7 @@ public class AdminController {
 
 		ReservationsDatabase reservationsDatabase = new ReservationsDatabase();
 
-		// populates two observableLists on with film data the other with film names and posters 
+		// populates two observableLists one with film data the other with film names and posters 
 		try {
 			while (screeningsResultSet.next()) {
 
