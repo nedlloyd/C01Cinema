@@ -9,8 +9,5 @@ public class BookingConfirmationController {
 	@FXML public Label timeLbl;
 	@FXML public Label seatLbl;
 	@FXML public Label userLbl;
-	
-	
-	
 
 }

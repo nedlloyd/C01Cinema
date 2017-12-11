@@ -11,6 +11,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
+import java.util.ArrayList;
 import java.util.Locale;
 
 import javafx.beans.value.ChangeListener;
@@ -83,7 +84,7 @@ public class UserMainController {
 
 	@FXML
 	public void initialize() throws ClassNotFoundException, SQLException{	
-	
+
 		filmDisplayVbox.setSpacing(50);
 		scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 
@@ -98,7 +99,7 @@ public class UserMainController {
 
 		LocalDate todaysDate = LocalDate.now(); 
 		DayOfWeek day = todaysDate.getDayOfWeek();
-		
+
 		//Set day of week buttons accordingly
 		dayTracker = day.getValue();
 		changeDatePickerAction(todayBtn, 0);
@@ -137,16 +138,16 @@ public class UserMainController {
 		String sixDaysAway = DayOfWeek.of(dayTracker).getDisplayName(TextStyle.FULL, Locale.UK);
 		dayOfWeekBtn6.setText(sixDaysAway);
 		changeDatePickerAction(dayOfWeekBtn6, 6);		
-		
+
 		// event listener for datePicker when date is changes films outputted are changed 
 		datePickerUser.valueProperty().addListener((ov, oldValue, newValue) -> {
 			try {
 				String theDate = datePickerUser.getValue().format(DateTimeFormatter.ofPattern("dd/MM/yy"));
-				
+
 				getFilms(theDate);
-				
+
 				displayFilms();		
-				
+
 				//Selecting day of datePicker changes which day button is highlighted: 
 				for(int i = 0 ; i < dayButtonArray.length ; i++){
 					//Selected day has yellow text
@@ -164,7 +165,7 @@ public class UserMainController {
 				e.printStackTrace();
 			} 
 		});
-		
+
 		//Set datePicker value to today
 		datePickerUser.setValue(todaysDate);
 
@@ -186,7 +187,7 @@ public class UserMainController {
 		// creates a result set by calling  the detDataFromTwoTables method present in ScreeningDatabase
 		ResultSet res = screeningDatabase.getDataFromTwoTables("films", "screenings", date);
 		films.clear();
-		
+
 		while (res.next()) {
 
 			//creates variables for each field that we need for the Observable list and then the table
@@ -259,7 +260,7 @@ public class UserMainController {
 					reservationController.setFilmName(filmName);
 					reservationController.filmLabel.setText(filmName);
 					reservationController.timeLabel.setText(date+" "+time);
-					
+
 					Scene scene = new Scene(root,500,500);
 					newReservationStage.setScene(scene);
 					newReservationStage.setTitle("Select a seat: "+filmName+" "+time+" "+date);
@@ -270,7 +271,7 @@ public class UserMainController {
 				} catch (ClassNotFoundException ex) {
 					ex.printStackTrace();
 				}
-				
+
 			} else {
 				selectFilm.setText("please select a screening");
 			}
@@ -346,7 +347,7 @@ public class UserMainController {
 			exc.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * For every film stored as an AddDataToTable object in the 'films' ArrayList, 
 	 * we create a childpane and add to to a VBox. When the datepicker is actioned, 
@@ -354,62 +355,116 @@ public class UserMainController {
 	 * changes.
 	 */
 	public void displayFilms(){
-		
+
 		filmDisplayVbox.getChildren().clear();
-		
+
+		//ArrayList to keep track of whether there are multiple screenings of one film on one date
+		ArrayList<Pane> filmPanes = new ArrayList<Pane>();
+
 		for(int i = 0; i < films.size();i++){
-			//Create a new Pane and add it to the VBox for each film in the 'films' 
-			//ArrayList on that date. Within that pane there is a title label, 
-			//a description text area, and booking buttons.
-			Pane filmPane = new Pane();
-			filmPane.setPrefSize(631, 150);
-			filmPane.setId(films.get(i).getFilmName());
 			
-			//Film title label
-			Label titleLbl = new Label();
-			titleLbl.setText(films.get(i).getFilmName());
-			titleLbl.setLayoutX(120);
-			titleLbl.setStyle("	-fx-text-fill:white;"
-					+ "-fx-font-family:Impact;"
-					+ "-fx-font-size: 22px");
+			Pane sameFilmPane = new Pane();
+			boolean repeatedScreening = false;
+
+			String filmTitle = films.get(i).getFilmName();
+
 			
-			//Film description text area
-			TextArea descriptionArea = new TextArea();
-			descriptionArea.setWrapText(true);
-			descriptionArea.setEditable(false);
-			descriptionArea.setMaxHeight(90);
-			descriptionArea.setMaxWidth(500);
-			descriptionArea.setText(films.get(i).getFilmDescription());
-			descriptionArea.setLayoutX(120);
-			descriptionArea.setLayoutY(30);
-			descriptionArea.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			
-			//Film image
-			ImageView pic = films.get(i).getFilmImage();
-			
-			//Booking button for screening
-			Button screeningTimebutton = new Button();
-			screeningTimebutton.setText(films.get(i).getFilmTime());
-			screeningTimebutton.setId(Integer.toString( films.get(i).getScreeningID()));
-			screeningTimebutton.setLayoutX(120);
-			screeningTimebutton.setLayoutY(120);
-			screeningTimebutton.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			//The booking buttons trigger the makeReservation() method: 
-			screeningTimebutton.setOnAction(new EventHandler<ActionEvent>() {
-	            @Override
-	            public void handle(ActionEvent event) {
-	            	screeningID = Integer.parseInt(screeningTimebutton.getId());
-	            	currentFilm = filmPane.getId();
-	            	makeReservation();
-	            }
-	        });
-			
-			filmPane.getChildren().addAll(titleLbl, descriptionArea, screeningTimebutton, pic);
-			filmDisplayVbox.getChildren().add(filmPane);
-			
-		}	
+			for(int j = 0; j < filmPanes.size(); j++){
+				if(filmPanes.get(j).getId().equals(filmTitle)){
+					repeatedScreening = true;
+					sameFilmPane = filmPanes.get(j);
+					break;
+				}
+			}
+
+			//If the film is a repeated screening, instead of creating a whole new pane for it, just add an 
+			//additional button the the existing pane for that film.
+			if(repeatedScreening){
+				
+				String currentfilm = sameFilmPane.getId();
+
+				Button screeningTimebutton = new Button();
+				screeningTimebutton.setText(films.get(i).getFilmTime());
+				screeningTimebutton.setId(Integer.toString(films.get(i).getScreeningID()));
+				
+				//The button is the last item in the Pane's getChildren() list.
+				int buttonIndex = sameFilmPane.getChildren().size() - 1;
+				double position = sameFilmPane.getChildren().get(buttonIndex).getLayoutX();
+				//Place the position of the new button to the right of the other button.
+				screeningTimebutton.setLayoutX(position+60);
+				
+				screeningTimebutton.setLayoutY(120);
+				screeningTimebutton.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+				
+				//The booking buttons trigger the makeReservation() method: 
+				screeningTimebutton.setOnAction(new EventHandler<ActionEvent>() {
+					@Override
+					public void handle(ActionEvent event) {
+						screeningID = Integer.parseInt(screeningTimebutton.getId());
+						currentFilm = currentfilm;
+						makeReservation();
+					}
+				});
+				
+				sameFilmPane.getChildren().addAll(screeningTimebutton);
+
+			}else{
+
+				//Create a new Pane and add it to the VBox for each film in the 'films' 
+				//ArrayList on that date. Within that pane there is a title label, 
+				//a description text area, and booking buttons.
+				Pane filmPane = new Pane();
+				filmPane.setPrefSize(631, 150);
+				filmPane.setId(filmTitle);
+				filmPanes.add(filmPane);
+
+				//Film title label
+				Label titleLbl = new Label();
+				titleLbl.setText(filmTitle);
+				titleLbl.setLayoutX(120);
+				titleLbl.setStyle("	-fx-text-fill:white;"
+						+ "-fx-font-family:Impact;"
+						+ "-fx-font-size: 22px");
+
+				//Film description text area
+				TextArea descriptionArea = new TextArea();
+				descriptionArea.setWrapText(true);
+				descriptionArea.setEditable(false);
+				descriptionArea.setMaxHeight(90);
+				descriptionArea.setMaxWidth(500);
+				descriptionArea.setText(films.get(i).getFilmDescription());
+				descriptionArea.setLayoutX(120);
+				descriptionArea.setLayoutY(30);
+				descriptionArea.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+
+				//Film image
+				ImageView pic = films.get(i).getFilmImage();
+
+				//Booking button for screening
+				Button screeningTimebutton = new Button();
+				screeningTimebutton.setText(films.get(i).getFilmTime());
+				screeningTimebutton.setId(Integer.toString( films.get(i).getScreeningID()));
+				screeningTimebutton.setLayoutX(120);
+				screeningTimebutton.setLayoutY(120);
+				screeningTimebutton.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+				//The booking buttons trigger the makeReservation() method: 
+				screeningTimebutton.setOnAction(new EventHandler<ActionEvent>() {
+					@Override
+					public void handle(ActionEvent event) {
+						screeningID = Integer.parseInt(screeningTimebutton.getId());
+						currentFilm = filmPane.getId();
+						makeReservation();
+					}
+				});
+
+				//It is important that the screeningTimebutton is added to filmPane LAST in next line:
+				filmPane.getChildren().addAll(titleLbl, descriptionArea, pic, screeningTimebutton);
+				filmDisplayVbox.getChildren().add(filmPane);
+
+			}	
+		}
 	}
-	
+
 	/**
 	 *  Logs out of user portal (i.e. closes user portal window)
 	 *  and re-opens login window. 
@@ -424,12 +479,12 @@ public class UserMainController {
 			primaryStage.setTitle("NEAM-Arts-Cinema Login");
 			primaryStage.show();
 			logOutBtn.getScene().getWindow().hide(); //Close employee portal
-			
+
 		} catch(Exception exception) {
 			exception.printStackTrace();
 		}
 	}
-	
+
 
 
 }
