@@ -254,17 +254,17 @@ public class UserMainController {
 
 					reservationController.filmLabel.setText(filmName);
 					reservationController.timeLabel.setText(date+" "+time);
+					
+					Scene scene = new Scene(root,500,500);
+					newReservationStage.setScene(scene);
+					newReservationStage.setTitle("Select a seat: "+filmName+" "+time+" "+date);
+					newReservationStage.show(); 
 
 				} catch (SQLException ex) {
 					ex.printStackTrace();
 				} catch (ClassNotFoundException ex) {
 					ex.printStackTrace();
 				}
-
-				Scene scene = new Scene(root,500,500);
-				newReservationStage.setScene(scene);
-				newReservationStage.setTitle("Select a seat");
-				newReservationStage.show(); 	
 				
 			} else {
 				selectFilm.setText("please select a screening");
