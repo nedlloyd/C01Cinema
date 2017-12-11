@@ -26,6 +26,7 @@ import sqlitedatabases.FilmsDatabase;
 import sqlitedatabases.ScreeningsDatabase;
 import user.AddDataToTable;
 
+
 public class AddFilmController {
 	
 	static final long ONE_MINUTE_IN_MILLIS=60000;
@@ -33,44 +34,22 @@ public class AddFilmController {
 	ObservableList<String> hourOptions = FXCollections.observableArrayList();
 	ObservableList<String> minuteOptions = FXCollections.observableArrayList();
 
-	@FXML
-	ChoiceBox<String> filmTypeChoiceBox;
-	@FXML
-	DatePicker datePicker;
-	@FXML
-	ComboBox<String> startTimeHour;
-	@FXML
-	ComboBox<String> startTimeMinute;
-	@FXML 
-	Button addScreeningBtn;
-	
-	
-	@FXML
-	Label chooseFilmLbl;
-	@FXML
-	Label screeningAlreadyInProgress;
-	@FXML
-	ChoiceBox<String> chooseFilmChoiceBox;
-
-
-	@FXML 
-	TextField title;
-	@FXML
-	TextArea description;
-	@FXML
-	TextField duration;
-	
-	@FXML
-	Button addImageButton;
-
-	@FXML
-	Label filmTitleLabel;
-	@FXML
-	Label filmDescriptionLabel;
-	@FXML
-	Label filmDurationLabel;
-	@FXML 
-	Label filmImageLabel;
+	@FXML ChoiceBox<String> filmTypeChoiceBox;
+	@FXML DatePicker datePicker;
+	@FXML ComboBox<String> startTimeHour;
+	@FXML ComboBox<String> startTimeMinute;
+	@FXML Button addScreeningBtn;
+	@FXML Label chooseFilmLbl;
+	@FXML Label screeningAlreadyInProgress;
+	@FXML ChoiceBox<String> chooseFilmChoiceBox;
+	@FXML TextField title;
+	@FXML TextArea description;
+	@FXML TextField duration;
+	@FXML Button addImageButton;
+	@FXML Label filmTitleLabel;
+	@FXML Label filmDescriptionLabel;
+	@FXML Label filmDurationLabel;
+	@FXML Label filmImageLabel;
 	
 	String filePath = "/Users/nedlloyd/Desktop/vertigo.png";
 	
@@ -78,8 +57,6 @@ public class AddFilmController {
 	private Date currentEndTime;
 	private Date attemptStartTime;
 	private Date attemptEndTime;
-
-
 
 	@FXML
 	public void initialize() throws ClassNotFoundException, SQLException {

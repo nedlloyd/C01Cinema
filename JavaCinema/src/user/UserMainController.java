@@ -243,8 +243,8 @@ public class UserMainController {
 	}
 
 	/**
-	 *  when the make a reservation button is pressed the make a reservation window is opened
-	 * 	variables of filmName, screeningid and user are also passed onto the next controller
+	 *  When a screening button is pressed, the make-a-reservation window is opened and
+	 *  the variables of filmName, screeningid and user are also passed onto the next controller.
 	 * @param e
 	 */
 	public void makeReservation() {

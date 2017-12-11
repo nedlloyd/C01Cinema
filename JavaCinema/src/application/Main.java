@@ -7,7 +7,10 @@ import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 
-
+/**
+ * Launches the Cinema booking application. Starts by displaying the login window.
+ *
+ */
 public class Main extends Application {
 	
 	@Override
