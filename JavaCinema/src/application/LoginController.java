@@ -1,7 +1,5 @@
 package application;
 
-
-
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -43,21 +41,20 @@ public class LoginController {
 
 		UsersDatabase users = new UsersDatabase();
 		boolean usernameTaken = false;
-		
+
 		//If the username already exists, make the user enter a unique username
 		try{
-		@SuppressWarnings("unused")
-		ResultSet results = users.displayRow(username);
-		usernameTaken = true;
-		createAccountLbl.setText("User name taken. Enter different user name.");
-		} catch(ClassNotFoundException ex){
+			@SuppressWarnings("unused")
+			ResultSet results = users.displayRow(username);
+			usernameTaken = true;
+			createAccountLbl.setText("User name taken. Enter different user name.");
+			
+		} catch(ClassNotFoundException ex){ //We want this exception to be thrown in order for usernameTaken to remain false.
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
-		
-		try {
-			if(!username.isEmpty() && !email.isEmpty() && !password.isEmpty()&& usernameTaken==false){
-				
+		if(!username.isEmpty() && !email.isEmpty() && !password.isEmpty()&& usernameTaken==false){
+			try {
 				users.createUser(username, password, email, "customer");
 
 				lblstatus.getScene().getWindow().hide();
@@ -78,14 +75,14 @@ public class LoginController {
 				userStage.setTitle("Cinema Booking");
 				userStage.show();
 				lblstatus.getScene().getWindow().hide();
-			}
 
-		} catch (ClassNotFoundException | SQLException e1) {
-			System.out.println("Error with sign up process. Error adding to users database.");
-			e1.printStackTrace();
-		} catch(IOException e2){
-			System.out.println("Error with launching customer portal.");
-			e2.printStackTrace();
+			} catch (ClassNotFoundException | SQLException e1) {
+				System.out.println("Error with sign up process. Error adding to users database.");
+				e1.printStackTrace();
+			} catch(IOException e2){
+				System.out.println("Error with launching customer portal.");
+				e2.printStackTrace();
+			}
 		}
 
 	}
