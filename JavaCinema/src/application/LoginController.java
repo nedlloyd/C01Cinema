@@ -9,12 +9,17 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import sqlitedatabases.UsersDatabase;
 import user.UserMainController;
 
+/**
+ * Class defining methods and components of Login screen. 
+ * Methods defined in LoginController are login and signUp, for returning and new users respectively. 
+ */
 public class LoginController {
 
 	@FXML private Label lblstatus;
@@ -26,12 +31,16 @@ public class LoginController {
 	@FXML private TextField newPassword;
 	@FXML private TextField newEmail;
 	@FXML private Label createAccountLbl;
+	@FXML private Button createAccountBtn;
+	@FXML private Button signInBtn;
+	
 
 	private String usernameAttempt;
 	private String passwordAttempt;
 
 	/**
-	 * Adds a new user to users database when they sign up
+	 * Adds a new user to users database when they sign up. 
+	 * Triggered by createAccountBtn button. 
 	 * @param e
 	 */
 	public void signUp(ActionEvent e){
@@ -87,6 +96,13 @@ public class LoginController {
 
 	}
 
+	/**
+	 * Takes the data entered in TextFields for user name and password and 
+	 * queries the database. If a match is found for both user name and password,
+	 * this method opens a new window. 
+	 * @param e
+	 * @throws SQLException
+	 */
 	public void login(ActionEvent e) throws SQLException{
 
 		usernameAttempt = txtUserName.getText();
@@ -104,7 +120,7 @@ public class LoginController {
 				//Check to see whether the user is an employee/admin or a customer
 				if(role.equals("employee")||role.equals("admin")){
 
-					//Launch admin portal
+					//Launch employee portal
 					try{
 						Stage adminStage = new Stage();
 						Parent root = FXMLLoader.load(getClass().getResource("/employee/AdminMain.fxml"));
