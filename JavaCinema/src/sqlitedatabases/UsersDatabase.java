@@ -99,6 +99,25 @@ public class UsersDatabase extends SQLiteDatabase {
 		return res;
 	}
 	
+	public void updateUserInfo(String username, String email, String password, int userID) throws SQLException, ClassNotFoundException {
+		if (con == null) {
+			getConnection();
+		}
+				
+		PreparedStatement prep = con.prepareStatement("UPDATE users SET userName = ? , "
+                + "password = ?, email = ? "
+                + "WHERE userID = ?;");
+		prep.setString(1, username);
+		prep.setString(2, password);
+		prep.setString(3, email);
+		prep.setInt(4, userID);
+		prep.execute();
+		//prep.close();
+		//con.close();
+		
+
+	}
+	
 
 
 }

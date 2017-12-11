@@ -358,12 +358,11 @@ public class ViewProfileController {
 					
 					EditUserProfileController eupc  = (EditUserProfileController)loader.getController();
 					// uses the setScreening method from reservationController in order to pass the variable screeningID and set the seats bases on whether they are reserved
-					System.out.println("has created controller");
 
 					eupc.setUsername(currentUser);
 					eupc.setEmail(currentEmail);
-					System.out.println("has set e and u");
-					Scene scene = new Scene(root,500,500);
+					eupc.setPassword(currentUser);
+					Scene scene = new Scene(root,500,320);
 					//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 					newEditProfileController.setScene(scene);
 					newEditProfileController.setTitle("User Info");

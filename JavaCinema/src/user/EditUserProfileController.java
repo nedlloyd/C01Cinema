@@ -3,6 +3,7 @@ package user;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -18,38 +19,41 @@ public class EditUserProfileController {
 	
 	@FXML private TextField username; 
 	@FXML private TextField email; 
-	@FXML private TextField passwoord; 
+	@FXML private TextField password; 
 	
-	@FXML private Label updatedUsername; 
-	@FXML private Label updatedEmail; 
-	@FXML private Label updatedPasswoord; 
+	@FXML private Label confirmMessage;
 	
-	private String currentUser;
+	
+	private int currentUserID;
+	private String currentUsername;
+	private String currentEmail;
+	private String currentPassword;
 
 	
+	
 	public void initialize() {
-		setPassword();
+		confirm.setVisible(false);
+		
 	}
 	
 	public void setUsername(String username) {
 		this.username.setText(username);
-		this.currentUser = username;
 	}
 
 	public void setEmail(String email) {
 		this.email.setText(email);
 	}
 
-	public void setPassword() {
+	public void setPassword(String username) {
 		
-		String currentPassword = "";
+
 		UsersDatabase ud = new UsersDatabase();
 		try {	
-			ResultSet res = ud.displayRow(currentUser);
-			System.out.println(currentPassword);
+
+			ResultSet res = ud.displayRow(username);
 			if(res != null) {
 				currentPassword = res.getString("password");
-				System.out.println(currentPassword);
+				currentUserID = res.getInt("userID");
 			}
 			res.close();
 		} catch (ClassNotFoundException e) {
@@ -60,7 +64,31 @@ public class EditUserProfileController {
 			e.printStackTrace();
 		}
 
-		this.passwoord.setText(currentPassword);
+		this.password.setText(currentPassword);
 	}
+	
+	public void update(ActionEvent e) {
+		confirm.setVisible(true);
+		confirmMessage.setText("Are you sure you want to confirm these updates?");
+	}
+	
+	public void confirm(ActionEvent e) {
+		UsersDatabase ud = new UsersDatabase();
+		this.currentUsername = username.getText();
+		this.currentEmail = email.getText();
+		this.currentPassword = password.getText();
+		try {
+			ud.updateUserInfo(currentUsername, currentEmail, currentPassword, currentUserID);
+		} catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		confirmMessage.setText("Changes saved");
+	}
+	
+	
 
 }
