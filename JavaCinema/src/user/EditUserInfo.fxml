@@ -6,23 +6,20 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="500.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="user.EditUserProfileController">
+<AnchorPane prefHeight="300.0" prefWidth="500.0" style="-fx-background-color: black; -fx-border-color: white; -fx-border-insets: 10px;" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="user.EditUserProfileController">
    <children>
-      <TextField fx:id="username" layoutX="96.0" layoutY="127.0" />
-      <TextField fx:id="passwoord" layoutX="96.0" layoutY="216.0" />
-      <TextField fx:id="email" layoutX="96.0" layoutY="170.0" />
-      <Button fx:id="edit1" layoutX="315.0" layoutY="127.0" mnemonicParsing="false" text="Save" />
-      <Button fx:id="edit3" layoutX="315.0" layoutY="216.0" mnemonicParsing="false" text="Save" />
-      <Button fx:id="edit2" layoutX="315.0" layoutY="170.0" mnemonicParsing="false" text="Save" />
-      <Label layoutX="135.0" layoutY="283.0" prefHeight="16.0" prefWidth="141.0" text="Updated information:" />
-      <Label fx:id="updatedUsername" layoutX="135.0" layoutY="320.0" text="Label" />
-      <Label fx:id="updatedEmail" layoutX="135.0" layoutY="360.0" text="Label" />
-      <Label fx:id="updatedPasswoord" layoutX="135.0" layoutY="401.0" text="Label" />
-      <Label layoutX="112.0" layoutY="38.0" prefHeight="69.0" prefWidth="205.0" text="Edit">
+      <TextField fx:id="username" layoutX="98.0" layoutY="95.0" />
+      <TextField fx:id="password" layoutX="98.0" layoutY="184.0" />
+      <TextField fx:id="email" layoutX="98.0" layoutY="138.0" />
+      <Button fx:id="edit1" layoutX="317.0" layoutY="95.0" mnemonicParsing="false" onAction="#update" text="Save" />
+      <Button fx:id="edit3" layoutX="317.0" layoutY="184.0" mnemonicParsing="false" onAction="#update" text="Save" />
+      <Button fx:id="edit2" layoutX="317.0" layoutY="138.0" mnemonicParsing="false" onAction="#update" text="Save" />
+      <Label layoutX="118.0" layoutY="14.0" prefHeight="69.0" prefWidth="205.0" text="Edit" textFill="WHITE">
          <font>
-            <Font size="55.0" />
+            <Font name="Arial" size="55.0" />
          </font>
       </Label>
-      <Button fx:id="confirm" layoutX="206.0" layoutY="431.0" mnemonicParsing="false" text="Confirm" />
+      <Button fx:id="confirm" layoutX="220.0" layoutY="261.0" mnemonicParsing="false" onAction="#confirm" text="Confirm" />
+      <Label fx:id="confirmMessage" layoutX="98.0" layoutY="226.0" prefHeight="33.0" prefWidth="323.0" textAlignment="CENTER" wrapText="true" />
    </children>
 </AnchorPane>
