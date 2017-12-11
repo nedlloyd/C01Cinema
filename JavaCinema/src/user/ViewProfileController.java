@@ -56,6 +56,7 @@ public class ViewProfileController {
 	private String currentDescription;
 	private String currentDate;
 	private String currentUser;
+	private String currentEmail;
 	private int currentID;
 	private int userID;
 
@@ -188,6 +189,7 @@ public class ViewProfileController {
 			//adds AddDataToTable objects to observable list 
 			films.add(nextObject);
 		}
+		res.close();
 	}
 	
 	/**
@@ -285,7 +287,7 @@ public class ViewProfileController {
 			//finds the userID based on the user name
 			ResultSet res = ud.displayRow(user);
 			
-			String currentEmail = "";
+			
 			int id = 0;
 			while (res.next()) {
 				id = res.getInt("userID");
@@ -350,12 +352,17 @@ public class ViewProfileController {
 				// variable screeningID set to currently selected films screening id
 					Stage newEditProfileController = new Stage();
 					FXMLLoader loader = new FXMLLoader();
-					Parent root = loader.load(getClass().getResource("/user/EditUserProfile.fxml").openStream());
+					Parent root = loader.load(getClass().getResource("/user/EditUserInfo.fxml").openStream());
 
 					//calls up reservation controller allowing variables to be set from current controller
+					
 					EditUserProfileController eupc  = (EditUserProfileController)loader.getController();
 					// uses the setScreening method from reservationController in order to pass the variable screeningID and set the seats bases on whether they are reserved
-					
+					System.out.println("has created controller");
+
+					eupc.setUsername(currentUser);
+					eupc.setEmail(currentEmail);
+					System.out.println("has set e and u");
 					Scene scene = new Scene(root,500,500);
 					//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 					newEditProfileController.setScene(scene);

@@ -55,15 +55,16 @@ public class UsersDatabase extends SQLiteDatabase {
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public void createUser(String userName, String password, String role) throws ClassNotFoundException, SQLException {
+	public void createUser(String userName, String password, String email, String role) throws ClassNotFoundException, SQLException {
 		if (con == null) {
 			getConnection();
 		}
 
-		PreparedStatement prep = con.prepareStatement("INSERT INTO "+super.tableName+" values(?,?,?,?);");
+		PreparedStatement prep = con.prepareStatement("INSERT INTO "+super.tableName+" values(?,?,?,?,?);");
 		prep.setString(2, userName);
 		prep.setString(3, password);
 		prep.setString(4, role);
+		prep.setString(5, email);
 		prep.execute();
 		//prep.close();
 		//con.close();

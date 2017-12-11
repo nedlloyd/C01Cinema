@@ -11,9 +11,9 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="700.0" style="-fx-background-color: black; -fx-border-color: white; -fx-border-style: solid; -fx-border-insets: 5px;" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="employee.AdminController">
    <children>
-      <Label fx:id="titleLbl" layoutX="251.0" layoutY="25.0" prefHeight="17.0" prefWidth="199.0" text="Employee Portal" textFill="WHITE" underline="true">
+      <Label fx:id="titleLbl" layoutX="234.0" layoutY="25.0" prefHeight="42.0" prefWidth="287.0" text="Employee Portal" textFill="WHITE" underline="true">
          <font>
-            <Font name="AR BONNIE" size="36.0" />
+            <Font name="Arial" size="36.0" />
          </font></Label>
       <DatePicker fx:id="datePicker" layoutX="282.0" layoutY="100.0" onAction="#changeViewingDayListings" onMouseDragEntered="#getScreenings" promptText="Current date" />
       <Label fx:id="chooseDateLbl" layoutX="63.0" layoutY="104.0" prefHeight="18.0" prefWidth="199.0" text="Choose Date to view screenings:" textFill="WHITE">

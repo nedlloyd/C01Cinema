@@ -26,6 +26,7 @@ public class LoginController {
 	@FXML private TextField txtPassword;
 	@FXML private TextField newUserName;
 	@FXML private TextField newPassword;
+	@FXML private TextField newEmail;
 
 	private String usernameAttempt;
 	private String passwordAttempt;
@@ -37,10 +38,11 @@ public class LoginController {
 	public void signUp(ActionEvent e){
 		String username = newUserName.getText();
 		String password = newPassword.getText();
+		String email = newEmail.getText();
 
 		UsersDatabase users = new UsersDatabase();
 		try {
-			users.createUser(username, password, "customer");
+			users.createUser(username, password, email, "customer");
 			
 			lblstatus.getScene().getWindow().hide();
 			//Launch user/customer portal after sign up
