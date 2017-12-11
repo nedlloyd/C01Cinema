@@ -28,7 +28,7 @@ public class AddNewEmployeeController {
 		UsersDatabase users = new UsersDatabase();
 
 		try {
-			if(username!=null && email!= null && pw != null){
+			if(username.isEmpty()==false && email.isEmpty()==false && pw.isEmpty() == false){
 				users.createUser(username, pw, email, "employee");
 				newEmployeeUsername.getScene().getWindow().hide();
 			}

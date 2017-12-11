@@ -42,26 +42,28 @@ public class LoginController {
 
 		UsersDatabase users = new UsersDatabase();
 		try {
-			users.createUser(username, password, email, "customer");
-			
-			lblstatus.getScene().getWindow().hide();
-			//Launch user/customer portal after sign up
-			Stage userStage = new Stage();
-			FXMLLoader loader = new FXMLLoader();
-			Parent root = loader.load(getClass().getResource("/user/UserMain2.fxml").openStream());
-			
-			//calls userMainController in order to pass variables
-			UserMainController userMain = (UserMainController)loader.getController();
-			//passes usernameAttempt to userMainController
-			userMain.setUser(username);
-			//Welcome the user
-			userMain.helloMessage.setText("Welcome "+username+"!");
-			
-			Scene scene = new Scene(root,700,600);
-			userStage.setScene(scene);
-			userStage.setTitle("Cinema Booking");
-			userStage.show();
-			lblstatus.getScene().getWindow().hide();
+			if(!username.isEmpty() && !email.isEmpty() && !password.isEmpty()){
+				users.createUser(username, password, email, "customer");
+
+				lblstatus.getScene().getWindow().hide();
+				//Launch user/customer portal after sign up
+				Stage userStage = new Stage();
+				FXMLLoader loader = new FXMLLoader();
+				Parent root = loader.load(getClass().getResource("/user/UserMain2.fxml").openStream());
+
+				//calls userMainController in order to pass variables
+				UserMainController userMain = (UserMainController)loader.getController();
+				//passes usernameAttempt to userMainController
+				userMain.setUser(username);
+				//Welcome the user
+				userMain.helloMessage.setText("Welcome "+username+"!");
+
+				Scene scene = new Scene(root,700,600);
+				userStage.setScene(scene);
+				userStage.setTitle("Cinema Booking");
+				userStage.show();
+				lblstatus.getScene().getWindow().hide();
+			}
 
 		} catch (ClassNotFoundException | SQLException e1) {
 			System.out.println("Error with sign up process. Error adding to users database.");
@@ -85,7 +87,7 @@ public class LoginController {
 			String pw = res.getString("password");
 			String role = res.getString("role");
 			String email = res.getString("email");
-			
+
 			//Check to see if password matched
 			if(passwordAttempt.equals(pw)){
 				//Check to see whether the user is an employee/admin or a customer
@@ -113,7 +115,7 @@ public class LoginController {
 						Stage userStage = new Stage();
 						FXMLLoader loader = new FXMLLoader();
 						Parent root = loader.load(getClass().getResource("/user/UserMain2.fxml").openStream());
-						
+
 						//calls userMainController in order to pass variables
 						UserMainController userMain = (UserMainController)loader.getController();
 
@@ -121,13 +123,13 @@ public class LoginController {
 						userMain.setUser(usernameAttempt);
 						//Welcome the user
 						userMain.helloMessage.setText("Welcome back "+usernameAttempt+"!");
-						
+
 						Scene scene = new Scene(root,700,600);
 						userStage.setScene(scene);
 						userStage.setTitle("Cinema Booking");
 						userStage.show();
 						lblstatus.getScene().getWindow().hide();
-	
+
 					}
 					catch(Exception ex){
 						ex.printStackTrace();
