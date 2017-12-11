@@ -28,7 +28,7 @@ import user.AddDataToTable;
 
 
 public class AddFilmController {
-	
+
 	static final long ONE_MINUTE_IN_MILLIS=60000;
 
 	ObservableList<String> hourOptions = FXCollections.observableArrayList();
@@ -50,9 +50,9 @@ public class AddFilmController {
 	@FXML Label filmDescriptionLabel;
 	@FXML Label filmDurationLabel;
 	@FXML Label filmImageLabel;
-	
+
 	String filePath = "/Users/nedlloyd/Desktop/vertigo.png";
-	
+
 	private Date currentStartTime;
 	private Date currentEndTime;
 	private Date attemptStartTime;
@@ -186,9 +186,9 @@ public class AddFilmController {
 				filmName = title.getText();
 				filmDescription = description.getText();
 				filmDuration = Integer.parseInt(duration.getText());
-				
+
 				boolean overlap = checkForOverlapDuration(filmName, startDate, startTime, filmDuration);
-				
+
 				if (!overlap) {
 					databaseFilms.addFilm(filmName,  filmDescription, filmDuration, filePath);
 					databaseScreenings.addScreening(filmName, startTime, startDate);
@@ -210,22 +210,22 @@ public class AddFilmController {
 		}
 	}
 
-	
+
 	public void addImage(ActionEvent e) {
 		FileChooser fileChooser = new FileChooser();
-        
-        //Set extension filter
-        FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.JPG");
-        FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.PNG");
-        fileChooser.getExtensionFilters().addAll(extFilterJPG, extFilterPNG);
-          
-        //Show open file dialog
-        File file = fileChooser.showOpenDialog(null);
-        filePath = file.getAbsolutePath();
-        System.out.print(filePath);
-        	}
-	
-	
+
+		//Set extension filter
+		FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.JPG");
+		FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.PNG");
+		fileChooser.getExtensionFilters().addAll(extFilterJPG, extFilterPNG);
+
+		//Show open file dialog
+		File file = fileChooser.showOpenDialog(null);
+		filePath = file.getAbsolutePath();
+		System.out.print(filePath);
+	}
+
+
 	/**
 	 * method converts date as string object to date as Date Object 
 	 * @param time
@@ -243,8 +243,8 @@ public class AddFilmController {
 
 		return date;				
 	}
-	
-	
+
+
 	/**
 	 * 
 	 * sets variables based upon the start and end of the film suggested and a film already in the database
@@ -255,17 +255,17 @@ public class AddFilmController {
 	 * @param attemptDuration
 	 */
 	public void setStartAndEnd(String currentStartTime, int currentDuration, String attemptStartTime, int attemptDuration) {
-		
+
 		this.currentStartTime = convertToDateObject(currentStartTime);		
 		long sum1 = this.currentStartTime.getTime() + (currentDuration * ONE_MINUTE_IN_MILLIS);
 		this.currentEndTime = new Date(sum1);
-		
+
 		this.attemptStartTime = convertToDateObject(attemptStartTime);
 		long sum2 = this.attemptStartTime.getTime() + (attemptDuration * ONE_MINUTE_IN_MILLIS);
 		this.attemptEndTime = new Date(sum2);
 	}
-	
-	
+
+
 	/**
 	 * checks if the current film being added will overlap with any films already in the database
 	 * @param filmNameAttempt
@@ -276,7 +276,7 @@ public class AddFilmController {
 	public boolean checkForOverlap(String filmNameAttempt, String dateAttempt, String timeAttempt) {
 
 		screeningAlreadyInProgress.setText("");
-		
+
 		boolean isOverlap = false;
 		String filmName = "";
 		String currentFilmTime = "";
@@ -289,42 +289,42 @@ public class AddFilmController {
 		try {
 			ResultSet res2 = fd.displayRow(filmNameAttempt);
 			ResultSet res1 = sd.durationAndTime(dateAttempt);
-			
+
 			if (res2 != null) {
 				attemptFilmDuration = res2.getInt("filmDuration");
 				res2.close();
 			}
-			
+
 			while (res1.next()) {
-				
+
 				filmName = res1.getString("filmName");
 				currentFilmTime = res1.getString("time");
 				currentFilmDuration = res1.getInt("filmDuration");
-				
+
 				setStartAndEnd(currentFilmTime, currentFilmDuration, timeAttempt, attemptFilmDuration);
 
 				String filmFinishString = currentEndTime.getHours() + ":" + currentEndTime.getMinutes();
-				
+
 				String errorMessage = "Sorry, " + filmName + " is starting at " + currentFilmTime +
 						" and will go on until " + filmFinishString + ". Please try another time.";
-				
+
 				// if the film being suggested end or stats in another film
 				if ((attemptStartTime.before(currentEndTime) && attemptStartTime.after(currentStartTime)) 
 						|| (attemptEndTime.before(currentEndTime) && attemptEndTime.after(currentStartTime))) {
-					
+
 					screeningAlreadyInProgress.setText(errorMessage);
 					isOverlap = true;
 					break;
-				// if the being suggested shares a start time or an end time with another film
+					// if the being suggested shares a start time or an end time with another film
 				} else if (attemptStartTime.equals(currentStartTime) || attemptStartTime.equals(currentEndTime) 
 						|| (attemptEndTime.equals(currentEndTime) && attemptEndTime.equals(currentStartTime))) {
-					
+
 					screeningAlreadyInProgress.setText(errorMessage);
 					isOverlap = true;
 					break;
 				}
 			}
-			
+
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -332,10 +332,10 @@ public class AddFilmController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		return isOverlap;
 	}
-	
+
 	public boolean checkForOverlapDuration(String filmNameAttempt, String dateAttempt, String timeAttempt, int attemptDuration) {
 
 		boolean isOverlap = false;
@@ -351,37 +351,37 @@ public class AddFilmController {
 		ResultSet res1;
 		try {
 			res1 = sd.durationAndTime(dateAttempt);
-			
+
 			while (res1.next()) {
 
 				filmName = res1.getString("filmName");
 				currentFilmTime = res1.getString("time");
-					currentFilmDuration = res1.getInt("filmDuration");
-					
-					setStartAndEnd(currentFilmTime, currentFilmDuration, timeAttempt, attemptFilmDuration);
+				currentFilmDuration = res1.getInt("filmDuration");
 
-					String filmFinishString = currentEndTime.getHours() + ":" + currentEndTime.getMinutes();
-					
-					String errorMessage = "sorry, " + filmName + " is starting at " + currentFilmTime +
-							" and will go on until " + filmFinishString + " please try another time";
-					
-					// if the film being suggested end or stats in another film
-					if ((attemptStartTime.before(currentEndTime) && attemptStartTime.after(currentStartTime)) 
-							|| (attemptEndTime.before(currentEndTime) && attemptEndTime.after(currentStartTime))) {
-						
-						screeningAlreadyInProgress.setText(errorMessage);
-						isOverlap = true;
-						break;
+				setStartAndEnd(currentFilmTime, currentFilmDuration, timeAttempt, attemptFilmDuration);
+
+				String filmFinishString = currentEndTime.getHours() + ":" + currentEndTime.getMinutes();
+
+				String errorMessage = "sorry, " + filmName + " is starting at " + currentFilmTime +
+						" and will go on until " + filmFinishString + " please try another time";
+
+				// if the film being suggested end or stats in another film
+				if ((attemptStartTime.before(currentEndTime) && attemptStartTime.after(currentStartTime)) 
+						|| (attemptEndTime.before(currentEndTime) && attemptEndTime.after(currentStartTime))) {
+
+					screeningAlreadyInProgress.setText(errorMessage);
+					isOverlap = true;
+					break;
 					// if the being suggested shares a start time or an end time with another film
-					} else if (attemptStartTime.equals(currentStartTime) || attemptStartTime.equals(currentEndTime) 
-							|| (attemptEndTime.equals(currentEndTime) && attemptEndTime.equals(currentStartTime))) {
-						
-						screeningAlreadyInProgress.setText(errorMessage);
-						isOverlap = true;
-						break;
-					}
+				} else if (attemptStartTime.equals(currentStartTime) || attemptStartTime.equals(currentEndTime) 
+						|| (attemptEndTime.equals(currentEndTime) && attemptEndTime.equals(currentStartTime))) {
+
+					screeningAlreadyInProgress.setText(errorMessage);
+					isOverlap = true;
+					break;
 				}
-			
+			}
+
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
@@ -390,6 +390,6 @@ public class AddFilmController {
 
 		return isOverlap;
 	}
-	
+
 
 }
