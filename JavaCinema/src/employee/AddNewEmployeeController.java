@@ -42,19 +42,21 @@ public class AddNewEmployeeController {
 		//If the user name already exists, make the user enter a unique user name and prompt them
 		//by changing text on label: 
 		try{
-			@SuppressWarnings("unused")
-			ResultSet results = users.displayRow(username); 
-			usernameTaken = true;
-			createAccountLbl.setText("User name taken.");
-		} catch(ClassNotFoundException ex){//We want this exception to be thrown in order for usernameTaken to remain false.
+			ResultSet results = users.displayRow(username);
+			if(results.next()){
+				usernameTaken = true;
+				createAccountLbl.setText("User name taken");
+			}
+			
+		} catch(ClassNotFoundException ex){
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
 
-		if(username.isEmpty()==false && email.isEmpty()==false && pw.isEmpty() == false && !usernameTaken){
+		if(!username.isEmpty() && !email.isEmpty() && !pw.isEmpty() && !usernameTaken){
 			try {
 				users.createUser(username, pw, email, "employee");
-				newEmployeeUsername.getScene().getWindow().hide();
+				createAccountLbl.getScene().getWindow().hide();
 
 			} catch (ClassNotFoundException | SQLException e1) {
 				System.out.println("Error adding new employee to database."

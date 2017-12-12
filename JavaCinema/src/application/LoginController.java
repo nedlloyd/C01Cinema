@@ -51,18 +51,19 @@ public class LoginController {
 		UsersDatabase users = new UsersDatabase();
 		boolean usernameTaken = false;
 
-		//If the username already exists, make the user enter a unique username
+		//If the user name already exists, make the user enter a unique username
 		try{
-			@SuppressWarnings("unused")
 			ResultSet results = users.displayRow(username);
-			usernameTaken = true;
-			createAccountLbl.setText("User name taken. Enter different user name.");
+			if(results.next()){
+				usernameTaken = true;
+				createAccountLbl.setText("User name taken. Enter different user name.");
+			}
 
-		} catch(ClassNotFoundException ex){ //We want this exception to be thrown in order for usernameTaken to remain false.
+		} catch(ClassNotFoundException ex){
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
-		if(!username.isEmpty() && !email.isEmpty() && !password.isEmpty()&& usernameTaken==false){
+		if(!username.isEmpty() && !email.isEmpty() && !password.isEmpty()&& !usernameTaken){
 			try {
 				users.createUser(username, password, email, "customer");
 
