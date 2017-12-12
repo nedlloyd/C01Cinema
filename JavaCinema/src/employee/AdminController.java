@@ -357,6 +357,7 @@ public class AdminController {
 	 */
 	public void writeDataToFile(ActionEvent e) {
 		
+		//Gets the user's home-directory to save the file in.
 		String userHomeFolder = System.getProperty("user.home");
 		
 		File fileName = new File (userHomeFolder, "screening_data.txt");
