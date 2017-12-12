@@ -156,7 +156,7 @@ public abstract class SQLiteDatabase {
 		return set1;
 	}
 	
-	public ResultSet queryForProfile(String username, int userID) throws SQLException, ClassNotFoundException {
+	public ResultSet queryForProfile(int userID) throws SQLException, ClassNotFoundException {
 		if (con == null) {
 			getConnection();
 		}
