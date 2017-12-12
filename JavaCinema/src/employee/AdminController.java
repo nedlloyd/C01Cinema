@@ -379,8 +379,8 @@ public class AdminController {
 				int reservationCount = rd.countRowsInResultSet(res2);
 				int availableSeats = 50 - reservationCount;
 
-				outputStream.println(name + "," + date + "," + time + ",seatsbooked:" + reservationCount + 
-						",availableSeats:" + availableSeats);				
+				outputStream.println(name + " " + date + " " + time + " seatsbooked: " + reservationCount + 
+						" availableSeats: " + availableSeats);				
 			}			
 			outputStream.close();
 			
