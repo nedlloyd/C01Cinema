@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
@@ -9,7 +14,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="700.0" style="-fx-background-color: black; -fx-border-color: white; -fx-border-style: solid; -fx-border-insets: 5px;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="employee.AdminController">
+<AnchorPane prefHeight="600.0" prefWidth="700.0" style="-fx-background-color: black; -fx-border-color: white; -fx-border-style: solid; -fx-border-insets: 5px;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="employee.AdminController">
    <children>
       <Label fx:id="titleLbl" layoutX="234.0" layoutY="25.0" prefHeight="42.0" prefWidth="287.0" text="Employee Portal" textFill="WHITE" underline="true">
          <font>
@@ -24,14 +29,14 @@
          <font>
             <Font name="Cambria" size="14.0" />
          </font></Label>
-      <Button fx:id="addViewingBtn" layoutX="51.0" layoutY="96.0" mnemonicParsing="false" onAction="#openAddNewScreeningWindow" prefHeight="25.0" prefWidth="174.0" style="-fx-background-color: #b81818; -fx-border-color: white; -fx-border-radius: 4px;" text="Add new viewing to schedule" textFill="WHITE">
+      <Button fx:id="addScreeningButton" layoutX="51.0" layoutY="96.0" mnemonicParsing="false" onAction="#openAddNewScreeningWindow" prefHeight="25.0" prefWidth="174.0" style="-fx-background-color: #b81818; -fx-border-color: white; -fx-border-radius: 4px;" text="Add new viewing to schedule" textFill="WHITE">
          <font>
             <Font name="Cambria" size="12.0" />
          </font></Button>
       <TableView fx:id="tableView" layoutX="51.0" layoutY="220.0" minHeight="348.0" minWidth="613.0" prefHeight="348.0" prefWidth="613.0" style="-fx-border-color: white; -fx-background-color: black;">
         <columns>
-            <TableColumn fx:id="pictureColumn" prefWidth="128.0" resizable="false" sortable="false" text="Picture" />
-          <TableColumn fx:id="filmNameColumn" prefWidth="153.0" text="Film" />
+            <TableColumn fx:id="pictureColumn" editable="false" maxWidth="110.0" minWidth="110.0" prefWidth="110.0" resizable="false" sortable="false" text="Picture" />
+          <TableColumn fx:id="filmNameColumn" prefWidth="163.0" text="Film" />
             <TableColumn fx:id="filmDescriptionColumn" prefWidth="182.0" sortable="false" text="Description" />
           <TableColumn fx:id="filmTimeColumn" prefWidth="58.0" resizable="false" text="Time" />
             <TableColumn fx:id="availableSeatsColumn" prefWidth="91.0" resizable="false" sortable="false" text="Available Seats" />

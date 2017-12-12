@@ -9,6 +9,7 @@
     -fx-text-fill: white;
     -fx-font-weight: bold;
     -fx-background-color: black;
+    -fx-text-base-color: red;
     -fx-border-color:white;
 }
 
@@ -19,7 +20,7 @@
 }
 
 .table-row-cell:selected .table-cell {
-   -fx-background-color: #504b4b; 
+   -fx-background-color: red; 
 }
 
 .screeningAlreadyInProgress{

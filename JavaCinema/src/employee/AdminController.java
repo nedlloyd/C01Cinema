@@ -46,11 +46,9 @@ import user.MakeReservationController;
 
 public class AdminController {
 
-	@FXML private Button addScreeningButton;
-
 	@FXML private Label viewingsLbl;
 	@FXML private Label titleLbl; 
-	@FXML private Button OpenNewEmployeeWindowBtn;
+
 	@FXML private Label chooseDateLbl;
 	@FXML private DatePicker datePicker;
 	@FXML private TableView<AddDataToTable> tableView;
@@ -60,10 +58,12 @@ public class AdminController {
 	@FXML private TableColumn<AddDataToTable, String> filmTimeColumn;
 	@FXML private TableColumn<AddDataToTable, Integer> availableSeatsColumn;
 	@FXML private ImageView filmImage;
+	
 	@FXML private Button writeData;
 	@FXML private Button logOutButton;
-
-
+	@FXML private Button OpenNewEmployeeWindowBtn;
+	@FXML private Button addScreeningButton;
+	
 	private ObservableList<AddImageToTable> someImages = FXCollections.observableArrayList();
 
 	@FXML 
@@ -186,6 +186,10 @@ public class AdminController {
 		//Change to viewings on the given day
 	}
 
+	/**
+	 * Triggered by addScreeningButton. Opens window with form for adding films to schedule
+	 * @param e
+	 */
 	public void openAddNewScreeningWindow(ActionEvent e){
 
 		try {

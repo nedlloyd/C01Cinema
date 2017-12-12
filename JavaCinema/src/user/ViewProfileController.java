@@ -1,16 +1,12 @@
 package user;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -19,10 +15,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TablePosition;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
@@ -45,22 +39,22 @@ public class ViewProfileController {
 	@FXML private Button editLogin;
 	@FXML private Label name;
 	@FXML private Label email;
-	@FXML private Label filmDescription;
 	@FXML private Label filmDuration;
-
+	@FXML private Label bookingRemovedLbl;
 
 	private ObservableList<AddDataToTable> reservationsData = FXCollections.observableArrayList();
 	private ObservableList<AddImageToTable> someImages = FXCollections.observableArrayList();
 	private String currentFilm;
-	private String currentDescription;
 	private String currentUser;
 	private String currentEmail;
 	private int currentID;
 	private int userID;
 
-
+	@FXML
 	public void initialize() {	
-
+		
+		tableView.getStylesheets().add(getClass().getResource("tableview.css").toExternalForm());
+		
 		//set up columns in the table
 		reservationIDColumn.setCellValueFactory(new PropertyValueFactory<AddDataToTable, Integer>("reservationID"));
 		filmNameColumn.setCellValueFactory(new PropertyValueFactory<AddDataToTable, String>("filmName"));
@@ -70,7 +64,7 @@ public class ViewProfileController {
 
 		//Populating the class with data from the database:
 		try {
-			getFilms();
+			getReservationsData();
 			tableView.setItems(reservationsData);
 		} catch (ClassNotFoundException | SQLException | IOException e1) {
 			e1.printStackTrace();
@@ -93,7 +87,6 @@ public class ViewProfileController {
 				}
 			}
 		});  
-
 	}
 
 	/**
@@ -105,7 +98,7 @@ public class ViewProfileController {
 	 * @throws SQLException
 	 * @throws IOException
 	 */
-	private void  getFilms() throws ClassNotFoundException, SQLException, IOException {	
+	private void  getReservationsData() throws ClassNotFoundException, SQLException, IOException {	
 
 		reservationsData.clear();
 		
@@ -147,7 +140,7 @@ public class ViewProfileController {
 	 * @throws IOException
 	 */
 	public void viewAllReservations() throws ClassNotFoundException, SQLException, IOException {
-		getFilms();
+		getReservationsData();
 		tableView.setItems(reservationsData);
 	}
 
@@ -193,9 +186,6 @@ public class ViewProfileController {
 	 */
 	public void addImageToList(String filmName, String description) throws IOException {
 
-		//image variable becomes the file we just wrote
-		//Image image = new Image("file:photo.jpg", 100, 150, true, true);
-
 		//image becomes an AddImageToTable
 		AddImageToTable nextImage = new AddImageToTable(filmName, description);
 		//it is then added to an observableList 
@@ -210,7 +200,6 @@ public class ViewProfileController {
 
 		//clears the previous film and description
 		filmImage.setImage(null);
-		filmDescription.setText("");
 
 		// image is initialised to curtains in case film does not contain a photo
 		Image theImage = new Image("images/cinema_curtains.png", 100, 150, true, true);
@@ -221,13 +210,9 @@ public class ViewProfileController {
 				if (item.getFilmImage() != null) {
 					theImage = item.getFilmImage();
 				}
-				currentDescription = item.getFilmDescription();
-				System.out.println(currentDescription);
-				System.out.println(item.getFilmName());					
 			} 
 
 			filmImage.setImage(theImage);
-			filmDescription.setText(currentDescription);
 		}
 	}
 
@@ -266,9 +251,19 @@ public class ViewProfileController {
 	 */
 	public void deleteReservation(ActionEvent e) throws ClassNotFoundException, SQLException, IOException {
 		ReservationsDatabase rd = new ReservationsDatabase();
+		
+		String filmName = tableView.getSelectionModel().getSelectedItem().getFilmName();
+		String date = tableView.getSelectionModel().getSelectedItem().getFilmDate();
+		String time = tableView.getSelectionModel().getSelectedItem().getFilmTime();
+		String seat = tableView.getSelectionModel().getSelectedItem().getSeatID();
+		
 		rd.delete(currentID);
-		getFilms();			
-		tableView.setItems(reservationsData);
+		
+		//Display a label showing the user that the booking has been successfully deleted:
+		bookingRemovedLbl.setText("Booking deleted: "+filmName+" "+time+" "+date+" seat "+seat);
+		
+		//Refresh the items in the table; 
+		viewAllReservations();
 
 	}
 
