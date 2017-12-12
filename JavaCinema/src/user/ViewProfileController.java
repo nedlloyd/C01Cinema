@@ -43,29 +43,23 @@ public class ViewProfileController {
 	@FXML private ImageView filmImage;
 	@FXML private Button deleteReservation;
 	@FXML private Button editLogin;
-	@FXML private Button allReservations;
 	@FXML private Label name;
 	@FXML private Label email;
 	@FXML private Label filmDescription;
 	@FXML private Label filmDuration;
-	@FXML private DatePicker datePickerUser; 
 
-	private ObservableList<AddDataToTable> films = FXCollections.observableArrayList();
+
+	private ObservableList<AddDataToTable> reservationsData = FXCollections.observableArrayList();
 	private ObservableList<AddImageToTable> someImages = FXCollections.observableArrayList();
 	private String currentFilm;
 	private String currentDescription;
-	private String currentDate;
 	private String currentUser;
 	private String currentEmail;
 	private int currentID;
 	private int userID;
 
 
-	public void initialize() {
-
-		LocalDate todaysDate = LocalDate.now(); 		
-		//Set datePicker value to today
-		datePickerUser.setValue(todaysDate);
+	public void initialize() {	
 
 		//set up columns in the table
 		reservationIDColumn.setCellValueFactory(new PropertyValueFactory<AddDataToTable, Integer>("reservationID"));
@@ -74,35 +68,18 @@ public class ViewProfileController {
 		filmTimeColumn.setCellValueFactory(new PropertyValueFactory<AddDataToTable, String>("filmTime"));
 		seatIDColumn.setCellValueFactory(new PropertyValueFactory<AddDataToTable, Integer>("seatID"));
 
+		//Populating the class with data from the database:
 		try {
 			getFilms();
-			tableView.setItems(films);
+			tableView.setItems(reservationsData);
 		} catch (ClassNotFoundException | SQLException | IOException e1) {
 			e1.printStackTrace();
 			System.out.println("Error populating table with reservation data. Error with getFilms() method");
 		}
-		
-		
-		// event listener for datePicker when date is changes films outputted are changed 
-		datePickerUser.valueProperty().addListener((ov, oldValue, newValue) -> {
-			allReservations.setVisible(true);
-			try {
-				currentDate = datePickerUser.getValue().format(DateTimeFormatter.ofPattern("dd/MM/yy"));
-
-				//getFilms(currentDate);
-				getFilms();
-				tableView.setItems(films);
-
-			} catch (IOException | ClassNotFoundException | SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} 
-		});
 
 		//event listener setting 'currentFilm' to film selected, then using this to set the correct poster and description 
 		tableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
 			//sets image which is returned from the getImageFromTableMethod
-			//TablePosition pos = tableView.getSelectionModel().getSelectedCells().get(0);
 			int rowIndex = tableView.getSelectionModel().getSelectedIndex();
 			// sets variable current film to the film selected 
 			if(rowIndex >=0 && rowIndex < tableView.getItems().size()){
@@ -120,61 +97,24 @@ public class ViewProfileController {
 	}
 
 	/**
-	 * queries the database for films booked on a certain date and by certain user (and therfore userID).  
-	 * then calls the setVriablesFromQuery method to set the variables 'films' and 'someImages' to the current query
+	 * Populates the ArrayList member variables with data from the database. This data is then 
+	 * displayed in the table on the ViewProofile controller.
 	 * @param date
 	 * @return
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 * @throws IOException
 	 */
-	public void getFilms(String date) throws ClassNotFoundException, SQLException, IOException {	
-		films.clear();
-		ScreeningsDatabase screeningDatabase = new ScreeningsDatabase();
+	private void  getFilms() throws ClassNotFoundException, SQLException, IOException {	
 
-		// creates a result set by calling  the detDataFromTwoTables method present in ScreeningDatabase
-		ResultSet res = screeningDatabase.queryForProfile(currentUser, date, userID);
-
-
-		// populates two observableLists on with film data the other with film names and posters 		
-		setVariablesFromQuery(res);		
-
-	}
-
-
-	/**
-	 * queries the database for films booked  by certain user.  
-	 * then calls the setVriablesFromQuery method to set the variables 'films' and 'someImages' to the current query
-	 * @param date
-	 * @return
-	 * @throws ClassNotFoundException
-	 * @throws SQLException
-	 * @throws IOException
-	 */
-	public void  getFilms() throws ClassNotFoundException, SQLException, IOException {	
-
-		films.clear();
+		reservationsData.clear();
+		
 		ScreeningsDatabase screeningDatabase = new ScreeningsDatabase();
 
 		// creates a result set by calling  the detDataFromTwoTables method present in ScreeningDatabase
 		ResultSet res = screeningDatabase.queryForProfile(userID);
 
 		// populates two observableLists on with film data the other with film names and posters 		
-		setVariablesFromQuery(res);		
-
-	}
-
-
-	/**
-	 * takes variables from query and assigns them to two observable lists, 1 for 
-	 * images and description the other for the table 
-	 * @param res
-	 * @throws SQLException
-	 * @throws IOException
-	 */
-	public void setVariablesFromQuery(ResultSet res) throws SQLException, IOException {
-
-
 		while (res.next()) {
 
 			//creates variables for each field that we need for the Observable list and then the table
@@ -195,10 +135,23 @@ public class ViewProfileController {
 			//initialises AddDataToTable object with constructor that takes the variables name, time and description and id
 			AddDataToTable nextObject = new AddDataToTable(filmName, filmTime, filmDate, seatID, filmReservationID);						
 			//adds AddDataToTable objects to observable list 
-			films.add(nextObject);
+			reservationsData.add(nextObject);
 		}
-		res.close();
+		res.close();	
 	}
+	
+	/**
+	 * sets table to all reservations user has made 
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 * @throws IOException
+	 */
+	public void viewAllReservations() throws ClassNotFoundException, SQLException, IOException {
+		getFilms();
+		tableView.setItems(reservationsData);
+	}
+
+
 
 	/**
 	 * converts binary stream to image, creates an addImageToTable object and adds object to observableList
@@ -231,8 +184,6 @@ public class ViewProfileController {
 			someImages.add(nextImage);
 		}				
 	}
-
-
 
 	/**
 	 * if film does not have an image in the database, creates an addImageToTable object and adds object to observableList
@@ -307,45 +258,17 @@ public class ViewProfileController {
 	}
 
 	/**
-	 * sets table to all reservations user has made and makes see all resevations button invisible
-	 * @throws ClassNotFoundException
-	 * @throws SQLException
-	 * @throws IOException
-	 */
-	public void viewAllReservations() throws ClassNotFoundException, SQLException, IOException {
-		//allReservations.setVisible(false);
-		getFilms();
-		tableView.setItems(films);
-	}
-
-	/**
-	 * sets table to all reservations user has made and makes see all resevations button invisible
-	 * based upon button click
-	 * 
-	 * @param e
-	 * @throws ClassNotFoundException
-	 * @throws SQLException
-	 * @throws IOException
-	 */
-	public void viewAllReservations(ActionEvent e) throws ClassNotFoundException, SQLException, IOException {
-		//allReservations.setVisible(false);
-		getFilms();
-		tableView.setItems(films);
-	}
-
-	/**
-	 * deletes reservation selected on table then resets films without deleted item
+	 * Deletes reservation selected on table and updates the table
 	 * @param e
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 * @throws IOException
 	 */
 	public void deleteReservation(ActionEvent e) throws ClassNotFoundException, SQLException, IOException {
-
 		ReservationsDatabase rd = new ReservationsDatabase();
 		rd.delete(currentID);
 		getFilms();			
-		tableView.setItems(films);
+		tableView.setItems(reservationsData);
 
 	}
 

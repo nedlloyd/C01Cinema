@@ -33,9 +33,8 @@
             <TableColumn fx:id="filmDateColumn" prefWidth="78.0" text="Date" />
         </columns>
       </TableView>
-      <DatePicker fx:id="datePickerUser" layoutX="272.0" layoutY="43.0" />
-      <ImageView fx:id="filmImage" fitHeight="120.0" fitWidth="106.0" layoutX="226.0" layoutY="88.0" pickOnBounds="true" preserveRatio="true" />
-      <Button fx:id="deleteReservation" layoutX="63.0" layoutY="450.0" mnemonicParsing="false" onAction="#deleteReservation" prefHeight="26.0" prefWidth="141.0" style="-fx-background-color: #b81818; -fx-border-color: white; -fx-border-radius: 4px;" text="Delete Reservation" textFill="WHITE">
+      <ImageView fx:id="filmImage" fitHeight="120.0" fitWidth="106.0" layoutX="190.0" layoutY="85.0" pickOnBounds="true" preserveRatio="true" />
+      <Button fx:id="deleteReservation" layoutX="180.0" layoutY="440.0" mnemonicParsing="false" onAction="#deleteReservation" prefHeight="26.0" prefWidth="141.0" style="-fx-background-color: #b81818; -fx-border-color: white; -fx-border-radius: 4px;" text="Delete Reservation" textFill="WHITE">
          <font>
             <Font name="Cambria" size="12.0" />
          </font></Button>
@@ -43,13 +42,9 @@
          <font>
             <Font name="Cambria" size="12.0" />
          </font></Button>
-      <Button fx:id="allReservations" layoutX="279.0" layoutY="450.0" mnemonicParsing="false" onAction="#viewAllReservations" prefHeight="26.0" prefWidth="141.0" style="-fx-background-color: #b81818; -fx-border-color: white; -fx-border-radius: 4px;" text="View all reservations" textFill="WHITE">
+      <Label fx:id="filmDescription" layoutX="303.0" layoutY="92.0" prefHeight="106.0" prefWidth="135.0" textFill="WHITE" wrapText="true">
          <font>
             <Font name="Cambria" size="12.0" />
-         </font></Button>
-      <Label fx:id="filmDescription" layoutX="338.0" layoutY="92.0" prefHeight="106.0" prefWidth="135.0" text="      Film description" textFill="WHITE" wrapText="true">
-         <font>
-            <Font name="Cambria" size="14.0" />
          </font></Label>
       <Label fx:id="name1" layoutX="34.0" layoutY="189.0" prefHeight="18.0" prefWidth="141.0" text="Reservations:" textFill="WHITE">
          <font>
