@@ -2,19 +2,19 @@ Breathless,24/12/17,01:00,seatsbooked:0,availableSeats:50
 The Conversation,23/12/17,14:00,seatsbooked:0,availableSeats:50
 Vertigo,10/12/17,19:50,seatsbooked:12,availableSeats:38
 The Conversation,10/12/17,15:30,seatsbooked:0,availableSeats:50
-Call Me By Your Name,07/12/17,00:20,seatsbooked:8,availableSeats:42
+Call Me By Your Name,07/12/17,00:20,seatsbooked:6,availableSeats:44
 Call Me By Your Name,02/12/17,00:10,seatsbooked:0,availableSeats:50
 bonjour2: return of the bagette!!,02/12/17,08:10,seatsbooked:0,availableSeats:50
 Call Me By Your Name,02/12/17,19:30,seatsbooked:0,availableSeats:50
 Mother!,24/12/17,19:30,seatsbooked:0,availableSeats:50
 Mother!,23/12/17,20:20,seatsbooked:6,availableSeats:44
-Breathless,25/12/17,16:40,seatsbooked:5,availableSeats:45
+Breathless,25/12/17,16:40,seatsbooked:1,availableSeats:49
 Apocalypse Now,20/12/17,15:30,seatsbooked:0,availableSeats:50
-bonjour2: return of the bagette!!,25/12/17,20:00,seatsbooked:6,availableSeats:44
-Vertigo,07/12/17,16:00,seatsbooked:3,availableSeats:47
+bonjour2: return of the bagette!!,25/12/17,20:00,seatsbooked:3,availableSeats:47
+Vertigo,07/12/17,16:00,seatsbooked:2,availableSeats:48
 bonjour,08/12/17,02:00,seatsbooked:3,availableSeats:47
-The Big Lebowski,09/12/17,16:30,seatsbooked:2,availableSeats:48
-The Big Lebowski,11/12/17,19:30,seatsbooked:18,availableSeats:32
+The Big Lebowski,09/12/17,16:30,seatsbooked:0,availableSeats:50
+The Big Lebowski,11/12/17,19:30,seatsbooked:17,availableSeats:33
 Vertigo,11/12/17,08:40,seatsbooked:0,availableSeats:50
 The Graduate,11/12/17,23:00,seatsbooked:5,availableSeats:45
 Phantom Thread,20/12/17,18:45,seatsbooked:0,availableSeats:50
@@ -24,15 +24,15 @@ The Big Lebowski,19/12/17,19:40,seatsbooked:0,availableSeats:50
 Mother!,19/12/17,15:00,seatsbooked:0,availableSeats:50
 The Conversation,12/12/17,20:40,seatsbooked:2,availableSeats:48
 The Conversation,12/12/17,22:40,seatsbooked:2,availableSeats:48
-The Conversation,12/12/17,08:30,seatsbooked:5,availableSeats:45
+The Conversation,12/12/17,08:30,seatsbooked:7,availableSeats:43
 The Double,13/12/17,09:30,seatsbooked:0,availableSeats:50
 The Double,13/12/17,16:30,seatsbooked:3,availableSeats:47
 The Big Lebowski,13/12/17,20:30,seatsbooked:0,availableSeats:50
-The Big Lebowski,13/12/17,22:40,seatsbooked:0,availableSeats:50
+The Big Lebowski,13/12/17,22:40,seatsbooked:3,availableSeats:47
 Mullholland Drive,13/12/17,11:30,seatsbooked:0,availableSeats:50
 Breathless,15/12/17,10:00,seatsbooked:0,availableSeats:50
 The Double,16/12/17,20:40,seatsbooked:0,availableSeats:50
-The Double,16/12/17,17:45,seatsbooked:0,availableSeats:50
+The Double,16/12/17,17:45,seatsbooked:2,availableSeats:48
 The Double,17/12/17,08:30,seatsbooked:0,availableSeats:50
 Phantom Thread,17/12/17,12:30,seatsbooked:0,availableSeats:50
 The Double,20/12/17,12:30,seatsbooked:0,availableSeats:50
@@ -40,4 +40,4 @@ The Big Lebowski,14/12/17,18:05,seatsbooked:0,availableSeats:50
 Phantom Thread,14/12/17,08:30,seatsbooked:0,availableSeats:50
 The Graduate,14/12/17,10:50,seatsbooked:0,availableSeats:50
 Phantom Thread,14/12/17,12:45,seatsbooked:0,availableSeats:50
-Phantom Thread,14/12/17,15:10,seatsbooked:3,availableSeats:47
+Phantom Thread,14/12/17,15:10,seatsbooked:2,availableSeats:48

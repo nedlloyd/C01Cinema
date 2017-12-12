@@ -58,6 +58,7 @@ public class AdminController {
 	@FXML private TableColumn<AddDataToTable, String> filmTimeColumn;
 	@FXML private TableColumn<AddDataToTable, Integer> availableSeatsColumn;
 	@FXML private ImageView filmImage;
+	@FXML private Label dataExportSucessLbl;
 	
 	@FXML private Button writeData;
 	@FXML private Button logOutButton;
@@ -348,8 +349,17 @@ public class AdminController {
 		return theImage;
 	}
 
+	/**
+	 * Triggered when writeData Button is pressed in AdminMain window.
+	 * Exports screenings data to text file in format: film name, date, time, seats booked, available seats. 
+	 * The file is saved in the user's home directory, and confirmation is printed to the console. 
+	 * @param e
+	 */
 	public void writeDataToFile(ActionEvent e) {
-		String fileName = "screening_data.txt";
+		
+		String userHomeFolder = System.getProperty("user.home");
+		
+		File fileName = new File (userHomeFolder, "screening_data.txt");
 		ScreeningsDatabase sd = new ScreeningsDatabase();
 		ReservationsDatabase rd = new ReservationsDatabase();
 		ResultSet res1 = null;
@@ -373,6 +383,16 @@ public class AdminController {
 						",availableSeats:" + availableSeats);				
 			}			
 			outputStream.close();
+			
+			System.out.println("New file created: "+fileName.toString());
+			
+			dataExportSucessLbl.setText("New file "+fileName.toString() + " created.");
+			
+			writeData.setStyle("-fx-background-color:green;"
+							+ "-fx-font-color:white;"
+							+ "-fx-border-color:white;"
+							+ "-fx-border-radius:4px;");
+			
 
 		} catch (ClassNotFoundException e2) {
 			// TODO Auto-generated catch block

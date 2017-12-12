@@ -20,8 +20,8 @@
          <font>
             <Font name="Arial" size="36.0" />
          </font></Label>
-      <DatePicker fx:id="datePicker" layoutX="284.0" layoutY="147.0" onAction="#changeViewingDayListings" onMouseDragEntered="#getScreenings" promptText="Current date" />
-      <Label fx:id="chooseDateLbl" layoutX="65.0" layoutY="151.0" prefHeight="18.0" prefWidth="199.0" text="Choose Date to view screenings:" textFill="WHITE">
+      <DatePicker fx:id="datePicker" layoutX="276.0" layoutY="160.0" onAction="#changeViewingDayListings" onMouseDragEntered="#getScreenings" promptText="Current date" />
+      <Label fx:id="chooseDateLbl" layoutX="57.0" layoutY="164.0" prefHeight="18.0" prefWidth="199.0" text="Choose Date to view screenings:" textFill="WHITE">
          <font>
             <Font name="Cambria" size="14.0" />
          </font></Label>
@@ -42,7 +42,7 @@
             <TableColumn fx:id="availableSeatsColumn" prefWidth="91.0" resizable="false" sortable="false" text="Available Seats" />
         </columns>
       </TableView>
-      <ImageView fx:id="filmImage" fitHeight="75.0" fitWidth="47.0" layoutX="486.0" layoutY="135.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="filmImage" fitHeight="75.0" fitWidth="47.0" layoutX="610.0" layoutY="135.0" pickOnBounds="true" preserveRatio="true" />
       <Button fx:id="logOutButton" layoutX="560.0" layoutY="96.0" mnemonicParsing="false" onAction="#logOut" prefHeight="27.0" prefWidth="99.0" style="-fx-background-color: #b81818; -fx-border-color: white; -fx-border-radius: 4px;" text="Log out" textFill="WHITE" />
       <Button fx:id="writeData" layoutX="232.0" layoutY="96.0" mnemonicParsing="false" onAction="#writeDataToFile" prefHeight="25.0" prefWidth="174.0" style="-fx-background-color: #b81818; -fx-border-color: white; -fx-border-radius: 4px;" text="Export screening data to file" textFill="WHITE">
          <font>
@@ -54,5 +54,6 @@
             <Font name="Cambria" size="12.0" />
          </font>
       </Button>
+      <Label fx:id="dataExportSucessLbl" alignment="CENTER" layoutX="119.0" layoutY="135.0" prefHeight="17.0" prefWidth="432.0" textFill="WHITE" />
    </children>
 </AnchorPane>
