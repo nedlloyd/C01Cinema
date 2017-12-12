@@ -20,6 +20,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.SortType;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
@@ -55,9 +56,7 @@ public class ViewProfileController {
 
 	@FXML
 	public void initialize() {	
-
-		tableView.getStylesheets().add(getClass().getResource("tableview.css").toExternalForm());
-
+		
 		//set up columns in the table
 		reservationIDColumn.setCellValueFactory(new PropertyValueFactory<AddDataToTable, Integer>("reservationID"));
 		filmNameColumn.setCellValueFactory(new PropertyValueFactory<AddDataToTable, String>("filmName"));
@@ -90,7 +89,11 @@ public class ViewProfileController {
 				}
 			}
 		});  
-	}
+		
+		tableView.getStylesheets().add(getClass().getResource("tableview.css").toExternalForm());
+		tableView.getSortOrder().add(filmDateColumn);
+	
+	}//End of initialize() method
 
 	/**
 	 * Populates the ArrayList member variables with data from the database. This data is then 
@@ -303,6 +306,7 @@ public class ViewProfileController {
 			newEditProfileController.setScene(scene);
 			newEditProfileController.setTitle("User Info");
 			newEditProfileController.show(); 	
+			tableView.getScene().getWindow().hide();
 
 		} catch(Exception exc) {
 			exc.printStackTrace();

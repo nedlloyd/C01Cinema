@@ -15,14 +15,13 @@ public class EditUserProfileController {
 	@FXML private Button edit2;
 	@FXML private Button edit3;
 	@FXML private Button confirm;
+	@FXML private Button backToProfile;
 
-	
 	@FXML private TextField username; 
 	@FXML private TextField email; 
 	@FXML private TextField password; 
 	
 	@FXML private Label confirmMessage;
-	
 	
 	private int currentUserID;
 	private String currentUsername;
@@ -30,10 +29,9 @@ public class EditUserProfileController {
 	private String currentPassword;
 
 	
-	
+	@FXML
 	public void initialize() {
 		confirm.setVisible(false);
-		
 	}
 	
 	public void setUsername(String username) {
@@ -46,7 +44,6 @@ public class EditUserProfileController {
 
 	public void setPassword(String username) {
 		
-
 		UsersDatabase ud = new UsersDatabase();
 		try {	
 
@@ -87,6 +84,8 @@ public class EditUserProfileController {
 			e1.printStackTrace();
 		}
 		confirmMessage.setText("Changes saved");
+		confirm.setVisible(false);
+		
 	}
 	
 	

@@ -106,11 +106,10 @@ public class UsersDatabase extends SQLiteDatabase {
 				
 		PreparedStatement prep = con.prepareStatement("UPDATE users SET userName = ? , "
                 + "password = ?, email = ? "
-                + "WHERE userID = ?;");
+                + "WHERE userID = "+userID+";");
 		prep.setString(1, username);
 		prep.setString(2, password);
 		prep.setString(3, email);
-		prep.setInt(4, userID);
 		prep.execute();
 		//prep.close();
 		//con.close();
