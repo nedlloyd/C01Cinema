@@ -155,6 +155,7 @@ public class MakeReservationController {
 
 	/**
 	 * When graphic (chair) is clicked on the icon changes.  
+	 * 
 	 * If it has been booked by a previous user the colour and booking status will not change and it will continue to display as red.
 	 * If unbooked seat is selected by current user seat will turn yellow
 	 * If unbooked seat is deselected by current user it will go back to green
