@@ -4,6 +4,11 @@ import java.time.LocalDate;
 
 import javafx.scene.control.Button;
 
+/**
+ * Class used for the day selector buttons in the user portal. 
+ * Each day in the next 7 days has a corresponding DayOfTheWeekButton. 
+ *
+ */
 public class DayOfTheWeekButton {
 	
 	Button button;

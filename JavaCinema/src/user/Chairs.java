@@ -2,7 +2,10 @@ package user;
 
 import javafx.scene.control.Button;
 
-// class in order to hold buttons for booking seats 
+/**
+ * Holds data such as the seat Id, whether the seat is available for booking, whether the seat is 
+ * selected for booking by the user, and the corresponding button in the makeReservation window.
+ */
 public class Chairs {
 	
 	private Button button;

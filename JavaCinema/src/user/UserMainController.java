@@ -58,7 +58,6 @@ import sqlitedatabases.ScreeningsDatabase;
  * Contains methods for displaying films on a selected date, and launches new windows
  * for making reservation and viewing user info. 
  */
-
 public class UserMainController {
 
 	private String currentFilm;

@@ -18,6 +18,11 @@ import javafx.stage.Stage;
 import sqlitedatabases.ReservationsDatabase;
 import sqlitedatabases.UsersDatabase;
 
+/**
+ * Controller class for the MakeReservation window. Contains methods for adding to the 
+ * reservations database.
+ *
+ */
 public class MakeReservationController {
 
 	String date; String time; String filmName;

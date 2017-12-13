@@ -9,7 +9,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import sqlitedatabases.UsersDatabase;
-
+/**
+ * Controller class for the Edit User Profile window.
+ *
+ */
 public class EditUserProfileController {
 	@FXML private Button edit1;
 	@FXML private Button edit2;

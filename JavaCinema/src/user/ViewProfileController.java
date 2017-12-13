@@ -31,6 +31,10 @@ import sqlitedatabases.ReservationsDatabase;
 import sqlitedatabases.ScreeningsDatabase;
 import sqlitedatabases.UsersDatabase;
 
+/**
+ * Controller class for the View Profile window. Contains methods for receiving data 
+ * from the database and populating a table with the user's reservations.
+ */
 public class ViewProfileController {
 
 	@FXML private TableView<AddDataToTable> tableView;
@@ -292,7 +296,7 @@ public class ViewProfileController {
 	}
 
 	/**
-	 * opens editUserInfoController
+	 * Opens editUser Window.
 	 * @param e
 	 */
 	public void editUserInfo(ActionEvent e) {

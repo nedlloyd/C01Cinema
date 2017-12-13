@@ -3,6 +3,11 @@ package user;
 
 import javafx.scene.image.Image;
 
+/**
+ * Class used for storing the images, names and descriptions of films from the
+ * films database.
+ *
+ */
 public class AddImageToTable {
 	private Image filmImage;
 	private String filmName, filmDescription;

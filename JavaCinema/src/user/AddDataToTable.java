@@ -14,7 +14,11 @@ import sqlitedatabases.ReservationsDatabase;
 import sqlitedatabases.SQLiteDatabase;
 import sqlitedatabases.ScreeningsDatabase;
 
-
+/**
+ * 
+ * Class which stores data from the films, screenings, and reservations databases.
+ *
+ */
 public class AddDataToTable {
 	private SimpleStringProperty filmName, filmDescription, filmTime, filmDate, seatID, endTime;
 	private SimpleIntegerProperty reservationID, screeningID, duration;
