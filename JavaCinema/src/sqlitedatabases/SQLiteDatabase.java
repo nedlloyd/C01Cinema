@@ -58,8 +58,6 @@ public abstract class SQLiteDatabase {
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 */
-
-
 	public void delete(int primarykey) throws SQLException, ClassNotFoundException {
 		if (con == null) {
 			getConnection();
