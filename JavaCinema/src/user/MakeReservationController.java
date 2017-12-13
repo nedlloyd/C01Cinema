@@ -20,8 +20,7 @@ import sqlitedatabases.UsersDatabase;
 
 /**
  * Controller class for the MakeReservation window. Contains methods for adding to the 
- * reservations database.
- *
+ * reservations database based on the user's seat selection.
  */
 public class MakeReservationController {
 
