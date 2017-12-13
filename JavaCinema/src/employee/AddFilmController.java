@@ -71,6 +71,8 @@ public class AddFilmController {
 	@FXML
 	public void initialize() throws ClassNotFoundException, SQLException {
 		
+		currentScreenings.getStylesheets().add(getClass().getResource("/employee/tableview.css").toExternalForm());
+		
 		// populates table with current days screenings 
 		LocalDate todaysDate = LocalDate.now(); 
 		datePicker.setValue(todaysDate);

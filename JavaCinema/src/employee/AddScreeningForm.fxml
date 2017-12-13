@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.ComboBox?>
@@ -12,65 +16,71 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="520.0" prefWidth="750.0" style="-fx-background-color: black; -fx-border-color: white; -fx-border-insets: 10px;" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="employee.AddFilmController">
+<AnchorPane prefHeight="520.0" prefWidth="750.0" style="-fx-background-color: black; -fx-border-color: white; -fx-border-insets: 10px;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="employee.AddFilmController">
    <children>
-      <Label layoutX="38.0" layoutY="177.0" prefHeight="17.0" prefWidth="102.0" text="Add Screening of:" textFill="WHITE">
+      <Label layoutX="22.0" layoutY="177.0" prefHeight="17.0" prefWidth="118.0" text="Add Screening of:" textFill="WHITE">
          <font>
-            <Font name="Cambria" size="13.0" />
-         </font></Label>
-      <Label fx:id="filmTitleLabel" layoutX="80.0" layoutY="217.0" prefHeight="17.0" prefWidth="42.0" text="Title" textFill="WHITE">
-         <font>
-            <Font name="Cambria" size="13.0" />
+            <Font name="Arial Black" size="12.0" />
          </font></Label>
       <TextField fx:id="title" layoutX="142.0" layoutY="212.0" prefHeight="25.0" prefWidth="219.0" promptText="Enter film title" />
-      <Label fx:id="filmDescriptionLabel" layoutX="58.0" layoutY="246.0" prefHeight="17.0" prefWidth="76.0" text="Description" textFill="WHITE">
+      <Label fx:id="filmDescriptionLabel" layoutX="58.0" layoutY="253.0" prefHeight="17.0" prefWidth="76.0" text="Description" textFill="WHITE">
          <font>
-            <Font name="Cambria" size="13.0" />
+            <Font name="Arial Black" size="12.0" />
          </font></Label>
-      <Label layoutX="98.0" layoutY="96.0" prefHeight="17.0" prefWidth="42.0" text="Date:" textFill="WHITE">
+      <Label layoutX="96.0" layoutY="96.0" prefHeight="17.0" prefWidth="42.0" text="Date:" textFill="WHITE">
          <font>
-            <Font name="Cambria" size="13.0" />
+            <Font name="Arial Black" size="12.0" />
          </font></Label>
-      <DatePicker fx:id="datePicker" layoutX="148.0" layoutY="92.0" prefHeight="25.0" prefWidth="219.0" promptText="Select date for viewing" />
-      <Label layoutX="69.0" layoutY="139.0" prefHeight="17.0" prefWidth="63.0" text="Start time:" textFill="WHITE">
+      <DatePicker fx:id="datePicker" layoutX="142.0" layoutY="92.0" prefHeight="25.0" prefWidth="219.0" promptText="Select date for viewing" />
+      <Label layoutX="60.0" layoutY="139.0" prefHeight="17.0" prefWidth="76.0" text="Start time:" textFill="WHITE">
          <font>
-            <Font name="Cambria" size="13.0" />
+            <Font name="Arial Black" size="12.0" />
          </font></Label>
-      <Label fx:id="filmDurationLabel" layoutX="43.0" layoutY="339.0" prefHeight="17.0" prefWidth="90.0" text="Film duration:" textFill="WHITE">
+      <Label fx:id="filmDurationLabel" alignment="CENTER_RIGHT" layoutX="22.0" layoutY="339.0" prefHeight="17.0" prefWidth="111.0" text="Film duration:" textFill="WHITE">
          <font>
-            <Font name="Cambria" size="13.0" />
+            <Font name="Arial Black" size="12.0" />
          </font></Label>
       <TextArea fx:id="description" layoutX="145.0" layoutY="246.0" prefHeight="78.0" prefWidth="219.0" promptText="Enter description of film" wrapText="true" />
       <TextField fx:id="duration" layoutX="145.0" layoutY="335.0" prefHeight="25.0" prefWidth="219.0" promptText="Enter length of film (mins)" />
       <Button fx:id="addImageButton" layoutX="146.0" layoutY="377.0" mnemonicParsing="false" onAction="#addImage" prefHeight="25.0" prefWidth="111.0" text="Upload image" />
       <Label fx:id="filmImageLabel" layoutX="90.0" layoutY="381.0" prefHeight="17.0" prefWidth="63.0" text="Image:" textFill="WHITE">
          <font>
-            <Font name="Cambria" size="13.0" />
+            <Font name="Arial Black" size="12.0" />
          </font></Label>
       <Button fx:id="addScreeningBtn" layoutX="318.0" layoutY="461.0" mnemonicParsing="false" onAction="#addScreening" prefHeight="25.0" prefWidth="142.0" style="-fx-background-color: #b81818; -fx-border-color: white; -fx-border-radius: 4px;" text="Add Screening" textFill="WHITE">
          <font>
-            <Font name="Cambria" size="12.0" />
+            <Font name="Arial Black" size="12.0" />
          </font></Button>
       <ComboBox fx:id="startTimeHour" layoutX="145.0" layoutY="135.0" prefHeight="25.0" prefWidth="76.0" promptText=" Hour" />
       <ComboBox fx:id="startTimeMinute" layoutX="245.0" layoutY="135.0" prefHeight="25.0" prefWidth="90.0" promptText="Minutes" />
       <Label layoutX="230.0" layoutY="139.0" prefHeight="17.0" prefWidth="0.0" text=":" textFill="WHITE" />
       <ChoiceBox fx:id="filmTypeChoiceBox" layoutX="145.0" layoutY="173.0" onAction="#toggleControls" prefHeight="25.0" prefWidth="219.0" />
       <ChoiceBox fx:id="chooseFilmChoiceBox" layoutX="142.0" layoutY="213.0" prefHeight="25.0" prefWidth="219.0" />
-      <Label fx:id="chooseFilmLbl" layoutX="43.0" layoutY="216.0" prefHeight="17.0" prefWidth="76.0" text="Choose Film" textFill="WHITE">
+      <Label fx:id="chooseFilmLbl" layoutX="45.0" layoutY="216.0" prefHeight="17.0" prefWidth="90.0" text="Choose Film" textFill="WHITE">
          <font>
-            <Font name="Cambria" size="13.0" />
+            <Font name="Arial Black" size="12.0" />
          </font></Label>
-      <Label layoutX="233.0" layoutY="33.0" prefHeight="39.0" prefWidth="256.0" text="New Screening" textFill="WHITE">
+      <Label alignment="CENTER" layoutX="23.0" layoutY="33.0" prefHeight="39.0" prefWidth="708.0" text="New Screening" textFill="WHITE">
          <font>
-            <Font name="AR BONNIE" size="32.0" />
+            <Font name="Impact" size="32.0" />
          </font></Label>
       <Label fx:id="screeningAlreadyInProgress" alignment="CENTER" contentDisplay="CENTER" layoutX="226.0" layoutY="414.0" prefHeight="39.0" prefWidth="326.0" style="-fx-color: white" textAlignment="CENTER" textFill="WHITE" wrapText="true" />
-      <TableView fx:id="currentScreenings" layoutX="389.0" layoutY="90.0" prefHeight="270.0" prefWidth="313.0">
+      <TableView fx:id="currentScreenings" layoutX="389.0" layoutY="120.0" prefHeight="270.0" prefWidth="304.0">
         <columns>
-          <TableColumn fx:id="filmNameColumn" prefWidth="105.0" text="Film Name" />
-          <TableColumn fx:id="filmTime" prefWidth="108.0" text="Start" />
-            <TableColumn fx:id="endTime" prefWidth="99.0" text="End" />
+          <TableColumn fx:id="filmNameColumn" prefWidth="144.0" resizable="false" text="Film Name" />
+          <TableColumn fx:id="filmTime" prefWidth="76.0" resizable="false" text="Start" />
+            <TableColumn fx:id="endTime" prefWidth="82.0" resizable="false" text="End" />
         </columns>
       </TableView>
+      <Label layoutX="389.0" layoutY="96.0" prefHeight="17.0" prefWidth="219.0" text="Screenings on selected date:" textFill="WHITE">
+         <font>
+            <Font name="Arial Black" size="12.0" />
+         </font>
+      </Label>
+      <Label fx:id="filmTitleLabel" alignment="TOP_RIGHT" layoutX="58.0" layoutY="217.0" prefHeight="17.0" prefWidth="76.0" text="Title:" textFill="WHITE">
+         <font>
+            <Font name="Arial Black" size="12.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

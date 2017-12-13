@@ -59,12 +59,12 @@ public class AdminController {
 	@FXML private TableColumn<AddDataToTable, Integer> availableSeatsColumn;
 	@FXML private ImageView filmImage;
 	@FXML private Label dataExportSucessLbl;
-	
+
 	@FXML private Button writeData;
 	@FXML private Button logOutButton;
 	@FXML private Button OpenNewEmployeeWindowBtn;
 	@FXML private Button addScreeningButton;
-	
+
 	private ObservableList<AddImageToTable> someImages = FXCollections.observableArrayList();
 
 	@FXML 
@@ -235,7 +235,7 @@ public class AdminController {
 				String name = res.getString("filmName");
 				String description = res.getString("filmDescription");
 				String time = res.getString("time");
-				int screeningId = res.getInt("screeningId");
+				int screeningId = res.getInt("screeningID");
 
 				//initialises AddDataToTable object with constructor that takes the variables we just intialised
 				AddDataToTable i = new AddDataToTable(name, description, time, screeningId);
@@ -255,7 +255,7 @@ public class AdminController {
 		//returns the observable list 
 		return films;
 	}
-	
+
 
 	/**
 	 * Executes joint query to 'FilmsDatabase' and 'screeningsDatabase'in order to obtain the 'filmName', 'filmDescription', 'time', 
@@ -290,12 +290,13 @@ public class AdminController {
 				String name = screeningsResultSet.getString("filmName");
 				String description = screeningsResultSet.getString("filmDescription");
 				String time = screeningsResultSet.getString("time");
-				int screeningId = screeningsResultSet.getInt("ScreeningId");
+				int screeningId = screeningsResultSet.getInt("screeningID");
+
 				InputStream binaryStream = screeningsResultSet.getBinaryStream("image");
 
 				//initializes AddDataToTable object with constructor that takes the variables name, time, description and screeningID
 				AddDataToTable nextObject = new AddDataToTable(name, description, time, screeningId);
-
+				
 				//available seats calculated
 				nextObject.calculateAndSetAvailableSeatsCount(reservationsDatabase, screeningId, 50);
 
@@ -326,7 +327,6 @@ public class AdminController {
 				films.add(nextObject);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			System.out.println("error with populating table form database");
 		}
@@ -372,10 +372,10 @@ public class AdminController {
 	 * @param e
 	 */
 	public void writeDataToFile(ActionEvent e) {
-		
+
 		//Gets the user's home-directory to save the file in.
 		String userHomeFolder = System.getProperty("user.home");
-		
+
 		File fileName = new File (userHomeFolder, "screening_data.txt");
 		ScreeningsDatabase sd = new ScreeningsDatabase();
 		ReservationsDatabase rd = new ReservationsDatabase();
@@ -400,16 +400,16 @@ public class AdminController {
 						" availableSeats: " + availableSeats);				
 			}			
 			outputStream.close();
-			
+
 			System.out.println("New file created: "+fileName.toString());
-			
+
 			dataExportSucessLbl.setText("New file "+fileName.toString() + " created.");
-			
+
 			writeData.setStyle("-fx-background-color:green;"
-							+ "-fx-font-color:white;"
-							+ "-fx-border-color:white;"
-							+ "-fx-border-radius:4px;");
-			
+					+ "-fx-font-color:white;"
+					+ "-fx-border-color:white;"
+					+ "-fx-border-radius:4px;");
+
 
 		} catch (ClassNotFoundException e2) {
 			// TODO Auto-generated catch block
@@ -463,7 +463,7 @@ public class AdminController {
 		}
 	}
 
-	
+
 
 
 

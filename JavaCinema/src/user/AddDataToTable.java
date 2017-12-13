@@ -96,6 +96,9 @@ public class AddDataToTable {
 	public Date getDateObjectEnd() {
 		return dateObjectEnd;
 	}
+	public int getAvailableSeats(){
+		return this.availableSeats;
+	}
 	
 	
 
