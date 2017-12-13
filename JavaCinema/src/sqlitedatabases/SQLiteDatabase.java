@@ -53,13 +53,12 @@ public abstract class SQLiteDatabase {
 
 
 	/**
-	 * Deletes row with from database 
+	 * Deletes row corresponding to 'primaryKey' from database 
+	 *  
 	 * @param primarykey - the row we want to delete
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 */
-
-
 	public void delete(int primarykey) throws SQLException, ClassNotFoundException {
 		if (con == null) {
 			getConnection();
@@ -97,7 +96,7 @@ public abstract class SQLiteDatabase {
 	}
 
 	/**
-	 *  methods to return column values 
+	 *  methods to return all column values based on column name given as String 
 	 */
 	public ResultSet displayColumns(String column) throws ClassNotFoundException, SQLException {
 		if (con == null) {
@@ -108,7 +107,18 @@ public abstract class SQLiteDatabase {
 		ResultSet res = state.executeQuery("SELECT " + column + " FROM " + tableName);
 		return res;
 	}
-	// overloaded displayColumns method
+	
+	/**
+	 * overloaded displayColumns method
+	 * 
+	 * ResultSet returned as all rows corresponding to column names given  
+	 * 
+	 * @param column1
+	 * @param column2
+	 * @return
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	public ResultSet displayColumns(String column1, String column2) throws ClassNotFoundException, SQLException {
 		if (con == null) {
 			getConnection();
@@ -119,7 +129,19 @@ public abstract class SQLiteDatabase {
 		return res;
 	}
 
-	// overloaded displayColumns method 3 columns
+	/**
+	 * 
+	 * overloaded displayColumns method
+	 * 
+	 * ResultSet returned as all rows corresponding to column names given  
+	 * 
+	 * @param column1
+	 * @param column2
+	 * @param column3
+	 * @return
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	public ResultSet displayColumns(String column1, String column2, String column3) throws ClassNotFoundException, SQLException {
 		if (con == null) {
 			getConnection();
@@ -144,7 +166,21 @@ public abstract class SQLiteDatabase {
 		return rowcount;
 
 	}
-	
+
+	/**
+	 * 
+	 * Query for films, screenings and reservations tables where 'userID' and 'date' are the same as the userID 
+	 * and date given as arguments.
+	 * 
+	 * All rows meeting the conditions Retruned as ResultSet
+	 * 
+	 * @param username
+	 * @param date
+	 * @param userID
+	 * @return
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 */
 	public ResultSet queryForProfile(String username, String date, int userID) throws SQLException, ClassNotFoundException {
 		if (con == null) {
 			getConnection();
@@ -156,10 +192,22 @@ public abstract class SQLiteDatabase {
 				+ "WHERE reservations.userID=" + userID + " AND screenings.date='" + date + "';");
 
 		ResultSet set1 = ps.executeQuery();
-		
+
 		return set1;
 	}
-	
+
+	/**
+	 * 
+	 * Query for films, screenings and reservations tables where 'userID' is the same as the userID 
+	 * and given as an argument.
+	 * 
+	 * All rows meeting the conditions Retruned as ResultSet
+	 * 
+	 * @param userID
+	 * @return
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 */
 	public ResultSet queryForProfile(int userID) throws SQLException, ClassNotFoundException {
 		if (con == null) {
 			getConnection();
@@ -171,10 +219,10 @@ public abstract class SQLiteDatabase {
 				+ "WHERE reservations.userID=" + userID + ";");
 
 		ResultSet set1 = ps.executeQuery();
-		
+
 		return set1;
 	}
-	
-	
+
+
 
 }

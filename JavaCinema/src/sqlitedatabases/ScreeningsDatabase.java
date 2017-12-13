@@ -41,7 +41,9 @@ public class ScreeningsDatabase extends SQLiteDatabase {
 	}
 	
 	/**
-	 * adds to film database 
+	 * 
+	 * Add Screening to table
+	 *  
 	 * @param filmName
 	 * @param time
 	 * @param date
@@ -60,8 +62,12 @@ public class ScreeningsDatabase extends SQLiteDatabase {
 		prep.execute();
 		
 	}
-	
-		@Override
+		/**
+		 * Returns ResultSet of row corresponding to 'primaryKey'
+		 * 
+		 * @Override
+		 * 
+		 */
 		public ResultSet displayRow(int primaryKey) throws ClassNotFoundException, SQLException {
 			if (con == null) {
 				getConnection();
@@ -73,7 +79,15 @@ public class ScreeningsDatabase extends SQLiteDatabase {
 			return res;
 		}
 		
-		//overloaded method 
+		/**
+		 * 
+		 * Returns ResultSet of rows corresponding to 'date'
+		 * 
+		 * @param date
+		 * @return
+		 * @throws ClassNotFoundException
+		 * @throws SQLException
+		 */
 		public ResultSet date(String date) throws ClassNotFoundException, SQLException {
 			if (con == null) {
 				getConnection();
@@ -86,7 +100,8 @@ public class ScreeningsDatabase extends SQLiteDatabase {
 		}
 		
 		/**
-		 * Input a date and time and this outputs if there is a film on and what it's ID is
+		 * Returns ResultSet of 'ScreeningID', 'filmName' and 'time' corresponding to 'time' and 'date' arguments
+		 * 
 		 * @param time
 		 * @param date
 		 * @return
@@ -104,6 +119,13 @@ public class ScreeningsDatabase extends SQLiteDatabase {
 			return res;
 		}
 		
+		/**
+		 * Returns ResultSet of whole 'ScreeningsDatabse' table
+		 * 
+		 * @return
+		 * @throws ClassNotFoundException
+		 * @throws SQLException
+		 */
 		public ResultSet getAll() throws ClassNotFoundException, SQLException {
 			if (con == null) {
 				getConnection();
@@ -115,6 +137,18 @@ public class ScreeningsDatabase extends SQLiteDatabase {
 			return res;
 		}
 		
+		/**
+		 * 
+		 * Query for two tables where filmName on one equals film name on the other.  Any rows that satisfy this 
+		 * condition are returned as the ResultSet
+		 * 
+		 * @param table1
+		 * @param table2
+		 * @param date
+		 * @return
+		 * @throws ClassNotFoundException
+		 * @throws SQLException
+		 */
 		public ResultSet getDataFromTwoTables(String table1, String table2, String date) throws ClassNotFoundException, SQLException {
 			if (con == null) {
 				getConnection();
@@ -129,6 +163,18 @@ public class ScreeningsDatabase extends SQLiteDatabase {
 				
 		}
 		
+		/**
+		 * 
+		 * Query for 'screenings' table and 'films' table where filmName on one equals film name on the other and the 
+		 * date on the screenings table is the same as the date given as an argument.  
+		 * 
+		 * Any rows that satisfy this condition are returned as the ResultSet
+		 * 
+		 * @param date
+		 * @return
+		 * @throws ClassNotFoundException
+		 * @throws SQLException
+		 */
 		public ResultSet durationAndTime(String date) throws ClassNotFoundException, SQLException {
 			if (con == null) {
 				getConnection();
