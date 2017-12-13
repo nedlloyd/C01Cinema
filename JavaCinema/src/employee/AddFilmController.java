@@ -31,6 +31,16 @@ import sqlitedatabases.FilmsDatabase;
 import sqlitedatabases.ScreeningsDatabase;
 import user.AddDataToTable;
 
+/**
+ * Class gives the user the option to add a new film to the schedule.  If the film has not been screened before 
+ * and so is not on the database it will be added.  The class contains a method to ensure the new screening does 
+ * not overlap with other screenings.  If it does an error message is displayed and the film is not added to
+ * the database.  The admin can also see the other films (and start and end dates) displayed on the day 
+ * chosen to add the new film.   
+ * 
+ * @author nedlloyd and sam
+ *
+ */
 
 public class AddFilmController {
 
