@@ -196,7 +196,7 @@ public class AdminController {
 		try {
 			Stage newScreeningStage = new Stage();
 			Parent root = FXMLLoader.load(getClass().getResource("/employee/AddScreeningForm.fxml"));
-			Scene scene = new Scene(root,500,500);
+			Scene scene = new Scene(root,750,520);
 			//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			newScreeningStage.setScene(scene);
 			newScreeningStage.setTitle("New Screening");

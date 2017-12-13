@@ -4,6 +4,7 @@ package user;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalTime;
+import java.util.Date;
 
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -15,10 +16,11 @@ import sqlitedatabases.ScreeningsDatabase;
 
 
 public class AddDataToTable {
-	private SimpleStringProperty filmName, filmDescription, filmTime, filmDate, seatID;
-	private SimpleIntegerProperty reservationID, screeningID;
+	private SimpleStringProperty filmName, filmDescription, filmTime, filmDate, seatID, endTime;
+	private SimpleIntegerProperty reservationID, screeningID, duration;
 	private int availableSeats;
 	private ImageView filmImage;
+	private Date dateObjectEnd;
 
 
 	public AddDataToTable(String filmName, String filmDescription, String filmTime, int screeningID) {
@@ -48,6 +50,14 @@ public class AddDataToTable {
 		this.filmName = new SimpleStringProperty(filmName);
 		this.filmDescription = new SimpleStringProperty(filmDescription);
 		this.filmTime = new SimpleStringProperty(filmTime);	
+	}
+	
+	public AddDataToTable(String filmName, String filmTime, int duration, String endTime, Date dateObjectEnd) {
+		this.filmName = new SimpleStringProperty(filmName);
+		this.filmTime = new SimpleStringProperty(filmTime);
+		this.duration = new SimpleIntegerProperty(duration);
+		this.endTime = new SimpleStringProperty(endTime);
+		this.dateObjectEnd = dateObjectEnd;
 	}
 
 	public String getFilmDescription() {
@@ -115,6 +125,22 @@ public class AddDataToTable {
 	
 	public void setSeatID(SimpleStringProperty seatID) {
 		this.seatID = seatID;
+	}
+	
+	public int getDuration() {
+		return duration.get();
+	}
+	
+	public void setDuration(SimpleIntegerProperty duration) {
+		this.duration = duration;
+	}
+	
+	public String getEndTime() {
+		return endTime.get();
+	}
+	
+	public Date getDateObjectEnd() {
+		return dateObjectEnd;
 	}
 	
 	

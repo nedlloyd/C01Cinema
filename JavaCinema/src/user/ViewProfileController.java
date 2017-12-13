@@ -97,7 +97,7 @@ public class ViewProfileController {
 
 	/**
 	 * Populates the ArrayList member variables with data from the database. This data is then 
-	 * displayed in the table on the ViewProofile controller.
+	 * displayed in the table on the ViewProfile controller.
 	 * @param date
 	 * @return
 	 * @throws ClassNotFoundException
