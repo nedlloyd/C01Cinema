@@ -267,7 +267,7 @@ public class UserMainController {
 
 	/**
 	 *  When a screening button is pressed, the make-a-reservation window is opened and
-	 *  the variables of filmName, screeningId and user are also passed onto the next controller.
+	 *  the variables of filmName, screeningId and user are passed onto the next 'MakeReservationController'.
 	 * @param e
 	 */
 	public void makeReservation() {
@@ -315,7 +315,7 @@ public class UserMainController {
 	}
 
 	/**
-	 * method in order to receive variable username from login controller class and
+	 * Method in order to receive variable username from login controller class and
 	 * set it accordingly. 
 	 * @param user
 	 */
