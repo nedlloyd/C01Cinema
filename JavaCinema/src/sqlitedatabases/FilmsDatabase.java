@@ -33,7 +33,6 @@ public class FilmsDatabase extends SQLiteDatabase {
 
 			Statement state = con.createStatement();
 			ResultSet res = state.executeQuery("SELECT name FROM sqlite_master WHERE type='table' AND name='"+super.tableName+"' ");
-			//working out if there is a table of name films if there is it's the one we want to use
 			if (!res.next()) {
 				System.out.println("Building the "+tableName+" table with prepopulated values");
 
@@ -41,24 +40,12 @@ public class FilmsDatabase extends SQLiteDatabase {
 				Statement state2 = con.createStatement();
 				state2.execute("CREATE TABLE "+tableName+"(id integer," +
 						"filmName varchar(60)," + "filmDescription varchar(60)," +"primary key(id));");
-
-				//and then start to insert data
-				//				PreparedStatement prep = con.prepareStatement("INSERT INTO films values(?,?,?);");
-				//				prep.setString(2, "Vertigo");
-				//				prep.setString(3, "best");
-				//				prep.execute();
-				//				
-				//				PreparedStatement prep2 = con.prepareStatement("INSERT INTO films values(?,?,?);");
-				//				prep2.setString(2, "Breathless");
-				//				prep2.setString(3, "french");
-				//				prep2.execute();
-
 			}
 		}
 	}
 
 	/**
-	 * adds to film database 
+	 * adds to film to database 
 	 * @param filmName
 	 * @param filmDescription
 	 * @param imageFilePath
@@ -81,7 +68,13 @@ public class FilmsDatabase extends SQLiteDatabase {
 		//con.close();
 	}
 
-	//adds to film database without an image
+	/**
+	 * adds films to database with all parameters but image
+	 * @param filmName
+	 * @param filmDescription
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	public void addFilm(String filmName, String filmDescription) throws ClassNotFoundException, SQLException {
 		if (con == null) {
 			getConnection();
@@ -94,8 +87,13 @@ public class FilmsDatabase extends SQLiteDatabase {
 		prep.close();
 		con.close();
 	}
-
-	@Override
+	
+	/**
+	 * 
+	 * ResultSet returned of row with matching ID
+	 * 
+	 * @Override
+	 */
 	public ResultSet displayRow(int id) throws ClassNotFoundException, SQLException {
 		if (con == null) {
 			getConnection();
@@ -106,7 +104,13 @@ public class FilmsDatabase extends SQLiteDatabase {
 		return res;
 	}
 
-	//return row based on filmName
+	/**
+	 * returns ResultSet of rows with name of film given as argument 
+	 * @param filmName
+	 * @return
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	public ResultSet displayRow(String filmName) throws ClassNotFoundException, SQLException {
 		if (con == null) {
 			getConnection();
@@ -117,6 +121,16 @@ public class FilmsDatabase extends SQLiteDatabase {
 		return res;
 	}
 	
+	/**
+	 * returns ResultSet of rows with name of film given as argument 
+	 *
+	 *  
+	 * @param filmName1
+	 * @param filmName2
+	 * @return
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 *//*
 	public ResultSet displayRows(String filmName1, String filmName2) throws ClassNotFoundException, SQLException {
 		if (con == null) {
 			getConnection();
@@ -126,8 +140,18 @@ public class FilmsDatabase extends SQLiteDatabase {
 		ResultSet res = state.executeQuery("SELECT " + "id, " + "filmName, " + "filmDescription, " + "filmDuration" + " FROM " + tableName + 
 				" WHERE (filmName=\"" + filmName1 + "\") OR (filmName=\"" + filmName2 + "\");");
 		return res;
-	}
+	}*/
 
+	/**
+	 * 
+	 *  returns String of description for a given film 
+	 *
+	 * 
+	 * @param filmName
+	 * @return
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	public String filmDescriptionString(String filmName) throws ClassNotFoundException, SQLException{
 		if (con == null) {
 			getConnection();
@@ -146,12 +170,15 @@ public class FilmsDatabase extends SQLiteDatabase {
 	}
 
 
-	/** return file in output that can be stored in database
+	/** 
+	 * 
+	 * returns file form 'filePath' as a ByteArrayOutputStream that can be stored in database
 	 * 
 	 * @param file
 	 * @return
+	 * 
 	 */
-	// copied from: http://www.sqlitetutorial.net/sqlite-java/jdbc-read-write-blob/
+	//based on: http://www.sqlitetutorial.net/sqlite-java/jdbc-read-write-blob/
 	private byte[] readFile(String filePath) {
 		ByteArrayOutputStream bos = null;
 		try {
@@ -174,14 +201,17 @@ public class FilmsDatabase extends SQLiteDatabase {
 
 
 	/**
-	 *  Adds picture to the row with primarykey sepcified 
+	 * Picture given in filePath is converted using 'readFile' method then stored in the database as ID specified
+	 *   
+	 *  Image is 
+	 *  
 	 * @param materialId
 	 * @param filename
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 */
 	// based on: https://www.youtube.com/watch?v=s80sAEbF9Fk
-	public void addPicture(int materialId, String filePath) throws SQLException, ClassNotFoundException {
+	/*public void addPicture(int materialId, String filePath) throws SQLException, ClassNotFoundException {
 		// update sql
 		int num_rows = 0;
 		if (con == null) {
@@ -202,11 +232,17 @@ public class FilmsDatabase extends SQLiteDatabase {
 			System.out.println("Stored the file in the BLOB column.");
 		}
 
-	}
+	}*/
 
-
+	/**
+	 * 
+	 * @param materialId
+	 * @param filePath
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	// based on: http://www.sqlitetutorial.net/sqlite-java/jdbc-read-write-blob/
-	public void readPicture(int materialId, String filePath) throws ClassNotFoundException, SQLException {
+	/*public void readPicture(int materialId, String filePath) throws ClassNotFoundException, SQLException {
 		if (con == null) {
 			getConnection();
 		}
@@ -258,6 +294,6 @@ public class FilmsDatabase extends SQLiteDatabase {
 				System.out.println(e.getMessage());
 			}
 		}
-	}
+	}*/
 
 }

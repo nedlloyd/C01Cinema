@@ -43,7 +43,7 @@ public class ReservationsDatabase extends SQLiteDatabase  {
 	}
 	
 	/**
-	 * adds to reservation database 
+	 * add reservation with userId, screeningId and seatId
 	 * @param userId
 	 * @param screeningId
 	 * @param seatId
@@ -65,7 +65,11 @@ public class ReservationsDatabase extends SQLiteDatabase  {
 	}
 
 
-	@Override
+	/**
+	 * @Override
+	 * 
+	 * Returns ResultSet of row corresponding to 'reservationID' given
+	 */
 	public ResultSet displayRow(int reservationID) throws ClassNotFoundException, SQLException {
 		if (con == null) {
 			getConnection();
@@ -78,7 +82,7 @@ public class ReservationsDatabase extends SQLiteDatabase  {
 	}
 	
 	/**
-	 * Returns the rows in the reservations database table for a given screeningID  
+	 * Returns ResultSet of rows in the 'reservationsDatabase' table for a given screeningID  
 	 * @param screeningID
 	 * @return
 	 * @throws ClassNotFoundException
@@ -100,8 +104,11 @@ public class ReservationsDatabase extends SQLiteDatabase  {
 		return res;
 	}
 	
-	
-	//http://www.sqlitetutorial.net/sqlite-java/delete/
+	/**
+	 * Row deleted based on 'id' given
+	 * 
+	 */
+	//based on: http://www.sqlitetutorial.net/sqlite-java/delete/
 	public void delete(int id) throws ClassNotFoundException, SQLException {
 		if (con == null) {
 			getConnection();
