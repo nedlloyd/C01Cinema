@@ -40,9 +40,9 @@
          <font>
             <Font size="10.0" />
          </font></Button>
-      <Button fx:id="makeReservation" contentDisplay="CENTER" layoutX="196.0" layoutY="430.0" mnemonicParsing="false" onAction="#reserve" style="-fx-background-color: #ffdc00;" text="Make Reservation" textAlignment="CENTER">
+      <Button fx:id="makeReservation" contentDisplay="CENTER" layoutX="182.0" layoutY="430.0" mnemonicParsing="false" onAction="#reserve" style="-fx-background-color: #ffdc00;" text="Make Reservation" textAlignment="CENTER">
          <font>
-            <Font name="Cambria" size="12.0" />
+            <Font name="Arial Black" size="12.0" />
          </font></Button>
       <Button fx:id="seat_b2" layoutX="115.0" layoutY="246.0" mnemonicParsing="false" onAction="#clickToBook" prefHeight="25.0" prefWidth="28.0" style="-fx-border-style: solid;">
          <font>
@@ -342,12 +342,12 @@
       </Label>
       <Label fx:id="keyLbl1" alignment="CENTER_RIGHT" layoutX="289.0" layoutY="127.0" prefHeight="16.0" prefWidth="105.0" text="Available" textAlignment="RIGHT" textFill="WHITE">
          <font>
-            <Font name="Cambria" size="12.0" />
+            <Font name="Arial" size="12.0" />
          </font>
       </Label>
       <Label fx:id="keyLbl2" alignment="CENTER_RIGHT" layoutX="290.0" layoutY="152.0" prefHeight="16.0" prefWidth="105.0" text="Unavailable" textAlignment="RIGHT" textFill="WHITE">
          <font>
-            <Font name="Cambria" size="12.0" />
+            <Font name="Arial" size="12.0" />
          </font>
       </Label>
       <Circle fx:id="key1" fill="#2dd321" layoutX="407.0" layoutY="135.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
@@ -358,9 +358,9 @@
          </font>
       </Label>
       <Circle fx:id="key3" fill="#ffdc00" layoutX="408.0" layoutY="185.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
-      <Label fx:id="keyLbl3" alignment="CENTER_RIGHT" layoutX="289.0" layoutY="177.0" text="Selected for booking" textAlignment="RIGHT" textFill="WHITE">
+      <Label fx:id="keyLbl3" alignment="CENTER_RIGHT" layoutX="287.0" layoutY="177.0" text="Selected for booking" textAlignment="RIGHT" textFill="WHITE">
          <font>
-            <Font name="Cambria" size="12.0" />
+            <Font name="Arial" size="12.0" />
          </font>
       </Label>
    </children>
