@@ -15,6 +15,10 @@ import java.sql.Statement;
 
 import javafx.scene.image.Image;
 
+/**
+ * Abstract class and parent class of all SQLite database classes. Contains methods for connecting with the database, and querying the database.
+ * Also contains abstract methods which must be implemented by all of its sub-class databases. 
+ */
 public abstract class SQLiteDatabase {
 
 	protected static Connection con;
