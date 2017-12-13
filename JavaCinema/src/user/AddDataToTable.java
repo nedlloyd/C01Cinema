@@ -20,6 +20,8 @@ import sqlitedatabases.ScreeningsDatabase;
  *
  */
 public class AddDataToTable {
+	
+	//Member variables
 	private SimpleStringProperty filmName, filmDescription, filmTime, filmDate, seatID, endTime;
 	private SimpleIntegerProperty reservationID, screeningID, duration;
 	private int availableSeats;

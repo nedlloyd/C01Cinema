@@ -8,7 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 
 /**
- * Launches the Cinema booking application. Starts by displaying the login window.
+ * Launches the cinema booking application. Starts by displaying the login window.
  */
 public class Main extends Application {
 	
