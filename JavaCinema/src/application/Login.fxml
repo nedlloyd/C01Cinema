@@ -20,12 +20,12 @@
       </Button>
       <TextField fx:id="txtUserName" layoutX="144.0" layoutY="237.0" promptText="User Name">
          <font>
-            <Font name="Cambria" size="13.0" />
+            <Font name="Arial" size="13.0" />
          </font>
       </TextField>
       <PasswordField fx:id="txtPassword" layoutX="144.0" layoutY="281.0" promptText="Password">
          <font>
-            <Font name="Cambria" size="13.0" />
+            <Font name="Arial" size="13.0" />
          </font>
       </PasswordField>
       <Label fx:id="lblTitle" alignment="CENTER" contentDisplay="CENTER" layoutY="44.0" prefHeight="50.0" prefWidth="745.0" text="Neam Arts Cinema" textAlignment="CENTER" textFill="WHITE" underline="true">
@@ -39,11 +39,11 @@
          </font></Label>
       <TextField fx:id="newUserName" layoutX="455.0" layoutY="237.0" prefHeight="27.0" prefWidth="178.0" promptText="Create User Name">
          <font>
-            <Font name="Cambria" size="13.0" />
+            <Font name="Arial" size="13.0" />
          </font></TextField>
       <PasswordField fx:id="newPassword" layoutX="455.0" layoutY="322.0" prefHeight="27.0" prefWidth="178.0" promptText="New Password">
          <font>
-            <Font name="Cambria" size="13.0" />
+            <Font name="Arial" size="13.0" />
          </font>
       </PasswordField>
       <Label layoutX="455.0" layoutY="190.0" prefHeight="29.0" prefWidth="178.0" text="New Customer?" textFill="WHITE">
@@ -71,7 +71,7 @@
       </Label>
       <TextField fx:id="newEmail" layoutX="455.0" layoutY="281.0" prefHeight="27.0" prefWidth="178.0" promptText="Email">
          <font>
-            <Font name="Cambria" size="13.0" />
+            <Font name="Arial" size="13.0" />
          </font>
       </TextField>
    </children>

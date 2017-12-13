@@ -16,11 +16,11 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="700.0" style="-fx-background-color: black; -fx-border-color: white; -fx-border-style: solid; -fx-border-insets: 10px;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="user.UserMainController">
    <children>
-      <Label fx:id="helloMessage" layoutX="29.0" layoutY="67.0" prefHeight="31.0" prefWidth="391.0" text="Welcome" textFill="WHITE">
+      <Label fx:id="helloMessage" layoutX="45.0" layoutY="83.0" prefHeight="31.0" prefWidth="391.0" text="Welcome" textFill="WHITE">
          <font>
             <Font name="Arial Black" size="21.0" />
          </font></Label>
-      <DatePicker fx:id="datePickerUser" layoutX="341.0" layoutY="128.0" prefHeight="25.0" prefWidth="177.0" />
+      <DatePicker fx:id="datePickerUser" layoutX="361.0" layoutY="130.0" prefHeight="25.0" prefWidth="177.0" />
       <Button fx:id="dayOfWeekBtn1" alignment="CENTER" layoutX="111.0" layoutY="175.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="90.0" style="-fx-background-color: none;" text="Tomorrow" textAlignment="CENTER" textFill="WHITE" underline="true">
          <font>
             <Font name="Arial" size="12.0" />
@@ -54,12 +54,12 @@
             <Font name="Impact" size="36.0" />
          </font>
       </Label>
-      <Label fx:id="lbl1" alignment="CENTER_RIGHT" layoutX="25.0" layoutY="127.0" prefHeight="26.0" prefWidth="303.0" text="Please choose a day to view film screenings:" textFill="WHITE">
+      <Label fx:id="lbl1" layoutX="45.0" layoutY="129.0" prefHeight="26.0" prefWidth="303.0" text="Please choose a day to view film screenings:" textFill="WHITE">
          <font>
             <Font name="Arial" size="14.0" />
          </font>
       </Label>
-      <Button fx:id="viewProfile" layoutX="491.0" layoutY="69.0" mnemonicParsing="false" onAction="#viewProfile" style="-fx-background-color: #b81818; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 4px;" text="View Profile">
+      <Button fx:id="viewProfile" layoutX="489.0" layoutY="85.0" mnemonicParsing="false" onAction="#viewProfile" style="-fx-background-color: #b81818; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 4px;" text="View Profile">
          <font>
             <Font name="Arial Black" size="12.0" />
          </font></Button>
@@ -75,7 +75,7 @@
                </children></VBox>
          </content>
       </ScrollPane>
-      <Button fx:id="logOutBtn" layoutX="602.0" layoutY="69.0" mnemonicParsing="false" onAction="#logOut" style="-fx-background-color: #b81818; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 4px;" text="Log out">
+      <Button fx:id="logOutBtn" layoutX="600.0" layoutY="85.0" mnemonicParsing="false" onAction="#logOut" style="-fx-background-color: #b81818; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 4px;" text="Log out">
          <font>
             <Font name="Arial Black" size="12.0" />
          </font></Button>
