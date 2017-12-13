@@ -47,55 +47,106 @@ public class AddDataToTable {
 		this.dateObjectEnd = dateObjectEnd;
 	}
 
-	
+	/**
+	 * FilmDescription returned as String
+	 * @return
+	 */
 	public String getFilmDescription() {
 		return filmDescription.get();
 	}
 
+	/**
+	 * filmName returned as String
+	 * @return
+	 */
 	public String getFilmName() {
 		return filmName.get();
 	}
-
+	
+	/**
+	 * filmTime returned as String
+	 * @return
+	 */
 	public String getFilmTime() {
 		return filmTime.get();
 	}
 
+	/**
+	 * screeningID returned as int
+	 * @return
+	 */
 	public int getScreeningID() {
 		return this.screeningID.get();
 	}
 
+	/**
+	 * filmImage returned as ImageView
+	 * @return
+	 */
 	public ImageView getFilmImage() {
 		return filmImage;
 	}
 
-
+	/**
+	 * Film Image setter
+	 * @param filmImage
+	 */
 	public void setFilmImage(ImageView filmImage) {
 		this.filmImage = filmImage;
 	}
 
+	/**
+	 * filmDate returned as String
+	 * @return
+	 */
 	public String getFilmDate() {
 		return filmDate.get();
 	}
 	
+	/**
+	 * reservationID returned as int
+	 * @return
+	 */
 	public int getReservationID() {
 		return reservationID.get();
 	}
 	
+	/**
+	 * seatID returned as String
+	 * @return
+	 */
 	public String getSeatID() {
 		return seatID.get();
 	}
 
+	/**
+	 * duration returned as int
+	 * @return
+	 */
 	public int getDuration() {
 		return duration.get();
 	}
 	
+	/**
+	 * endTime returned as String
+	 * @return
+	 */
 	public String getEndTime() {
 		return endTime.get();
 	}
 	
+	/**
+	 * dateObjectEnd returned as Date
+	 * @return
+	 */
 	public Date getDateObjectEnd() {
 		return dateObjectEnd;
 	}
+	
+	/**
+	 * availableSeats returned as int
+	 * @return
+	 */
 	public int getAvailableSeats(){
 		return this.availableSeats;
 	}
