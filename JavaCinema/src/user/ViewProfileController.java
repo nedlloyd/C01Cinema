@@ -99,7 +99,8 @@ public class ViewProfileController {
 
 	/**
 	 * Queries 'ScreeningsDatabase' for all screenings with userID selected. 
-	 * 'addImageToList' method is then called taking 'film name' 'film description' and if it exists 'binaryStream'.
+	 * 
+	 * 'addImageToList' method is then called and set to 'film name' 'film description' and, if it exists, 'binaryStream'.
 	 * An AddDataToTable object is created taking 'filmName', 'screeningTime', 'screeningDate', 'seatID' and 
 	 * 'filmReservationID'. For each row in the Result Set this object is added to the ObservableList 'reservationsData'.
 	 * @param date
@@ -145,38 +146,6 @@ public class ViewProfileController {
 		res.close();	
 	}
 	
-	/*public void pastViewingColour() {
-		
-		for (int i = 0; i < tableView.getItems().size(); i++) {
-			
-			String dateString = tableView.getItems().get(i).getFilmDate();
-			TableRow<AddDataToTable> currentRow = tableView.getItems().get(row);
-			
-			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy");
-			LocalDate dateObject = LocalDate.parse(dateString, formatter);
-			today = LocalDate.now();
-			if(dateObject.isBefore(today)){
-				currentRow.setStyle("-fx-background-color:lightcoral");
-				
-				
-				int rowIndex = tableView.getSelectionModel().getSelectedIndex();
-			sets variable current film to the film selected 
-			if(rowIndex >=0 && rowIndex < tableView.getItems().size()){
-				currentFilm = tableView.getItems().get(rowIndex).getFilmName();
-				currentID = tableView.getItems().get(rowIndex).getReservationID();
-				try {
-					setImageAndDescription();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		});  
-				
-			}
-		}
-		
-	}*/
 
 	/**
 	 * Sets 'tableView' with all reservations in ObservableList 'reservationsData'
@@ -288,7 +257,7 @@ public class ViewProfileController {
 	}
 
 	/**
-	 * Deletes reservation selected on table (by removing row in 'ReservationsDatabase') and updates the table
+	 * Deletes reservation selected on table (by removing row in 'ReservationsDatabase') and updates the tableView
 	 * @param e
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
