@@ -6,7 +6,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
- * Sets up SQLite database with columns: userID, userName, password, role 
+ * Sets up SQLite database 'users' with columns: userID, userName, password, role.
+ * Deals with all communications to this database.
  * @author Sam
  *
  */

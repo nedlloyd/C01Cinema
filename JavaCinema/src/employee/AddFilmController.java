@@ -38,7 +38,7 @@ import user.AddDataToTable;
  * the database.  The admin can also see the other films (and start and end dates) displayed on the day 
  * chosen to add the new film.   
  * 
- * @author nedlloyd and sam
+ * @author Ned Lloyd and Sam
  *
  */
 

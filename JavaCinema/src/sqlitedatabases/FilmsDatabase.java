@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
- * Sets up SQLite database with columns: id, filmName, filmDescription
+ * Sets up SQLite database 'films' with columns: id, filmName, filmDescription.
  * @author Ned
  *
  */

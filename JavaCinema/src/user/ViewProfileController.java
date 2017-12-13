@@ -280,8 +280,6 @@ public class ViewProfileController {
 		
 		today = LocalDate.now();
 		
-
-		
 		if(dateObject.isAfter(today)){
 			rd.delete(currentID);
 			//Display a label showing the user that the booking has been successfully deleted:
