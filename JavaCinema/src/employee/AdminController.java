@@ -44,6 +44,13 @@ import user.AddDataToTable;
 import user.AddImageToTable;
 import user.MakeReservationController;
 
+/**
+ * Controller class responsible for updating the content of the employee window (Adminmain.fxml). 
+ * Contains methods for displaying films on a selected date, logging out and exporting data in a text file 
+ * and opening windows to add new employee and add new viewing to schedule. 
+ *
+ */
+
 public class AdminController {
 
 	@FXML private Label viewingsLbl;
