@@ -49,7 +49,7 @@
          <font>
             <Font name="Arial" size="12.0" />
          </font></Button>
-      <Label fx:id="titleLbl" alignment="CENTER" contentDisplay="CENTER" layoutX="25.0" layoutY="14.0" prefHeight="44.0" prefWidth="684.0" text="NEAM ARTS CINEMA" textAlignment="CENTER" textFill="WHITE" underline="true">
+      <Label fx:id="titleLbl" alignment="CENTER" contentDisplay="CENTER" layoutX="25.0" layoutY="14.0" prefHeight="44.0" prefWidth="684.0" text="Neam Arts Cinema" textAlignment="CENTER" textFill="WHITE" underline="true">
          <font>
             <Font name="Impact" size="36.0" />
          </font>
@@ -69,7 +69,7 @@
                <children>
                   <Label fx:id="noScreeningsLbl" prefHeight="38.0" prefWidth="533.0" text="There are no screenings on this day..." textFill="WHITE">
                      <font>
-                        <Font name="Arial Black" size="25.0" />
+                        <Font name="Arial" size="25.0" />
                      </font>
                   </Label>
                </children></VBox>

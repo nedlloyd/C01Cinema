@@ -46,9 +46,9 @@
             <Font name="Arial" size="13.0" />
          </font>
       </PasswordField>
-      <Label layoutX="455.0" layoutY="190.0" prefHeight="29.0" prefWidth="178.0" text="New Customer?" textFill="WHITE">
+      <Label layoutX="455.0" layoutY="187.0" prefHeight="29.0" prefWidth="178.0" text="New Customer?" textFill="WHITE">
          <font>
-            <Font name="Arial Black" size="20.0" />
+            <Font name="Arial" size="20.0" />
          </font></Label>
       <Button fx:id="createAccountBtn" layoutX="484.0" layoutY="364.0" mnemonicParsing="false" onAction="#signUp" prefHeight="25.0" prefWidth="121.0" style="-fx-background-color: #b81818; -fx-border-color: white; -fx-border-radius: 4px;" text="Create Account" textFill="WHITE">
          <font>
@@ -56,7 +56,7 @@
          </font></Button>
       <Label fx:id="lblstatus1" layoutX="144.0" layoutY="190.0" prefHeight="16.0" prefWidth="198.0" text="Sign in" textAlignment="CENTER" textFill="WHITE">
          <font>
-            <Font name="Arial Black" size="19.0" />
+            <Font name="Arial" size="19.0" />
          </font>
       </Label>
       <Label fx:id="lbl2" alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="104.0" prefHeight="50.0" prefWidth="745.0" text="All the best films screened here." textAlignment="CENTER" textFill="WHITE">
@@ -66,7 +66,7 @@
       </Label>
       <Label fx:id="lblstatus" layoutX="146.0" layoutY="215.0" prefHeight="16.0" prefWidth="198.0" textAlignment="CENTER" textFill="WHITE">
          <font>
-            <Font name="Arial Black" size="11.0" />
+            <Font name="Arial Black" size="12.0" />
          </font>
       </Label>
       <TextField fx:id="newEmail" layoutX="455.0" layoutY="281.0" prefHeight="27.0" prefWidth="178.0" promptText="Email">
