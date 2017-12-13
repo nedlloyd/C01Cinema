@@ -20,8 +20,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableColumn.SortType;
-import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
@@ -59,6 +57,8 @@ public class ViewProfileController {
 	private int currentID;
 	private int userID;
 	private LocalDate today;
+	
+	UserMainController userMain;
 
 	@FXML
 	public void initialize() {	
@@ -315,6 +315,8 @@ public class ViewProfileController {
 			eupc.setUsername(currentUser);
 			eupc.setEmail(currentEmail);
 			eupc.setPassword(currentUser);
+			eupc.setUserMainController(userMain);
+			
 			Scene scene = new Scene(root,500,320);
 			//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			newEditProfileController.setScene(scene);
@@ -326,7 +328,14 @@ public class ViewProfileController {
 			exc.printStackTrace();
 		}
 
-
+	}
+	
+	/**
+	 * Links the ViewProfileController to the UserMainController object which birthed it.
+	 * @param userMain
+	 */
+	public void setUserMainController(UserMainController userMain){
+		this.userMain = userMain;
 	}
 
 }

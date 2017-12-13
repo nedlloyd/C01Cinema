@@ -22,12 +22,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Control;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TablePosition;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -39,7 +37,6 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import sqlitedatabases.ReservationsDatabase;
 import sqlitedatabases.ScreeningsDatabase;
-import sqlitedatabases.UsersDatabase;
 import user.AddDataToTable;
 import user.AddImageToTable;
 import user.MakeReservationController;
@@ -306,7 +303,7 @@ public class AdminController {
 
 				//initializes AddDataToTable object with constructor that takes the variables name, time, description and screeningID
 				AddDataToTable nextObject = new AddDataToTable(name, description, time, screeningId);
-				
+
 				//available seats calculated
 				nextObject.calculateAndSetAvailableSeatsCount(reservationsDatabase, screeningId, 50);
 
@@ -363,18 +360,21 @@ public class AdminController {
 		// image is initialised to curtains in case film does not contain a photo
 		Image theImage = new Image("images/cinemaCurtains.png");
 
-		TablePosition pos = tableView.getSelectionModel().getSelectedCells().get(0);
-		int row = pos.getRow();
+		if(tableView.getSelectionModel().getSelectedIndex() >= 0){
+			TablePosition pos = tableView.getSelectionModel().getSelectedCells().get(0);
+			int row = pos.getRow();
 
-		// gets film name of object on that row 
-		String fn = tableView.getItems().get(row).getFilmName();
+			// gets film name of object on that row 
+			String fn = tableView.getItems().get(row).getFilmName();
 
-		//returns the poster that matches the film name 
-		for (AddImageToTable item : someImages) {
-			if (item.getFilmName() == fn) {
-				theImage = item.getFilmImage();
-			} 
+			//returns the poster that matches the film name 
+			for (AddImageToTable item : someImages) {
+				if (item.getFilmName() == fn) {
+					theImage = item.getFilmImage();
+				} 
+			}
 		}
+		
 		return theImage;
 	}
 

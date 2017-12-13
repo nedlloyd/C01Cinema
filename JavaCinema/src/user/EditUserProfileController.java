@@ -30,6 +30,8 @@ public class EditUserProfileController {
 	private String currentUsername;
 	private String currentEmail;
 	private String currentPassword;
+	ViewProfileController profileController;
+	UserMainController userMain;
 
 	
 	@FXML
@@ -51,6 +53,12 @@ public class EditUserProfileController {
 	 */
 	public void setEmail(String email) {
 		this.email.setText(email);
+	}
+	
+	//We require the UserMainController which triggered the ViewProfile Controller so that we can
+	// update the user variables in that class
+	public void setUserMainController(UserMainController userMain){
+		this.userMain = userMain;
 	}
 
 	/**
@@ -102,8 +110,11 @@ public class EditUserProfileController {
 		this.currentUsername = username.getText();
 		this.currentEmail = email.getText();
 		this.currentPassword = password.getText();
+		
 		try {
 			ud.updateUserInfo(currentUsername, currentEmail, currentPassword, currentUserID);
+			userMain.helloMessage.setText("Welcome "+this.currentUsername+"!");
+			userMain.setUser(this.currentUsername);
 		} catch (ClassNotFoundException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
