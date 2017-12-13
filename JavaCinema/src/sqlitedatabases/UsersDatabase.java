@@ -127,8 +127,7 @@ public class UsersDatabase extends SQLiteDatabase {
 		prep.setString(2, password);
 		prep.setString(3, email);
 		prep.execute();
-		//prep.close();
-		//con.close();
+	
 		
 
 	}
