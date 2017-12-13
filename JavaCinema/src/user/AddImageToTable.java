@@ -26,18 +26,13 @@ public class AddImageToTable {
 	public Image getFilmImage() {
 		return filmImage;
 	}
-	
-	
+		
 	public void setFilmImage(Image filmImage) {
 		this.filmImage = filmImage;
 	}
 	
 	public String getFilmName() {
 		return filmName;
-	}
-	
-	public void setFilmDescription(String filmDescription) {
-		this.filmDescription = filmDescription;
 	}
 	
 	public String getFilmDescription() {

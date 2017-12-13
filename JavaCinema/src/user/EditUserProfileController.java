@@ -42,6 +42,12 @@ public class EditUserProfileController {
 		this.email.setText(email);
 	}
 
+	/**
+	 * Queries the 'UserDatabase' to find the password associated with username given.  The TextField 'password'
+	 * is then set to display this password.  
+	 * 
+	 * @param username
+	 */
 	public void setPassword(String username) {
 		
 		UsersDatabase ud = new UsersDatabase();
@@ -64,11 +70,22 @@ public class EditUserProfileController {
 		this.password.setText(currentPassword);
 	}
 	
+	
+	/**
+	 * When Button is pressed the 'confirm' button is set to visible and 'confirmMessage' Label is set to a String
+	 * @param e
+	 */
 	public void update(ActionEvent e) {
 		confirm.setVisible(true);
 		confirmMessage.setText("Are you sure you want to confirm these updates?");
 	}
 	
+	/**
+	 * When Button is pressed variables 'currentUsername', 'currentEmail' and 'currentPassword' are all set to the 
+	 * text contained in the TextFields.  The 'UserDatabase' database is then updated to reflect any changes that 
+	 * have been made to the original text set.  
+	 * @param e
+	 */
 	public void confirm(ActionEvent e) {
 		UsersDatabase ud = new UsersDatabase();
 		this.currentUsername = username.getText();

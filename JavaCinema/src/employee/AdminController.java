@@ -164,13 +164,6 @@ public class AdminController {
 					ex.printStackTrace();
 				}
 
-
-
-
-
-
-
-
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
@@ -179,6 +172,8 @@ public class AdminController {
 	}
 
 	/**
+	 * When date on datePicker is changed the method sets text on the viewingsLbl to display the selected date.
+	 * 
 	 * Triggered by datePicker
 	 * @param e
 	 */
@@ -188,6 +183,7 @@ public class AdminController {
 	}
 
 	/**
+	 * 
 	 * Triggered by addScreeningButton. Opens window with form for adding films to schedule
 	 * @param e
 	 */
@@ -209,6 +205,16 @@ public class AdminController {
 
 	}
 
+	/**
+	 * Executes joint query to 'FilmsDatabase' and 'screeningsDatabase'in order to obtain the 'filmName', 'filmDescription', 'time' 
+	 * and 'screeningId' for films on the date selected on the datePicker.  For each film on the selected date an AddDataToTable 
+	 * object is created with these fields.  Each of these objects is then added to an ObservableList called 'films'.
+	 * This list is then returned.   
+	 * 
+	 * @return ObservableList of films screening on the day selected  
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	public ObservableList<AddDataToTable>  getFilms() throws ClassNotFoundException, SQLException
 	{	
 		ScreeningsDatabase screeningDatabase = new ScreeningsDatabase();
@@ -218,7 +224,6 @@ public class AdminController {
 
 		//gets the date from the date picker in the correct format
 		String date = datePicker.getValue().format(DateTimeFormatter.ofPattern("dd/MM/yy"));
-		System.out.print(date);
 
 		// creates a result set by calling  the detDataFromTwoTables method present in ScreeningDatabase
 		ResultSet res = screeningDatabase.getDataFromTwoTables("films", "screenings", date);
@@ -250,21 +255,25 @@ public class AdminController {
 		//returns the observable list 
 		return films;
 	}
-
-	public void getScreenings(ActionEvent e) throws ClassNotFoundException, SQLException {
-		tableView.setItems(getFilms());
-	}
+	
 
 	/**
-	 * Creates and returns an observable of the films on a certain date this can then be added to the table
+	 * Executes joint query to 'FilmsDatabase' and 'screeningsDatabase'in order to obtain the 'filmName', 'filmDescription', 'time', 
+	 * 'screeningId' and 'image' (of the poster) for films on the date selected.  For each film on the selected date an AddDataToTable 
+	 * object is created with the first four of these parameters.  The variables are also passed to 'calculateAndSetAvailableSeatsCount' method
+	 * which counts available seats.  For 'image' the 'Input Stream' obtained from the database is converted into an 
+	 * Image object.  An AddImageToTable object is created with the film name and the image.  The AddImageToTable is added to
+	 * an ObservableList called 'someImages' and the AddDataToTable object is added to an ObservableList called 'films'.  Finally the 
+	 * ObservableList 'films' is returned.
+	 * 
+	 * 
 	 * @param date
-	 * @return
+	 * @return ObservableList films
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 * @throws IOException
 	 */
 	public ObservableList<AddDataToTable>  getFilms(String date) throws ClassNotFoundException, SQLException, IOException{	
-		//initialises observable list 
 		ObservableList<AddDataToTable> films = FXCollections.observableArrayList();
 
 		ScreeningsDatabase screeningDatabase = new ScreeningsDatabase();
@@ -277,27 +286,25 @@ public class AdminController {
 		try {
 			while (screeningsResultSet.next()) {
 
-				//creates variables for each field that we need for the Observable list and then the table
+				//creates variables for each field that we need for the AddDataToTable and the AddImageToTable objects
 				String name = screeningsResultSet.getString("filmName");
 				String description = screeningsResultSet.getString("filmDescription");
 				String time = screeningsResultSet.getString("time");
 				int screeningId = screeningsResultSet.getInt("ScreeningId");
 				InputStream binaryStream = screeningsResultSet.getBinaryStream("image");
 
-				//initialises AddDataToTable object with constructor that takes the variables name, time and description
+				//initializes AddDataToTable object with constructor that takes the variables name, time, description and screeningID
 				AddDataToTable nextObject = new AddDataToTable(name, description, time, screeningId);
 
+				//available seats calculated
 				nextObject.calculateAndSetAvailableSeatsCount(reservationsDatabase, screeningId, 50);
 
-				//ensures that there is a photo for a certain film 
+				//converts binaryStream to Image
 				if (binaryStream != null) {
-					//creates file 
 					OutputStream os = new FileOutputStream (new File("photo.jpg"));
 					byte[] content = new byte[1024];
 					int size = 0;
-					//while binary Stream holds more than -1
 					while ((size = binaryStream.read(content)) != -1) {
-						//os becomes an image
 						os.write(content, 0, size);
 					}
 					os.close();
@@ -323,17 +330,26 @@ public class AdminController {
 			e.printStackTrace();
 			System.out.println("error with populating table form database");
 		}
-		//returns the observable list 
+		//ObservableList returned
 		return films;
 	}
 
 	// finds out what row of table is selected, gets the name of the film and returns the correct poster
+	/**
+	 * Image object is first initialized as a picture of curtains.  Then the index of the row selected is found
+	 * and used to find the name of the film selected from the ObservableList.  The AddImageToTable objects 
+	 * in the ObservableList 'someImages' is iterated over.  If the film selected from the table shares a name with 
+	 * an AddImageToTable object then the curtains image is changed to poster for that film.  Finally, if the image has 
+	 * been changed that image is returned.  If not the image of curtains is returned. 
+	 * 
+	 * @return returns Image Selected on table
+	 * @throws IOException
+	 */
 	public Image getImageFromTable() throws IOException {
 
 		// image is initialised to curtains in case film does not contain a photo
 		Image theImage = new Image("images/cinemaCurtains.png");
 
-		// gets index of row selected
 		TablePosition pos = tableView.getSelectionModel().getSelectedCells().get(0);
 		int row = pos.getRow();
 

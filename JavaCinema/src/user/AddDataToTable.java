@@ -38,19 +38,6 @@ public class AddDataToTable {
 		this.reservationID = new SimpleIntegerProperty(reservationID);
 	}
 
-	public AddDataToTable(String filmName, String filmDescription, String filmTime, int screeningID, ImageView filmImage) {
-		this.filmName = new SimpleStringProperty(filmName);
-		this.filmDescription = new SimpleStringProperty(filmDescription);
-		this.filmTime = new SimpleStringProperty(filmTime);	
-		this.screeningID = new SimpleIntegerProperty(screeningID);
-		this.filmImage = filmImage;
-	}
-
-	public AddDataToTable(String filmName, String filmDescription, String filmTime) {
-		this.filmName = new SimpleStringProperty(filmName);
-		this.filmDescription = new SimpleStringProperty(filmDescription);
-		this.filmTime = new SimpleStringProperty(filmTime);	
-	}
 	
 	public AddDataToTable(String filmName, String filmTime, int duration, String endTime, Date dateObjectEnd) {
 		this.filmName = new SimpleStringProperty(filmName);
@@ -60,30 +47,18 @@ public class AddDataToTable {
 		this.dateObjectEnd = dateObjectEnd;
 	}
 
+	
 	public String getFilmDescription() {
 		return filmDescription.get();
-	}
-
-	public void setFilmDescription(SimpleStringProperty filmDescription) {
-		this.filmDescription = filmDescription;
 	}
 
 	public String getFilmName() {
 		return filmName.get();
 	}
 
-	public void setFilmName(SimpleStringProperty filmName) {
-		this.filmName = filmName;
-	}
-
 	public String getFilmTime() {
 		return filmTime.get();
 	}
-
-	public void setFilmTime(SimpleStringProperty filmTime) {
-		this.filmTime = filmTime;
-	}
-	
 
 	public int getScreeningID() {
 		return this.screeningID.get();
@@ -98,41 +73,20 @@ public class AddDataToTable {
 		this.filmImage = filmImage;
 	}
 
-
-	public int getAvailableSeats(){
-		return availableSeats;
-	}
-	
 	public String getFilmDate() {
 		return filmDate.get();
-	}
-	
-	public void setFilmDate(SimpleStringProperty filmDate) {
-		this.filmDate = filmDate;
 	}
 	
 	public int getReservationID() {
 		return reservationID.get();
 	}
 	
-	public void setReservationID(SimpleIntegerProperty reservationID) {
-		this.reservationID = reservationID;
-	}
-	
 	public String getSeatID() {
 		return seatID.get();
 	}
-	
-	public void setSeatID(SimpleStringProperty seatID) {
-		this.seatID = seatID;
-	}
-	
+
 	public int getDuration() {
 		return duration.get();
-	}
-	
-	public void setDuration(SimpleIntegerProperty duration) {
-		this.duration = duration;
 	}
 	
 	public String getEndTime() {

@@ -21,6 +21,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.SortType;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
@@ -53,6 +54,7 @@ public class ViewProfileController {
 	private String currentEmail;
 	private int currentID;
 	private int userID;
+	private LocalDate today;
 
 	@FXML
 	public void initialize() {	
@@ -96,8 +98,10 @@ public class ViewProfileController {
 	}//End of initialize() method
 
 	/**
-	 * Populates the ArrayList member variables with data from the database. This data is then 
-	 * displayed in the table on the ViewProfile controller.
+	 * Queries 'ScreeningsDatabase' for all screenings with userID selected. 
+	 * 'addImageToList' method is then called taking 'film name' 'film description' and if it exists 'binaryStream'.
+	 * An AddDataToTable object is created taking 'filmName', 'screeningTime', 'screeningDate', 'seatID' and 
+	 * 'filmReservationID'. For each row in the Result Set this object is added to the ObservableList 'reservationsData'.
 	 * @param date
 	 * @return
 	 * @throws ClassNotFoundException
@@ -119,12 +123,6 @@ public class ViewProfileController {
 			//We only want to display future reservations. 
 			//If the reservation is from a screening which has passed, do not display to user.
 			String screeningDate = res.getString("date");
-			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy");
-			LocalDate date = LocalDate.parse(screeningDate, formatter);
-			LocalDate today = LocalDate.now();
-			if(date.isBefore(today)){
-				continue;
-			}
 
 			String filmName = res.getString("filmName");
 			String screeningTime = res.getString("time");
@@ -140,15 +138,48 @@ public class ViewProfileController {
 			}
 
 			//initialises AddDataToTable object with constructor that takes the variables name, time and description and id
-			AddDataToTable nextObject = new AddDataToTable(filmName, screeningTime, screeningDate, seatID, filmReservationID);						
+			AddDataToTable nextObject = new AddDataToTable(filmName, screeningTime, screeningDate, seatID, filmReservationID);		
 			//adds AddDataToTable objects to observable list 
 			reservationsData.add(nextObject);
 		}
 		res.close();	
 	}
+	
+	/*public void pastViewingColour() {
+		
+		for (int i = 0; i < tableView.getItems().size(); i++) {
+			
+			String dateString = tableView.getItems().get(i).getFilmDate();
+			TableRow<AddDataToTable> currentRow = tableView.getItems().get(row);
+			
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy");
+			LocalDate dateObject = LocalDate.parse(dateString, formatter);
+			today = LocalDate.now();
+			if(dateObject.isBefore(today)){
+				currentRow.setStyle("-fx-background-color:lightcoral");
+				
+				
+				int rowIndex = tableView.getSelectionModel().getSelectedIndex();
+			sets variable current film to the film selected 
+			if(rowIndex >=0 && rowIndex < tableView.getItems().size()){
+				currentFilm = tableView.getItems().get(rowIndex).getFilmName();
+				currentID = tableView.getItems().get(rowIndex).getReservationID();
+				try {
+					setImageAndDescription();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});  
+				
+			}
+		}
+		
+	}*/
 
 	/**
-	 * sets table to all reservations user has made 
+	 * Sets 'tableView' with all reservations in ObservableList 'reservationsData'
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 * @throws IOException
@@ -161,7 +192,7 @@ public class ViewProfileController {
 
 
 	/**
-	 * converts binary stream to image, creates an addImageToTable object and adds object to observableList
+	 * Converts binary stream to image, creates an addImageToTable object and adds object to observableList
 	 * @param binaryStream
 	 * @param filmName
 	 * @param description
@@ -193,7 +224,7 @@ public class ViewProfileController {
 	}
 
 	/**
-	 * if film does not have an image in the database, creates an addImageToTable object and adds object to observableList
+	 * Creates an addImageToTable object and adds object to ObservableList 'reservationsData'
 	 * @param filmName
 	 * @param description
 	 * @throws IOException
@@ -207,7 +238,7 @@ public class ViewProfileController {
 	}	
 
 	/**
-	 * sets image and description based upon current film selected
+	 * Sets image and description based upon current film selected
 	 * @throws IOException
 	 */
 	public void setImageAndDescription() throws IOException {
@@ -232,8 +263,8 @@ public class ViewProfileController {
 
 
 	/**
-	 * method called in UserMainController to pass variable 'username' to this controller then 
-	 * usees it to obtain userID and email both of which are set as variables on this controller
+	 * Method called in UserMainController to pass variable 'username' to this controller. This variable is used 
+	 * to obtain userID and email both of which are set as variables for this class
 	 * @param user
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
@@ -257,7 +288,7 @@ public class ViewProfileController {
 	}
 
 	/**
-	 * Deletes reservation selected on table and updates the table
+	 * Deletes reservation selected on table (by removing row in 'ReservationsDatabase') and updates the table
 	 * @param e
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
@@ -265,16 +296,26 @@ public class ViewProfileController {
 	 */
 	public void deleteReservation(ActionEvent e) throws ClassNotFoundException, SQLException, IOException {
 		ReservationsDatabase rd = new ReservationsDatabase();
-
+		
 		String filmName = tableView.getSelectionModel().getSelectedItem().getFilmName();
 		String date = tableView.getSelectionModel().getSelectedItem().getFilmDate();
 		String time = tableView.getSelectionModel().getSelectedItem().getFilmTime();
 		String seat = tableView.getSelectionModel().getSelectedItem().getSeatID();
+		
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy");
+		LocalDate dateObject = LocalDate.parse(date, formatter);
+		
+		today = LocalDate.now();
+		
 
-		rd.delete(currentID);
-
-		//Display a label showing the user that the booking has been successfully deleted:
-		bookingRemovedLbl.setText("Booking deleted: "+filmName+" "+time+" "+date+" seat "+seat);
+		
+		if(dateObject.isAfter(today)){
+			rd.delete(currentID);
+			//Display a label showing the user that the booking has been successfully deleted:
+			bookingRemovedLbl.setText("Booking deleted: "+filmName+" "+time+" "+date+" seat "+seat);		
+		} else {
+			bookingRemovedLbl.setText("Sorry, it is only possible to delete future reservations");
+		}
 
 		//Refresh the items in the table; 
 		viewAllReservations();

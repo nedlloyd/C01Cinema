@@ -331,10 +331,11 @@ public class AddFilmController {
 
 
 	/**
-	 * Takes the 'film name', 'date' and 'time' of the screening the user is trying to add.  The method iterates over the other
-	 * screenings taking places on this day and using the method 'compare times' outputs a boolean which will return true 
-	 * if the screening will overlap and false if not.  If the output is false an error message will also be displayed 
-	 * to the console. 
+	 * Takes the 'film name', 'date' and 'time' of the screening the user is trying to add.  The method calls up the 'FilmsDatabase' 
+	 * in order to get the duration of the film.  It then iterates over the other screenings taking places on this day and using 
+	 * the method 'compare times' outputs a boolean which will return true if the screening will overlap and false if not.  If the 
+	 * output is false an error message will also be displayed 
+	 * to the user. 
 	 * 
 	 * @param filmNameAttempt
 	 * @param dateAttempt
@@ -390,9 +391,11 @@ public class AddFilmController {
 	}
 	
 	/**
-	 * Overridden checkForOverlap method that is used if the new screening is of a film that has not been shown before.
-	 * In this case the method does not need to call up the film database in order to obtain the duration.  The user will 
-	 * have just inputed this information as part of the 'add new film' process.
+	 *
+	 * Takes the 'film name', 'date', 'duration' and 'time' of the screening the user is trying to add.  The method iterates over the other
+	 * screenings taking places on this day and using the method 'compare times' outputs a boolean which will return true 
+	 * if the screening will overlap and false if not.  If the output is false an error message will also be displayed 
+	 * to the user. 
 	 * 
 	 * @param filmNameAttempt
 	 * @param dateAttempt

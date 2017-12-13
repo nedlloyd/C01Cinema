@@ -205,11 +205,13 @@ public class UserMainController {
 		//Set datePicker value to today
 		datePickerUser.setValue(todaysDate);
 
-	}//End of initialise() method
+	}//End of initialize() method
 
 	/**
-	 * Queries the database for films booked on a certain date and then populates 
-	 * the ArrayList member variables, 'films' and 'someImages' with data from the database.
+	 * Queries the database for films booked on a certain date.  For each film on the date selected the method then 
+	 * creates an AddDataToTable object. The variables 'filmName', 'filmTime', 'filmDescription' and 'binaryStream' 
+	 * (after being converted to an image) are assigned to it.  The object is then added to the ObservableList 'films'.
+	 * 
 	 * @param date
 	 * @return
 	 * @throws ClassNotFoundException
@@ -228,15 +230,15 @@ public class UserMainController {
 
 			//creates variables for each field that we need for the Observable list and then the table
 			String filmName = res.getString("filmName");
-			String filmDate = res.getString("date");
 			String filmTime = res.getString("time");
 			String filmDescription = res.getString("filmDescription");
 			int id = res.getInt("screeningID");
 			InputStream binaryStream = res.getBinaryStream("image");
 
-			//initialises AddDataToTable object with constructor that takes the variables name, time and description and id
+			//initializes AddDataToTable object with constructor that takes the variables name, time and description and id
 			AddDataToTable nextObject = new AddDataToTable(filmName,filmDescription, filmTime, id);			
 
+			//converts binaryStream into Image
 			if (binaryStream != null) {
 				//creates file 
 				OutputStream os = new FileOutputStream (new File("photo1.jpg"));
@@ -265,7 +267,7 @@ public class UserMainController {
 
 	/**
 	 *  When a screening button is pressed, the make-a-reservation window is opened and
-	 *  the variables of filmName, screeningid and user are also passed onto the next controller.
+	 *  the variables of filmName, screeningId and user are also passed onto the next controller.
 	 * @param e
 	 */
 	public void makeReservation() {

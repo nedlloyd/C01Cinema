@@ -13,12 +13,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import sqlitedatabases.ReservationsDatabase;
-import sqlitedatabases.ScreeningsDatabase;
 import sqlitedatabases.UsersDatabase;
 
 public class MakeReservationController {
@@ -143,7 +140,7 @@ public class MakeReservationController {
 		//reservations database initialised 
 		ReservationsDatabase rd = new ReservationsDatabase();
 
-		// resultSet created by inputing screening id chosen by user and viewing reservations that for this screening ID
+		//resultSet made up of all reservations with a certain screeningID 
 		ResultSet res = rd.displayRows(screeningID);
 
 		ArrayList<String> reservedSeats = new ArrayList<String>();
@@ -157,7 +154,10 @@ public class MakeReservationController {
 	}
 
 	/**
-	 * Method to change graphic when seat is clicked on by user 
+	 * When graphic (chair) is clicked on the icon changes.  
+	 * If it has been booked by a previous user the colour and booking status will not change and it will continue to display as red.
+	 * If unbooked seat is selected by current user seat will turn yellow
+	 * If unbooked seat is deselected by current user it will go back to green
 	 * @param chair
 	 */
 	public void changeGraphic(Chairs chair) {
@@ -165,26 +165,24 @@ public class MakeReservationController {
 		// The button colour can only be changed if it has not already been booked 
 		// if the chair is unoccupied then set to occupied
 		if (chair.isSelectedForBooking()==false  && chair.isOccupied()==false) {  			
-			//			chair.getButton().setGraphic(occupied);
 			chair.getButton().setStyle("-fx-background-color:  #ffdc00;");// #ffdc00 is yellow for personal booking
 			chair.setBooked(true);
 			// if the chair has been set to occupied and it has not been booked by someone else i.e. as long as it had been clicked to occupied by the current user
 		} else if (chair.isOccupied()==false){
-			//			chair.getButton().setGraphic(unoccupied);
 			chair.getButton().setStyle("-fx-background-color: #2dd321;");
 			chair.setBooked(false);
 		}
 	}
 
 	/**
-	 * When a chair is clicked the image is changed based on the change graphic method 
+	 * When a chair is clicked the image is changed according to the change graphic method 
 	 * @param event
 	 */
 	public void clickToBook(ActionEvent event) {
 		// gets the source of the ActionEvent so it know what seat to change
 		Button butt = (Button) event.getSource();
 
-		// for each chair if it's the button pressed then the image is changes based upon the change graphic method 
+		//if the button is the button clicked the graphic is changed according to the 'changeGraphic' method
 		for (Chairs seat : seatList) {		
 			if (seat.getButton() == butt) {
 				changeGraphic(seat);
@@ -193,7 +191,11 @@ public class MakeReservationController {
 	}	
 
 	/**
-	 * When the make reservation button is pressed a new reservation is created including setting userID screeningID and seatID
+	 * When Button is pressed it is checked if the seat has already been booked.  If it has not a new reservation is made
+	 * in the 'reservationsDatabase' setting the 'userID', 'screeingID' and 'seatID'.
+	 * The window is then closed.  If the booking is a success a new booking confirmation window is displayed
+	 * showing details of the booking.    
+	 * 
 	 * @param e
 	 * @throws IOException 
 	 */
@@ -250,14 +252,13 @@ public class MakeReservationController {
 	}
 
 	/**
-	 * userID is set from the UserMainController, it takes the username and queries the database to find the userID 
+	 * The 'UserDatabase' is queried.  Taking a user as an argument it outputs the 'userID'  
 	 * @param user
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
 	public void setUser(String user) throws ClassNotFoundException, SQLException {
 		UsersDatabase ud = new UsersDatabase();
-		//finds the userID based on the user name
 		ResultSet res = ud.displayRow(user);
 		int id = 0;
 		while (res.next()) {
@@ -268,14 +269,29 @@ public class MakeReservationController {
 
 	}
 	
+	/**
+	 * Variable this.date (present in this class) is set to the argument date.
+	 * This method is called in the UserMainController class.
+	 * @param date
+	 */
 	void setDate(String date){
 		this.date = date;
 	}
 	
+	/**
+	 * Variable this.time (present in this class) is set to the argument time
+	 * This method is called in the UserMainController class.
+	 * @param date
+	 */
 	void setTime(String date){
 		this.time = date;
 	}
 	
+	/**
+	 * Variable this.name (present in this class) is set to the argument name
+	 * This method is called in the UserMainController class.
+	 * @param date
+	 */
 	void setFilmName(String name){
 		this.filmName = name;
 	}
