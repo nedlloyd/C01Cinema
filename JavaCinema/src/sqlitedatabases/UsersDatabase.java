@@ -86,7 +86,12 @@ public class UsersDatabase extends SQLiteDatabase {
 		return res;
 	}
 
-	@Override
+	/**
+	 * @Override
+	 * 
+	 * Resturns as ResultSet rows corresponding to 'primaryKey' given as argument
+	 * 
+	 */
 	public ResultSet displayRow(int primaryKey) throws ClassNotFoundException, SQLException {
 		if (con == null) {
 			getConnection();
@@ -99,6 +104,17 @@ public class UsersDatabase extends SQLiteDatabase {
 		return res;
 	}
 	
+	/**
+	 * 
+	 * 'users' table updated with 'username', 'email', 'password', 'userID'
+	 * 
+	 * @param username
+	 * @param email
+	 * @param password
+	 * @param userID
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 */
 	public void updateUserInfo(String username, String email, String password, int userID) throws SQLException, ClassNotFoundException {
 		if (con == null) {
 			getConnection();
