@@ -530,7 +530,7 @@ public class AddFilmController {
 	 */
 	public Date convertToDateObject(String time) {
 
-		DateFormat sdf = new SimpleDateFormat("hh:mm");
+		DateFormat sdf = new SimpleDateFormat("HH:mm");
 		Date date = null;
 		try {
 			date = sdf.parse(time);		
