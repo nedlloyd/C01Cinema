@@ -34,10 +34,18 @@ public class EditUserProfileController {
 		confirm.setVisible(false);
 	}
 	
+	/**
+	 * method called in 'ViewUserProfileController' in order to set variable 'username' in this class
+	 * @param username
+	 */
 	public void setUsername(String username) {
 		this.username.setText(username);
 	}
 
+	/**
+	 * method called in 'ViewUserProfileController' in order to set variable 'email' in this class
+	 * @param username
+	 */
 	public void setEmail(String email) {
 		this.email.setText(email);
 	}
@@ -82,7 +90,7 @@ public class EditUserProfileController {
 	
 	/**
 	 * When Button is pressed variables 'currentUsername', 'currentEmail' and 'currentPassword' are all set to the 
-	 * text contained in the TextFields.  The 'UserDatabase' database is then updated to reflect any changes that 
+	 * text contained in the TextFields.  The 'UserDatabase' is then updated to reflect any changes that 
 	 * have been made to the original text set.  
 	 * @param e
 	 */

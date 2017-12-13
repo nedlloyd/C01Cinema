@@ -23,18 +23,34 @@ public class AddImageToTable {
 		this.filmDescription = filmDescription;
 	}
 	
+	/**
+	 * Image returned as Image
+	 * @return
+	 */
 	public Image getFilmImage() {
 		return filmImage;
 	}
-		
+	
+	/**
+	 * film Image set
+	 * @param filmImage
+	 */
 	public void setFilmImage(Image filmImage) {
 		this.filmImage = filmImage;
 	}
 	
+	/**
+	 * filmName returned as String
+	 * @return
+	 */
 	public String getFilmName() {
 		return filmName;
 	}
 	
+	/**
+	 * film description returned as String
+	 * @return
+	 */
 	public String getFilmDescription() {
 		return filmDescription;
 	}
