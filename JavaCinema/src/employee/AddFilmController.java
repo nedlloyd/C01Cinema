@@ -65,7 +65,7 @@ public class AddFilmController {
 	// observable list representing the screenings on day selected. Displayed in table. 
 	ObservableList<AddDataToTable> todaysScreenings = FXCollections.observableArrayList();
 
-	String filePath = "/Users/nedlloyd/Desktop/vertigo.png";
+	String filePath = "";
 
 
 	@FXML
@@ -171,8 +171,10 @@ public class AddFilmController {
 		//end of initialize
 	}
 	/**
-	 * If the user decides to add a new film text boxes to input the name, description, duration and an image are 
-	 * made visible.  If the user decides to add a screening for an existing film they are left invisible.  
+	 * When the user selects 'add new film' text boxes for title, description and duration and a button to add an image 
+	 * are made visible.
+	 * If select an existing film is chosen these are made invisible.
+	 *  
 	 * @param e
 	 */
 	public void toggleControls(ActionEvent e){
@@ -225,8 +227,16 @@ public class AddFilmController {
 	}
 
 	/**
-	 * On press of 'Add Screening' button takes data entered in the add film form and adds a new 
-	 * screening to the screenings database.
+	 * When 'Add Screening' button is pressed if the film is already in the database then the 'FilmsDatabase' and the
+	 * 'ScreeningsDatabase' are queried in order to obtain information for the film screenings on that day and the 
+	 * duration of the film being added. This is passed into the 'checkForOverlap' method.  If there is not overlap 
+	 * the screening is added.  
+	 * 
+	 * If the film has not been screened before the information for the film duration is just obtained from the input
+	 * form.  If there is overlap the film will not be added to the 'FilmDatabase' 
+	 * 
+	 * When a film is successfully added a message is displayed to notify the user.
+	 * 
 	 * @param e
 	 */
 	public void addScreening(ActionEvent e){
@@ -274,7 +284,7 @@ public class AddFilmController {
 
 	/**
 	 * On press of 'Add Image' button a 'file-chooser' box is opened.  
-	 * User selects a file and a message is displayed confirming that selection.
+	 * The user selects a file and a message is displayed confirming that selection.
 	 * @param e
 	 */
 	public void addImage(ActionEvent e) {
@@ -335,7 +345,7 @@ public class AddFilmController {
 	/**
 	 * Takes the 'film name', 'date' and 'time' of the screening the user is trying to add.  The method calls up the 'FilmsDatabase' 
 	 * in order to get the duration of the film.  It then iterates over the other screenings taking places on this day and using 
-	 * the method 'compare times' outputs a boolean which will return true if the screening will overlap and false if not.  If the 
+	 * the method 'compareTimes' outputs a boolean which will return true if the screening will overlap and false if not.  If the 
 	 * output is false an error message will also be displayed 
 	 * to the user. 
 	 * 
@@ -395,7 +405,7 @@ public class AddFilmController {
 	/**
 	 *
 	 * Takes the 'film name', 'date', 'duration' and 'time' of the screening the user is trying to add.  The method iterates over the other
-	 * screenings taking places on this day and using the method 'compare times' outputs a boolean which will return true 
+	 * screenings taking places on this day and using the method 'compareTimes' outputs a boolean which will return true 
 	 * if the screening will overlap and false if not.  If the output is false an error message will also be displayed 
 	 * to the user. 
 	 * 
@@ -434,9 +444,9 @@ public class AddFilmController {
 	}
 
 	/**
-	 * Takes the date the user has selected, calls up the screenings database and adds the screenings taking place on that day 
+	 * Takes the date the user has selected, calls up the 'ScreeningsDatabase' and adds the screenings taking place on that day 
 	 * to an Observable List called 'todaysScreenings'.  Each time it is called the list is first cleared to ensure it only 
-	 * ever contains the screenings for one day at a time.   
+	 * ever contains the screenings for the chosen day.   
 	 * @param dateAttempt
 	 */
 	public void setTodayScreenings(String dateAttempt) {	
