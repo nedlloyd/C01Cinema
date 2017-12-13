@@ -304,15 +304,10 @@ public class AddFilmController {
 
 		boolean conflict = false;
 		
-		Date startCurrentDate = convertToDateObject(startCurrent);
-		System.out.println("startCurrentDate:" + startCurrentDate.toString());
-		System.out.println("endCurrentDate:" + endCurrent.toString());
-		
-		
+		Date startCurrentDate = convertToDateObject(startCurrent);		
 		Date startAttemptDate = convertToDateObject(attemptStart);
-		System.out.println("startAttemptDate:" + startAttemptDate.toString());
 		Date endAttemptDate = findEndTime(attemptStart, attemptDuration);
-		System.out.println("endAttemptDate:" + endAttemptDate.toString());
+
 
 		
 		if ((startAttemptDate.before(endCurrent) && startAttemptDate.after(startCurrentDate)) 
@@ -486,7 +481,6 @@ public class AddFilmController {
 		long sum1 = filmStartTime.getTime() + (duration * ONE_MINUTE_IN_MILLIS);
 		
 		Date endTime = new Date(sum1);
-		System.out.println("find end time: " + endTime.toString());
 		return endTime;
 	}
 	
