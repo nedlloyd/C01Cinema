@@ -99,7 +99,7 @@ public class AdminController {
 		});
 
 
-		// event listener for datePicker when date is changes films outputted are changed 
+		// event listener for datePicker when date is changes films displayed are changed 
 		datePicker.valueProperty().addListener((ov, oldValue, newValue) -> {
 			try {
 
@@ -259,12 +259,15 @@ public class AdminController {
 
 	/**
 	 * Executes joint query to 'FilmsDatabase' and 'screeningsDatabase'in order to obtain the 'filmName', 'filmDescription', 'time', 
-	 * 'screeningId' and 'image' (of the poster) for films on the date selected.  For each film on the selected date an AddDataToTable 
-	 * object is created with the first four of these parameters.  The variables are also passed to 'calculateAndSetAvailableSeatsCount' method
-	 * which counts available seats.  For 'image' the 'Input Stream' obtained from the database is converted into an 
-	 * Image object.  An AddImageToTable object is created with the film name and the image.  The AddImageToTable is added to
-	 * an ObservableList called 'someImages' and the AddDataToTable object is added to an ObservableList called 'films'.  Finally the 
-	 * ObservableList 'films' is returned.
+	 * 'screeningId' and 'image' (of the poster) for films on the date selected.  
+	 * 
+	 * For each film on the selected date an AddDataToTable object is created with the first four of these parameters.  The variables 
+	 * are also passed to 'calculateAndSetAvailableSeatsCount' method which counts available seats.  For 'image' the 'Input Stream' 
+	 * obtained from the database is converted into an Image object.  An AddImageToTable object is 
+	 * created with the film name and the image.  
+	 * 
+	 * The AddImageToTable is added to an ObservableList called 'someImages' and the AddDataToTable object is added to an 
+	 * ObservableList called 'films'.  Finally the ObservableList 'films' is returned.
 	 * 
 	 * 
 	 * @param date
@@ -337,10 +340,13 @@ public class AdminController {
 	// finds out what row of table is selected, gets the name of the film and returns the correct poster
 	/**
 	 * Image object is first initialized as a picture of curtains.  Then the index of the row selected is found
-	 * and used to find the name of the film selected from the ObservableList.  The AddImageToTable objects 
-	 * in the ObservableList 'someImages' is iterated over.  If the film selected from the table shares a name with 
-	 * an AddImageToTable object then the curtains image is changed to poster for that film.  Finally, if the image has 
-	 * been changed that image is returned.  If not the image of curtains is returned. 
+	 * and used to find the name of the film selected from the ObservableList 'films'.  
+	 * 
+	 * The AddImageToTable objects in the ObservableList 'someImages' is iterated over.  If the film selected 
+	 * from the table shares a name with an AddImageToTable object then the curtains image is changed to poster 
+	 * for that film.  
+	 * 
+	 * Finally, if the image has been changed that image is returned.  If not the image of curtains is returned. 
 	 * 
 	 * @return returns Image Selected on table
 	 * @throws IOException
@@ -366,8 +372,9 @@ public class AdminController {
 	}
 
 	/**
-	 * Triggered when writeData Button is pressed in AdminMain window.
+	 * Triggered when writeData Button is pressed in the AdminMain window.
 	 * Exports screenings data to text file in format: film name, date, time, seats booked, available seats. 
+	 * 
 	 * The file is saved in the user's home directory, and confirmation is printed to the console. 
 	 * @param e
 	 */
