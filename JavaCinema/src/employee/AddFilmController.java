@@ -448,13 +448,18 @@ public class AddFilmController {
 			String currentFilmTime = item.getFilmTime();
 			String endTimeString = item.getEndTime();
 			Date currentEndTime = item.getDateObjectEnd();
+			System.out.println("currentFilmTime" + currentFilmTime); 
+			System.out.println("currentEndTime" + currentEndTime.toString()); 
+			System.out.println("endTimeString" + endTimeString); 
+
+			
 
 			int attemptFilmDuration = attemptDuration;
 
 			String errorMessage = "sorry, " + filmName + " is starting at " + currentFilmTime +
 					" and will go on until " + endTimeString + " please try another time";
 
-			if (compareTimes(currentFilmTime, currentEndTime, dateAttempt, attemptFilmDuration)) {
+			if (compareTimes(currentFilmTime, currentEndTime, timeAttempt, attemptFilmDuration)) {
 
 				screeningAlreadyInProgress.setText(errorMessage);	
 				isOverlap = true;
