@@ -60,6 +60,10 @@ public class ViewProfileController {
 	
 	UserMainController userMain;
 
+	/**
+	 * Controller initialized with table columns for each variable we want to display.  Event listener also 
+	 * added in order to display poster of film selected.
+	 */
 	@FXML
 	public void initialize() {	
 		

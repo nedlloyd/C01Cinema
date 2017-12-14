@@ -33,7 +33,9 @@ public class EditUserProfileController {
 	ViewProfileController profileController;
 	UserMainController userMain;
 
-	
+	/**
+	 * Controller initialized and confirm Boolean set to false
+	 */
 	@FXML
 	public void initialize() {
 		confirm.setVisible(false);
@@ -55,8 +57,12 @@ public class EditUserProfileController {
 		this.email.setText(email);
 	}
 	
-	//We require the UserMainController which triggered the ViewProfile Controller so that we can
-	// update the user variables in that class
+	/**
+	 * UserMainController set to userMain variable which is used to update the user variables in current
+	 * controller
+	 * 
+	 * @param userMain
+	 */
 	public void setUserMainController(UserMainController userMain){
 		this.userMain = userMain;
 	}

@@ -77,7 +77,16 @@ public class AddFilmController {
 
 	String filePath = "";
 
-
+	/**
+	 * 
+	 * Initializes controller.  The table is populated with screenings for the current day and a datePicker
+	 * event listener is added to view films on a certain date.  The Option box is added in order to decide whether 
+	 * to add a new film or an existing one and boxes are added but made invisible for the duration, name and 
+	 * description of a new film  
+	 * 
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	@FXML
 	public void initialize() throws ClassNotFoundException, SQLException {
 		

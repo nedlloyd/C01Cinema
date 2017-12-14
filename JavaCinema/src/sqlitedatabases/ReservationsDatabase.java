@@ -18,6 +18,14 @@ public class ReservationsDatabase extends SQLiteDatabase  {
 		super("reservations");
 	}
 
+	/**
+	 * @Override
+	 * 
+	 * Checks to see if there already exists a database table for the name we require.  If there is this ons is used 
+	 * if not one is created
+	 * 
+	 * 
+	 */
 	@Override
 	void initialise() throws SQLException {
 		// TODO Auto-generated method stub
@@ -107,8 +115,9 @@ public class ReservationsDatabase extends SQLiteDatabase  {
 	/**
 	 * Row deleted based on 'id' given
 	 * 
+	 * based on: http://www.sqlitetutorial.net/sqlite-java/delete/
+	 * 
 	 */
-	//based on: http://www.sqlitetutorial.net/sqlite-java/delete/
 	public void delete(int id) throws ClassNotFoundException, SQLException {
 		if (con == null) {
 			getConnection();

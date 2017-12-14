@@ -12,7 +12,12 @@ import javafx.scene.Scene;
  */
 public class Main extends Application {
 	
-	@Override
+	/**
+	 * 
+	 * Loads 'Login' page
+	 * 
+	 * @Override
+	 */
 	public void start(Stage primaryStage) {
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("/application/Login.fxml"));

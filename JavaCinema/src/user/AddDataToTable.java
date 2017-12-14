@@ -28,7 +28,15 @@ public class AddDataToTable {
 	private ImageView filmImage;
 	private Date dateObjectEnd;
 
-
+	/**
+	 * 
+	 * AddDataToTable Object initialized with filmName, filmDescription, filmTime, screeningID
+	 * 
+	 * @param filmName
+	 * @param filmDescription
+	 * @param filmTime
+	 * @param screeningID
+	 */
 	public AddDataToTable(String filmName, String filmDescription, String filmTime, int screeningID) {
 		this.filmName = new SimpleStringProperty(filmName);
 		this.filmDescription = new SimpleStringProperty(filmDescription);
@@ -36,6 +44,15 @@ public class AddDataToTable {
 		this.screeningID = new SimpleIntegerProperty(screeningID);
 	}
 	
+	/**
+	 *AddDataToTable Object initialized with filmName, filmTime, filmDate, seatID and reservationID
+	 * 
+	 * @param filmName
+	 * @param filmTime
+	 * @param filmDate
+	 * @param seatID
+	 * @param reservationID
+	 */
 	public AddDataToTable(String filmName, String filmTime, String filmDate, String seatID, Integer reservationID) {
 		this.filmName = new SimpleStringProperty(filmName);
 		this.filmTime = new SimpleStringProperty(filmTime);	
@@ -44,7 +61,16 @@ public class AddDataToTable {
 		this.reservationID = new SimpleIntegerProperty(reservationID);
 	}
 
-	
+	/**
+	 * 
+	 * AddDataToTable Object initialized with filmName, filmTime, duration, endTime and dateObjectend
+	 * 
+	 * @param filmName
+	 * @param filmTime
+	 * @param duration
+	 * @param endTime
+	 * @param dateObjectEnd
+	 */
 	public AddDataToTable(String filmName, String filmTime, int duration, String endTime, Date dateObjectEnd) {
 		this.filmName = new SimpleStringProperty(filmName);
 		this.filmTime = new SimpleStringProperty(filmTime);

@@ -19,7 +19,14 @@ public class UsersDatabase extends SQLiteDatabase {
 		super("users");
 	}
 
-	// based on: https://www.youtube.com/watch?v=JPsWaI5Z3gs
+	
+	/**
+	 * Checks to see if there already exists a database table for the name we require.  If there is this ons is used 
+	 * if not one is created
+	 * 
+	 * based on: https://www.youtube.com/watch?v=JPsWaI5Z3gs
+	 * 
+	 */
 	public void initialise() throws SQLException {
 		// TODO Auto-generated method stub
 		if (!hasData) {

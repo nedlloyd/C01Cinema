@@ -72,6 +72,14 @@ public class UserMainController {
 	//Contains all the data for the films 
 	private ObservableList<AddDataToTable> films = FXCollections.observableArrayList();
 
+	/**
+	 * 
+	 * Controller initialized with buttons linked to date picker in order to change days of the week
+	 * Days in the past are also disabled so user can't make reservations on these days
+	 * 
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	@FXML
 	public void initialize() throws ClassNotFoundException, SQLException{	
 

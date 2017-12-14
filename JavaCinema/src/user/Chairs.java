@@ -13,7 +13,13 @@ public class Chairs {
 	private boolean bookSeat;
 	private boolean occupied;
 	
-	
+	/**
+	 * Chairs object initialized with btn, id, bookSeat, occupied
+	 * @param btn
+	 * @param id
+	 * @param bookSeat
+	 * @param occupied
+	 */
 	public Chairs(Button btn, String id, boolean bookSeat, boolean occupied) {
 		this.button = btn;
 		this.id = id;
@@ -21,6 +27,11 @@ public class Chairs {
 		this.occupied = occupied; //Already occupied by other user 
 	}
 	
+	/**
+	 * Chairs object initialized with btn and id
+	 * @param btn
+	 * @param id
+	 */
 	public Chairs(Button btn, String id){
 		this.button = btn;
 		this.id = id;
@@ -28,30 +39,66 @@ public class Chairs {
 		this.occupied = false;
 	}
 	
+	/**
+	 * 
+	 * returns button as Button
+	 * 
+	 * @return button
+	 */
 	public Button getButton() {
 		return button;
 	}
 	
+	/**
+	 * sets Button object
+	 * 
+	 * @param button
+	 */
 	public void setButton(Button button) {
 		this.button = button;
 	}
 	
+	/**
+	 * returns boolean bookseat
+	 * 
+	 * @return bookSeat
+	 */
 	public boolean isSelectedForBooking(){
 		return bookSeat;
 	}
 	
+	/**
+	 * sets bookSeat
+	 * 
+	 * @param bookSeat
+	 */
 	public void setBooked(boolean bookSeat) {
 		this.bookSeat = bookSeat;
 	}
 	
+	/**
+	 * returns boolean occupied
+	 * 
+	 * @return
+	 */
 	public boolean isOccupied() {
 		return occupied;
 	}
 	
+	/**
+	 * sets fixed boolean
+	 * 
+	 * @param fixed
+	 */
 	public void setOccupied(boolean fixed) {
 		this.occupied = fixed;
 	}
 	
+	/**
+	 * returns id as String
+	 * 
+	 * @return id
+	 */
 	public String getId() {
 		return id;
 	}

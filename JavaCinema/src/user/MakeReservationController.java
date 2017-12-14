@@ -56,7 +56,10 @@ public class MakeReservationController {
 	
 	//FXML Components in /employee/ScreeningData.fxml
 	@FXML public Label availableSeatsLbl; @FXML public Label bookedSeatsLbl;
-
+	
+	/**
+	 * Each chair initialized as chair object with button name and String ID
+	 */
 	@FXML
 	public void initialize() {
 

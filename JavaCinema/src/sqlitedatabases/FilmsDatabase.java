@@ -22,7 +22,13 @@ public class FilmsDatabase extends SQLiteDatabase {
 		super("films");
 	}
 
-	// based on: https://www.youtube.com/watch?v=JPsWaI5Z3gs
+	/**
+	 * 
+	 * Checks to see if there already exists a database table for the name we require.  If there is this ons is used 
+	 * if not one is created
+	 * 
+	 * based on: https://www.youtube.com/watch?v=JPsWaI5Z3gs
+	 */
 	protected void initialise() throws SQLException {
 		// TODO Auto-generated method stub
 		if (!hasData) {
@@ -118,26 +124,7 @@ public class FilmsDatabase extends SQLiteDatabase {
 		return res;
 	}
 	
-	/**
-	 * returns ResultSet of rows with name of film given as argument 
-	 *
-	 *  
-	 * @param filmName1
-	 * @param filmName2
-	 * @return
-	 * @throws ClassNotFoundException
-	 * @throws SQLException
-	 *//*
-	public ResultSet displayRows(String filmName1, String filmName2) throws ClassNotFoundException, SQLException {
-		if (con == null) {
-			getConnection();
-		}
-
-		Statement state = con.createStatement();
-		ResultSet res = state.executeQuery("SELECT " + "id, " + "filmName, " + "filmDescription, " + "filmDuration" + " FROM " + tableName + 
-				" WHERE (filmName=\"" + filmName1 + "\") OR (filmName=\"" + filmName2 + "\");");
-		return res;
-	}*/
+	
 
 	/**
 	 * 
@@ -174,8 +161,9 @@ public class FilmsDatabase extends SQLiteDatabase {
 	 * @param file
 	 * @return
 	 * 
+	 * based on: http://www.sqlitetutorial.net/sqlite-java/jdbc-read-write-blob/
+	 * 
 	 */
-	//based on: http://www.sqlitetutorial.net/sqlite-java/jdbc-read-write-blob/
 	private byte[] readFile(String filePath) {
 		ByteArrayOutputStream bos = null;
 		try {
@@ -195,102 +183,5 @@ public class FilmsDatabase extends SQLiteDatabase {
 		}
 		return bos != null ? bos.toByteArray() : null;
 	}
-
-
-	/**
-	 * Picture given in filePath is converted using 'readFile' method then stored in the database as ID specified
-	 *   
-	 *  Image is 
-	 *  
-	 * @param materialId
-	 * @param filename
-	 * @throws SQLException
-	 * @throws ClassNotFoundException
-	 */
-	// based on: https://www.youtube.com/watch?v=s80sAEbF9Fk
-	/*public void addPicture(int materialId, String filePath) throws SQLException, ClassNotFoundException {
-		// update sql
-		int num_rows = 0;
-		if (con == null) {
-			getConnection();
-		}
-
-		String updateSQL = "UPDATE "+super.tableName+" "
-				+ "SET image = ? "
-				+ "WHERE id=?";
-
-		PreparedStatement prep = con.prepareStatement(updateSQL);
-		prep.setBytes(1, readFile(filePath));
-		prep.setInt(2, materialId);
-
-		num_rows = prep.executeUpdate();
-		//asks if it has affected at least one row i.e has it added anything
-		if (num_rows > 0) {
-			System.out.println("Stored the file in the BLOB column.");
-		}
-
-	}*/
-
-	/**
-	 * 
-	 * @param materialId
-	 * @param filePath
-	 * @throws ClassNotFoundException
-	 * @throws SQLException
-	 */
-	// based on: http://www.sqlitetutorial.net/sqlite-java/jdbc-read-write-blob/
-	/*public void readPicture(int materialId, String filePath) throws ClassNotFoundException, SQLException {
-		if (con == null) {
-			getConnection();
-		}
-
-		// update sql
-		String selectSQL = "SELECT image FROM films WHERE id=?";
-		ResultSet rs = null;
-		FileOutputStream fos = null;
-		// Connection con = null;
-		PreparedStatement prep = null;
-
-		try {
-
-			prep = con.prepareStatement(selectSQL);
-			prep.setInt(1, materialId);
-			rs = prep.executeQuery();
-
-			// write binary stream into file
-			File file = new File(filePath);
-			fos = new FileOutputStream(file);
-
-			System.out.println("Writing BLOB to file " + file.getAbsolutePath());
-			while (rs.next()) {
-				InputStream input = rs.getBinaryStream("image");
-				byte[] buffer = new byte[1024];
-				while (input.read(buffer) > 0) {
-					fos.write(buffer);
-				}
-			}
-		} catch (SQLException | IOException e) {
-			System.out.println(e.getMessage());
-		} finally {
-			try {
-				if (rs != null) {
-					rs.close();
-				}
-				if (prep != null) {
-					prep.close();
-				}
-
-				if (con != null) {
-					con.close();
-				}
-				if (fos != null) {
-					fos.close();
-				}
-
-			} catch (SQLException | IOException e) {
-				System.out.println(e.getMessage());
-			}
-		}
-	}*/
 
 }

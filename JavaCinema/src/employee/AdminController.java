@@ -71,6 +71,13 @@ public class AdminController {
 
 	private ObservableList<AddImageToTable> someImages = FXCollections.observableArrayList();
 
+	/**
+	 * Controller initialized.  The table columns are set, event listeners for the date and the film selected 
+	 * (in order to dispplay the films on the current date and the film poster for the selected film) and number
+	 * of available seats is calculated and displayed on a label.  Variables are also passed to the reservations 
+	 * controller
+	 * 
+	 */
 	@FXML 
 	void initialize(){
 
