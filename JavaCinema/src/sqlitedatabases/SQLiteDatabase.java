@@ -38,10 +38,15 @@ public abstract class SQLiteDatabase {
 	 */
 	abstract ResultSet displayRow(int primaryKey) throws ClassNotFoundException, SQLException;
 
-	// gets connection to database
+	/**
+	 *  Creates a connection with the sqlite database
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	protected void getConnection() throws ClassNotFoundException, SQLException {
 		Class.forName("org.sqlite.JDBC");
-		con = DriverManager.getConnection("jdbc:sqlite:SQLiteTest1.db");
+		String os = System.getProperty("os.name");
+		con = DriverManager.getConnection("jdbc:sqlite:C:SQLiteTest1.db");
 		initialise();
 	}
 
@@ -101,7 +106,7 @@ public abstract class SQLiteDatabase {
 		ResultSet res = state.executeQuery("SELECT " + column + " FROM " + tableName);
 		return res;
 	}
-	
+
 	/**
 	 * overloaded displayColumns method
 	 * 
