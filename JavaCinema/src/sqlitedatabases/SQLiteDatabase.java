@@ -39,7 +39,7 @@ public abstract class SQLiteDatabase {
 	abstract ResultSet displayRow(int primaryKey) throws ClassNotFoundException, SQLException;
 
 	/**
-	 *  Creates a connection with the sqlite database
+	 * Creates a connection with the sqlite database
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
