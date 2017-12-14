@@ -46,7 +46,11 @@ public abstract class SQLiteDatabase {
 	protected void getConnection() throws ClassNotFoundException, SQLException {
 		Class.forName("org.sqlite.JDBC");
 		String os = System.getProperty("os.name");
-		con = DriverManager.getConnection("jdbc:sqlite:C:SQLiteTest1.db");
+		if(os.startsWith("Windows")){
+			con = DriverManager.getConnection("jdbc:sqlite:C:SQLiteTest1.db");
+		} else{
+			con = DriverManager.getConnection("jdbc:sqlite:SQLiteTest1.db");
+		}
 		initialise();
 	}
 
