@@ -67,11 +67,11 @@ public class AddFilmController {
 	@FXML Label filmDurationLabel;
 	@FXML Label filmImageLabel;
 	@FXML TableView<AddDataToTable> currentScreenings;
-	
+
 	@FXML private TableColumn<AddDataToTable, String> filmNameColumn;
 	@FXML private TableColumn<AddDataToTable, String> filmTime;
 	@FXML private TableColumn<AddDataToTable, String> endTime;
-	
+
 	// observable list representing the screenings on day selected. Displayed in table. 
 	ObservableList<AddDataToTable> todaysScreenings = FXCollections.observableArrayList();
 
@@ -89,16 +89,16 @@ public class AddFilmController {
 	 */
 	@FXML
 	public void initialize() throws ClassNotFoundException, SQLException {
-		
+
 		currentScreenings.getStylesheets().add(getClass().getResource("/employee/tableview.css").toExternalForm());
-		
+
 		// populates table with current days screenings 
 		LocalDate todaysDate = LocalDate.now(); 
 		datePicker.setValue(todaysDate);
 		String today = datePicker.getValue().format(DateTimeFormatter.ofPattern("dd/MM/yy"));
 		setTodayScreenings(today);	
 		currentScreenings.setItems(todaysScreenings);
-		
+
 		//Adding available start hours for the film
 		for(int hour = 0; hour<24; hour++){
 			String hourOption = Integer.toString(hour);
@@ -119,7 +119,7 @@ public class AddFilmController {
 		}
 		startTimeMinute.setItems(minuteOptions);
 
-		
+
 		//Disables past dates in date picker
 		final Callback<DatePicker, DateCell> dayCellFactory = 
 				new Callback<DatePicker, DateCell>() {
@@ -169,24 +169,24 @@ public class AddFilmController {
 
 		duration.setVisible(false);
 		duration.setDisable(true);
-		
+
 		// initializes table columns
 		filmNameColumn.setCellValueFactory(new PropertyValueFactory<AddDataToTable, String>("filmName"));
 		filmTime.setCellValueFactory(new PropertyValueFactory<AddDataToTable, String>("filmTime"));
 		endTime.setCellValueFactory(new PropertyValueFactory<AddDataToTable, String>("endTime"));
-		
+
 		// event listener for datePicker.  when date is changed films displayed are changed to that date.
 		datePicker.valueProperty().addListener((ov, oldValue, newValue) -> {
-			
-		
-				String theDate = datePicker.getValue().format(DateTimeFormatter.ofPattern("dd/MM/yy"));
 
-				setTodayScreenings(theDate);
-				
-				currentScreenings.setItems(todaysScreenings);
+
+			String theDate = datePicker.getValue().format(DateTimeFormatter.ofPattern("dd/MM/yy"));
+
+			setTodayScreenings(theDate);
+
+			currentScreenings.setItems(todaysScreenings);
 
 		});
-		
+
 		//end of initialize
 	}
 	/**
@@ -268,7 +268,7 @@ public class AddFilmController {
 
 		FilmsDatabase databaseFilms = new FilmsDatabase();
 		ScreeningsDatabase databaseScreenings = new ScreeningsDatabase();
-		if(!startTimeHour.getValue().isEmpty() && !startTimeMinute.getValue().isEmpty()){
+
 		try {
 			if(filmTypeChoiceBox.getValue().equals("New Film")){//if film has not been screened before
 				filmName = title.getText();
@@ -299,7 +299,7 @@ public class AddFilmController {
 			e1.printStackTrace();
 		}
 		setTodayScreenings(startDate);
-		}
+
 	}
 
 	/**
@@ -324,7 +324,7 @@ public class AddFilmController {
 				+ "-fx-text-fill:white;");
 	}
 
-	
+
 	/**
 	 * Takes parameters for two films.  The start (as String) and end (as Date) for one film and the the start (as String)
 	 * and duration (as int) of another film.  The method uses these parameters to output a boolean which will be true if the two
@@ -338,13 +338,13 @@ public class AddFilmController {
 	public boolean compareTimes(String startCurrent, Date endCurrent, String attemptStart, int attemptDuration) {
 
 		boolean conflict = false;
-		
+
 		Date startCurrentDate = convertToDateObject(startCurrent);		
 		Date startAttemptDate = convertToDateObject(attemptStart);
 		Date endAttemptDate = findEndTime(attemptStart, attemptDuration);
 
 
-		
+
 		if ((startAttemptDate.before(endCurrent) && startAttemptDate.after(startCurrentDate)) 
 				|| (endAttemptDate.before(endCurrent) && endAttemptDate.after(startCurrentDate))) {
 
@@ -355,13 +355,13 @@ public class AddFilmController {
 
 			conflict = true;
 		} else if(startAttemptDate.before(startCurrentDate)  && endAttemptDate.after(endCurrent)) {
-			
+
 			conflict = true;
 		}
 
 		return conflict;
-		
-	
+
+
 	}
 
 
@@ -385,46 +385,46 @@ public class AddFilmController {
 
 		FilmsDatabase fd = new FilmsDatabase();
 
-		
-			ResultSet res2;
-			try {
-				res2 = fd.displayRow(filmNameAttempt);
-				
-				if (res2 != null) {
-					attemptFilmDuration = res2.getInt("filmDuration");
-					res2.close();
-				}
-				
-			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+
+		ResultSet res2;
+		try {
+			res2 = fd.displayRow(filmNameAttempt);
+
+			if (res2 != null) {
+				attemptFilmDuration = res2.getInt("filmDuration");
+				res2.close();
 			}
 
-			
-			
-			for (AddDataToTable item : todaysScreenings) {
-				String filmName = item.getFilmName();
-				String currentFilmTime = item.getFilmTime();
-				String endTimeString = item.getEndTime();
-				Date endTimeDate = item.getDateObjectEnd();
-				
-				String errorMessage = "sorry, " + filmName + " is starting at " + currentFilmTime +
-						" and will go on until " + endTimeString + " please try another time";
-				
-				if (compareTimes(currentFilmTime, endTimeDate, timeAttempt, attemptFilmDuration)) {
-					
-					screeningAlreadyInProgress.setText(errorMessage);	
-					isOverlap = true;
-					break;										
-				}
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+
+
+		for (AddDataToTable item : todaysScreenings) {
+			String filmName = item.getFilmName();
+			String currentFilmTime = item.getFilmTime();
+			String endTimeString = item.getEndTime();
+			Date endTimeDate = item.getDateObjectEnd();
+
+			String errorMessage = "sorry, " + filmName + " is starting at " + currentFilmTime +
+					" and will go on until " + endTimeString + " please try another time";
+
+			if (compareTimes(currentFilmTime, endTimeDate, timeAttempt, attemptFilmDuration)) {
+
+				screeningAlreadyInProgress.setText(errorMessage);	
+				isOverlap = true;
+				break;										
 			}
+		}
 
 		return isOverlap;
 	}
-	
+
 	/**
 	 *
 	 * Takes the 'film name', 'date', 'duration' and 'time' of the screening the user is trying to add.  The method iterates over the other
@@ -473,41 +473,41 @@ public class AddFilmController {
 	 * @param dateAttempt
 	 */
 	public void setTodayScreenings(String dateAttempt) {	
-		
+
 		todaysScreenings.clear();
 
 		ScreeningsDatabase sd = new ScreeningsDatabase();
 
 		ResultSet res1;
-		
-			try {
-				res1 = sd.durationAndTime(dateAttempt);
-				
-				while (res1.next()) {
 
-					String filmName = res1.getString("filmName");
-					String currentFilmTime = res1.getString("time");
-					int currentDuration = res1.getInt("filmDuration");
+		try {
+			res1 = sd.durationAndTime(dateAttempt);
 
-					Date endTime = findEndTime(currentFilmTime, currentDuration);
-					String stringDate = dateToString(endTime);
-					
-					AddDataToTable nextFilm = new AddDataToTable(filmName, currentFilmTime, currentDuration, stringDate, endTime);
-					todaysScreenings.add(nextFilm);
-				}
-				
-				
-			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			while (res1.next()) {
+
+				String filmName = res1.getString("filmName");
+				String currentFilmTime = res1.getString("time");
+				int currentDuration = res1.getInt("filmDuration");
+
+				Date endTime = findEndTime(currentFilmTime, currentDuration);
+				String stringDate = dateToString(endTime);
+
+				AddDataToTable nextFilm = new AddDataToTable(filmName, currentFilmTime, currentDuration, stringDate, endTime);
+				todaysScreenings.add(nextFilm);
 			}
 
+
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
-	
-	
+
+
 	/**
 	 * Takes, as the parameters, the 'start' and 'duration' of a film and outputs the end of the film as a Date object
 	 * @param start
@@ -517,12 +517,12 @@ public class AddFilmController {
 	public Date findEndTime(String start, int duration) {
 		Date filmStartTime = convertToDateObject(start);		
 		long sum1 = filmStartTime.getTime() + (duration * ONE_MINUTE_IN_MILLIS);
-		
+
 		Date endTime = new Date(sum1);
 		return endTime;
 	}
-	
-	
+
+
 	/**
 	 * Takes a Date object as its parameter and converts it to a string
 	 * @param date
@@ -532,10 +532,10 @@ public class AddFilmController {
 		String DATE_FORMAT_NOW = "HH:mm";
 		SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT_NOW);
 		String stringDate = sdf.format(date);
-		
+
 		return stringDate;
 	}
-	
+
 	/**
 	 * Takes a date as a String and converts it to a Date object. 
 	 * @param time
@@ -543,7 +543,7 @@ public class AddFilmController {
 	 */
 	public Date convertToDateObject(String time) {
 
-		 SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
 		Date date = null;
 		try {
 			date = sdf.parse(time);		
