@@ -164,7 +164,7 @@ public class FilmsDatabase extends SQLiteDatabase {
 	 * based on: http://www.sqlitetutorial.net/sqlite-java/jdbc-read-write-blob/
 	 * 
 	 */
-	private byte[] readFile(String filePath) {
+	private static byte[] readFile(String filePath) {
 		ByteArrayOutputStream bos = null;
 		try {
 

@@ -265,29 +265,29 @@ public class AddFilmController {
 		String filmName = "";
 		String filmDescription = "";
 		int filmDuration = 0;
-		filmName = chooseFilmChoiceBox.getValue();
-		String successMessage = "Screening of " + filmName + " added at " + startTime + " on " + startDate;
-
 
 		FilmsDatabase databaseFilms = new FilmsDatabase();
 		ScreeningsDatabase databaseScreenings = new ScreeningsDatabase();
+		if(!startTimeHour.getValue().isEmpty() && !startTimeMinute.getValue().isEmpty()){
 		try {
 			if(filmTypeChoiceBox.getValue().equals("New Film")){//if film has not been screened before
 				filmName = title.getText();
 				filmDescription = description.getText();
 				filmDuration = Integer.parseInt(duration.getText());
-
+				String successMessage = "Screening of " + filmName + " added at " + startTime + " on " + startDate;
 				boolean overlap = checkForOverlapDuration(filmName, startDate, startTime, filmDuration);
 
-				if (!overlap) {
+				if (!overlap && !title.getText().isEmpty() && !description.getText().isEmpty() && !duration.getText().isEmpty()&& !filePath.isEmpty()) {
 					databaseFilms.addFilm(filmName,  filmDescription, filmDuration, filePath);
 					databaseScreenings.addScreening(filmName, startTime, startDate);
 					screeningAlreadyInProgress.setText(successMessage);	
+					chooseFilmChoiceBox.getItems().add(filmName);
 				}
 			} else /*if film has been screened before*/{
 				filmName = chooseFilmChoiceBox.getValue();
 				boolean overlap = checkForOverlap(filmName, startDate, startTime);
-				if (!overlap) {
+				String successMessage = "Screening of " + filmName + " added at " + startTime + " on " + startDate;
+				if (!overlap && !chooseFilmChoiceBox.getValue().isEmpty()) {
 					databaseScreenings.addScreening(filmName, startTime, startDate);
 					screeningAlreadyInProgress.setText(successMessage);
 				}		
@@ -299,6 +299,7 @@ public class AddFilmController {
 			e1.printStackTrace();
 		}
 		setTodayScreenings(startDate);
+		}
 	}
 
 	/**
@@ -318,6 +319,9 @@ public class AddFilmController {
 		File file = fileChooser.showOpenDialog(null);
 		filePath = file.getAbsolutePath();
 		System.out.print(filePath);
+		screeningAlreadyInProgress.setText(filePath);
+		addImageButton.setStyle("-fx-background-color:green;"
+				+ "-fx-text-fill:white;");
 	}
 
 	
@@ -539,7 +543,7 @@ public class AddFilmController {
 	 */
 	public Date convertToDateObject(String time) {
 
-		DateFormat sdf = new SimpleDateFormat("HH:mm");
+		 SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
 		Date date = null;
 		try {
 			date = sdf.parse(time);		
